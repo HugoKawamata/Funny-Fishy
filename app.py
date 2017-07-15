@@ -47,6 +47,22 @@ def load_user(user_id):
 def main():
     return "Hello world!"
 
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']        
+        if User.query.filter(User.email == email).first() is None:
+            # There is no existing user with that email
+            user = User(email, password)
+            db.session.add(user)
+            db.session.commit()
+            return "You in boi"
+        else:
+            return "User aready exists"
+    else:
+        return render_template("register.html")
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
