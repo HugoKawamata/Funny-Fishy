@@ -28,7 +28,9 @@ with app.app_context():
     logging.info("Creating the database")
     db.create_all()
     db.session.commit()
-
+    user = User("test@email.com", "password1")
+    db.session.add(user)
+    db.session.commit()
 
 
 @login_manager.user_loader
