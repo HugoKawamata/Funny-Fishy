@@ -8,7 +8,8 @@ from flask_migrate import Migrate
 from models import *
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://funny_fish:very_funny_fish@localhost/funny_fish_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+    'DATABASE_URL', 'postgresql://funny_fish:very_funny_fish@localhost/funny_fish_db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = "myNameIsJEFFFFF"
 app.config['DEBUG'] = True
