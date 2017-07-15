@@ -27,9 +27,6 @@ with app.app_context():
     logging.info("Creating the database")
     db.create_all()
     db.session.commit()
-    newuser = User("email@test.com", "password1")
-    db.session.add(newuser)
-    db.session.commit()
 
 
 
