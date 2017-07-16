@@ -1,0 +1,84 @@
+@import 'variables';
+
+body {
+}
+
+.top-parent {
+    padding: 0px $pillar-width;
+}
+
+.pillar {
+    height: 100vh;
+    width: $pillar-width;
+    position: fixed;
+    background-color: $pillar;
+}
+
+@media (max-width: 780px) {
+    .pillar {
+        width: 0px;
+    }
+}
+
+.left-pillar {
+    left:0;
+}
+
+.right-pillar {
+    right:0;
+}
+
+/* Home */
+
+.home-header {
+    padding-top: 10vh;
+    height: 90vh;
+    background-color: $secondary;
+}
+
+.home-logo-cont {
+    text-align: center;
+}
+
+.home-logo {
+    margin: auto;
+}
+
+.button-cont {
+    padding-top: 10vh;
+    display: flex;
+    justify-content: space-around;
+
+    a {
+        width: 30%;
+    }
+
+    button {
+        width: 100%;
+        font-size: 2em;
+        font-family: $heading;
+        background-color: $highlight;
+    }
+}
+
+.home-title {
+    font-size: 3em;
+    font-family: $heading;
+    margin:auto;
+    text-align: center;
+}
+
+.home-description {
+
+    padding: 2em;
+    background-color: $primary;
+    
+    h2 {
+        font-size: 2em;
+        font-family: $heading;
+    }
+}
+
+.sinister-text {
+    font-family: $horror;
+}

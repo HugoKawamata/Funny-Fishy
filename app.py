@@ -1,7 +1,7 @@
 __author__ = "Hugo Kawamata"
 import os
 import logging
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, url_for
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user
 from flask_migrate import Migrate
 
@@ -35,7 +35,7 @@ def load_user(user_id):
     if user_id is None:
         return None
     try:
-        user = User.query.get(int(id))
+        user = User.query.get(int(user_id))
     except:
         return None
     return user
@@ -45,7 +45,7 @@ def load_user(user_id):
 
 @app.route('/')
 def main():
-    return "Hello world!"
+    return app.send_static_file("index.html")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -63,23 +63,37 @@ def register():
     else:
         return render_template("register.html")
 
+@app.route("/game")
+@login_required
+def game():
+    return "game"
+    #return app.send_static_file("game.html")
 
-@app.route("/login", methods=["GET", "POST"])
-def login():
+
+@app.route("/check_login", methods=["GET", "POST"])
+def check_login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']        
         user = User.query.filter(User.email == email).first()
+        logging.info(user.email + " " + user.passwordhash)
         if user is not None:
+            # User exists
             if user.check_password(password):
-                login_user(user)
-                return ("Welcome" + email)
+                # Correct Password, log them in
+                login_user(user, remember=True)
+                return redirect(url_for("game"))
             else:
+                # Incorrect password
                 return "wrong pw"
         else:
             return "User does not exist"
     else:
-        return render_template("login.html")
+        return "Got here by mistake, should have been a post request"
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    return render_template("login.html")
 
 
 ### Main Jeff ###

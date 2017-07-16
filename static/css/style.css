@@ -1,0 +1,61 @@
+/* COLOR */
+/* FONT */
+.top-parent {
+  padding: 0px 25px; }
+
+.pillar {
+  height: 100vh;
+  width: 25px;
+  position: fixed;
+  background-color: #3dffa7; }
+
+@media (max-width: 780px) {
+  .pillar {
+    width: 0px; } }
+.left-pillar {
+  left: 0; }
+
+.right-pillar {
+  right: 0; }
+
+/* Home */
+.home-header {
+  padding-top: 10vh;
+  height: 90vh;
+  background-color: #3db4ff; }
+
+.home-logo-cont {
+  text-align: center; }
+
+.home-logo {
+  margin: auto; }
+
+.button-cont {
+  padding-top: 10vh;
+  display: flex;
+  justify-content: space-around; }
+  .button-cont a {
+    width: 30%; }
+  .button-cont button {
+    width: 100%;
+    font-size: 2em;
+    font-family: "Lato", sans-serif;
+    background-color: #3dffa7; }
+
+.home-title {
+  font-size: 3em;
+  font-family: "Lato", sans-serif;
+  margin: auto;
+  text-align: center; }
+
+.home-description {
+  padding: 2em;
+  background-color: #ffd089; }
+  .home-description h2 {
+    font-size: 2em;
+    font-family: "Lato", sans-serif; }
+
+.sinister-text {
+  font-family: "Spectral", serif; }
+
+/*# sourceMappingURL=style.css.map */

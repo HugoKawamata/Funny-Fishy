@@ -1,0 +1,32 @@
+{
+  "name": "funny-fish",
+  "version": "1.0.0",
+  "description": "An idle fish collecting game",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HugoKawamata/Funny-Fishy.git"
+  },
+  "author": "Hugo Kawamata",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HugoKawamata/Funny-Fishy/issues"
+  },
+  "homepage": "https://github.com/HugoKawamata/Funny-Fishy#readme",
+  "dependencies": {
+    "babel-loader":"7.1.1",
+    "babel-cli": "^6.24.1",
+    "babel-plugin-add-module-exports":"0.2.1",
+    "babel-preset-env": "^1.6.0",
+    "babel-plugin-react-html-attrs":"2.0.0",
+    "babel-plugin-transform-class-properties":"6.24.1",
+    "babel-preset-es2015":"6.24.1",
+    "babel-preset-react":"6.24.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "webpack": "^3.2.0"
+  }
+}
