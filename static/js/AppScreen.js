@@ -12,7 +12,9 @@ export default class AppScreen extends React.Component {
             case "die":
                 page = <Die />
                 break;
-            
+            default:
+                page = <Die />
+                break;
         };
         return page;
     }

@@ -28,6 +28,30 @@ body {
     right:0;
 }
 
+/* App */
+
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    padding: 1em 0;
+    background-color: $secondary;
+
+    a {
+        color: #555;
+    }
+}
+
+.die {
+    width: 3em;
+    height: 3em;
+    background-color: $secondary;
+    cursor: pointer;
+    font-size: 2em;
+    text-align: center;
+    line-height: 3em;
+}
+
+
 /* Home */
 
 .home-header {

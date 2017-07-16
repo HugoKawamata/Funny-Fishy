@@ -66,8 +66,7 @@ def register():
 @app.route("/game")
 @login_required
 def game():
-    return "game"
-    #return app.send_static_file("game.html")
+    return app.send_static_file("game.html")
 
 
 @app.route("/check_login", methods=["GET", "POST"])
@@ -76,7 +75,6 @@ def check_login():
         email = request.form['email']
         password = request.form['password']        
         user = User.query.filter(User.email == email).first()
-        logging.info(user.email + " " + user.passwordhash)
         if user is not None:
             # User exists
             if user.check_password(password):

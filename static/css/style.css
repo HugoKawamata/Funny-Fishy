@@ -18,6 +18,24 @@
 .right-pillar {
   right: 0; }
 
+/* App */
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  padding: 1em 0;
+  background-color: #3db4ff; }
+  .navbar a {
+    color: #555; }
+
+.die {
+  width: 3em;
+  height: 3em;
+  background-color: #3db4ff;
+  cursor: pointer;
+  font-size: 2em;
+  text-align: center;
+  line-height: 3em; }
+
 /* Home */
 .home-header {
   padding-top: 10vh;

@@ -22550,7 +22550,9 @@ var AppScreen = function (_React$Component) {
                 case "die":
                     page = _react2.default.createElement(_Die2.default, null);
                     break;
-
+                default:
+                    page = _react2.default.createElement(_Die2.default, null);
+                    break;
             };
             return page;
         }
@@ -22642,16 +22644,39 @@ var Die = function (_React$Component) {
     function Die() {
         _classCallCheck(this, Die);
 
-        return _possibleConstructorReturn(this, (Die.__proto__ || Object.getPrototypeOf(Die)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (Die.__proto__ || Object.getPrototypeOf(Die)).call(this));
+
+        _this.state = {
+            dieVal: 6
+        };
+        _this.roll = _this.roll.bind(_this);
+        return _this;
     }
 
     _createClass(Die, [{
+        key: "roll",
+        value: function roll(min, max) {
+            var newroll;
+            newroll = Math.floor(Math.random() * (max - min + 1) + min);
+            this.setState({
+                dieVal: newroll
+            });
+        }
+    }, {
         key: "render",
         value: function render() {
+            var _this2 = this;
+
             return _react2.default.createElement(
                 "div",
                 { id: "die-page", className: "top-parent" },
-                "Die page"
+                _react2.default.createElement(
+                    "div",
+                    { className: "die", onClick: function onClick() {
+                            return _this2.roll(1, 6);
+                        } },
+                    this.state.dieVal
+                )
             );
         }
     }]);

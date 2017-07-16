@@ -15,10 +15,14 @@ class User(db.Model, UserMixin):
     email           = db.Column('email',        db.String(128),         unique=True)
     passwordhash    = db.Column('passwordhash', db.String(128))
     gold            = db.Column('gold',         db.Integer)
+    hook0           = db.Column('hook0',        db.String(64))
+    hook1           = db.Column('hook1',        db.String(64))
 
     def __init__(self, email, password):
         self.email = email
         self.passwordhash = generate_password_hash(password)
+        self.hook0 = "0000000000"
+        self.hook1 = "0000000000"
 
         logging.info("creating user with email and pw:" + email + " " + password)
 
