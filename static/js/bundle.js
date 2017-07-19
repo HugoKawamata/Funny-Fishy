@@ -22646,12 +22646,21 @@ var Die = function (_React$Component) {
     function Die() {
         _classCallCheck(this, Die);
 
-        return _possibleConstructorReturn(this, (Die.__proto__ || Object.getPrototypeOf(Die)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (Die.__proto__ || Object.getPrototypeOf(Die)).call(this));
+
+        _this.state = {
+            lastroll: 6,
+            lastmult: 1,
+            lastcd: 1,
+            totalg: 0
+        };
+        return _this;
     }
 
     _createClass(Die, [{
         key: "roll",
         value: function roll() {
+            var self = this;
             fetch("/rolldie", {
                 method: "GET",
                 credentials: 'same-origin'
@@ -22661,9 +22670,14 @@ var Die = function (_React$Component) {
                     return;
                 }
 
-                // Examine the text in the response  
-                response.json().then(function (data) {
-                    console.log(data);
+                // Update the view with information about the last roll
+                response.json().then(function (json) {
+                    self.setState({
+                        lastroll: json.data.roll,
+                        lastmult: json.data.mult,
+                        lastcd: json.data.cd,
+                        totalg: json.data.totalg
+                    });
                 });
             });
         }
@@ -22677,10 +22691,15 @@ var Die = function (_React$Component) {
                 { id: "die-page", className: "top-parent" },
                 _react2.default.createElement(
                     "div",
+                    { className: "totalg" },
+                    this.state.totalg
+                ),
+                _react2.default.createElement(
+                    "div",
                     { className: "die", onClick: function onClick() {
                             return _this2.roll();
                         } },
-                    "meme"
+                    this.state.lastroll
                 )
             );
         }

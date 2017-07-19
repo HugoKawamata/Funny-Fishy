@@ -3,7 +3,18 @@ import "whatwg-fetch";
 
 export default class Die extends React.Component {
 
+    constructor() {
+        super();
+        this.state = {
+            lastroll: 6,
+            lastmult: 1,
+            lastcd: 1,
+            totalg: 0
+        }
+    }
+
     roll() {
+        var self = this
         fetch("/rolldie",
         {
             method: "GET",
@@ -16,9 +27,14 @@ export default class Die extends React.Component {
                 return;  
             }
 
-            // Examine the text in the response  
-            response.json().then(function(data) {  
-                console.log(data);  
+            // Update the view with information about the last roll
+            response.json().then(function(json) {  
+                self.setState({
+                    lastroll: json.data.roll,
+                    lastmult: json.data.mult,
+                    lastcd: json.data.cd,
+                    totalg: json.data.totalg
+                })
             });
         })
     }
@@ -26,7 +42,8 @@ export default class Die extends React.Component {
     render() {
         return(
             <div id="die-page" className="top-parent">
-                <div className="die" onClick={() => this.roll()}>meme</div>
+                <div className="totalg">{this.state.totalg}</div>
+                <div className="die" onClick={() => this.roll()}>{this.state.lastroll}</div>
             </div>
         )
     }
