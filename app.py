@@ -2,10 +2,11 @@ __author__ = "Hugo Kawamata"
 import os
 import logging
 from flask import Flask, request, render_template, redirect, url_for
-from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user
+from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 from flask_migrate import Migrate
 
 from models import *
+from responses import *
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
@@ -92,6 +93,16 @@ def check_login():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     return render_template("login.html")
+
+### Logic ###
+@app.route("/rolldie", methods=["GET", "POST"])
+@login_required
+def rolldie():
+    response = ok(current_user.rolldie())
+    db.session.commit()
+    return response
+
+
 
 
 ### Main Jeff ###

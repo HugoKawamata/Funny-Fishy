@@ -10,6 +10,9 @@
   background-color: #3dffa7; }
 
 @media (max-width: 780px) {
+  .top-parent {
+    padding: 0px; }
+
   .pillar {
     width: 0px; } }
 .left-pillar {

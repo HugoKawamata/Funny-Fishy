@@ -1,26 +1,32 @@
 import React from "react";
+import "whatwg-fetch";
 
 export default class Die extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            dieVal: 6
-        }
-        this.roll = this.roll.bind(this);
-    }
 
-    roll(min, max) {
-        var newroll;
-        newroll = Math.floor(Math.random() * (max - min + 1) + min);
-        this.setState({
-            dieVal: newroll
-        });
+    roll() {
+        fetch("/rolldie",
+        {
+            method: "GET",
+            credentials: 'same-origin'
+        }
+    ).then(function(response) {
+            if (response.status !== 200) {  
+                console.log('Error ' +  
+                response.status);  
+                return;  
+            }
+
+            // Examine the text in the response  
+            response.json().then(function(data) {  
+                console.log(data);  
+            });
+        })
     }
 
     render() {
         return(
             <div id="die-page" className="top-parent">
-                <div className="die" onClick={() => this.roll(1, 6)}>{this.state.dieVal}</div>
+                <div className="die" onClick={() => this.roll()}>meme</div>
             </div>
         )
     }
