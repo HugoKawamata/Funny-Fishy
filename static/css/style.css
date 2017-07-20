@@ -69,25 +69,42 @@
   display: flex;
   justify-content: space-around; }
   .button-cont a {
+    text-align: center;
     width: 30%; }
   .button-cont button {
-    width: 100%;
     font-size: 2em;
-    font-family: "Lato", sans-serif;
-    background-color: #3dffa7; }
+    font-family: "Baloo", sans-serif;
+    background-color: #3dffa7;
+    border: 0px;
+    border-radius: 15px;
+    border-bottom: 5px solid #0eba69; }
+  .button-cont button:hover {
+    border-bottom: 5px solid #0ecc72;
+    background-color: #7affc0;
+    color: #555; }
+  .button-cont button:active {
+    border-bottom: 0px solid #0eba69;
+    border-top: 2px solid #0eba69;
+    background-color: #0ecc72;
+    color: #444; }
 
 .home-title {
-  font-size: 3em;
-  font-family: "Lato", sans-serif;
+  font-size: 5em;
+  font-family: "Baloo", sans-serif;
   margin: auto;
-  text-align: center; }
+  text-align: center;
+  -webkit-text-stroke: 3px #222;
+  -webkit-text-fill-color: #3dffa7;
+  color: #3dffa7;
+  text-shadow: 3px 3px 0 #222, -1px -1px 0 #222, 1px -1px 0 #222, -1px 1px 0 #222, 1px 1px 0 #222; }
 
 .home-description {
   padding: 2em;
-  background-color: #ffd089; }
+  background-color: #ffd089;
+  font-family: "Montserrat", sans-serif; }
   .home-description h2 {
     font-size: 2em;
-    font-family: "Lato", sans-serif; }
+    font-family: "Baloo", sans-serif; }
 
 .sinister-text {
   font-family: "Spectral", serif; }

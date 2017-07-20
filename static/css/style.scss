@@ -93,28 +93,56 @@ body {
     justify-content: space-around;
 
     a {
+        text-align: center;
         width: 30%;
     }
 
     button {
-        width: 100%;
         font-size: 2em;
         font-family: $heading;
-        background-color: $highlight;
+        background-color: $button-color;
+        border: 0px;
+        border-radius: 15px;
+        border-bottom: 5px solid $button-border-color;
+    }
+
+    button:hover {
+        border-bottom: 5px solid $button-border-hover-color;
+        background-color: $button-hover-color;
+        color: #555;
+    }
+
+    button:active {
+        border-bottom: 0px solid $button-border-color;
+        border-top: 2px solid $button-border-color;
+        background-color: $button-border-hover-color;
+        color: #444;
+
     }
 }
 
 .home-title {
-    font-size: 3em;
+    font-size: 5em;
     font-family: $heading;
     margin:auto;
     text-align: center;
+    -webkit-text-stroke: 3px $title-shadow;
+    -webkit-text-fill-color: $title-fill;
+    color: $title-fill;
+    text-shadow:
+        3px 3px 0 $title-shadow,
+        -1px -1px 0 $title-shadow,  
+        1px -1px 0 $title-shadow,
+        -1px 1px 0 $title-shadow,
+        1px 1px 0 $title-shadow;
 }
 
 .home-description {
 
     padding: 2em;
     background-color: $primary;
+    font-family: $body;
+
     
     h2 {
         font-size: 2em;

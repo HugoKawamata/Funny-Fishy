@@ -1,18 +1,37 @@
 /* COLOR */
+
+// Base colors
 $primary: #ffd089;
 $secondary: #3db4ff;
 $highlight: #3dffa7;
+$highlight-light: #7affc0;
+$highlight-less-dark: #0ecc72;
+$highlight-dark: #0eba69;
 $grey: #aaa;
 
+// Pillars
 $pillar: $highlight;
 $pillar-width: 25px;
+
+//  Die
 $die-color: $secondary;
 $inactive-die-color: $grey;
 
+// Buttons
+$button-color: $highlight;
+$button-hover-color: $highlight-light;
+$button-border-color: $highlight-dark;
+$button-border-hover-color: $highlight-less-dark;
+
+// Title
+$title-fill: $highlight;
+$title-shadow: #222;
+
+
 /* FONT */
 $horror: "Spectral", serif;
-$body: "Open Sans", sans-serif;
-$heading: "Lato", sans-serif;
+$body: "Montserrat", sans-serif;
+$heading: "Baloo", sans-serif;
 
 /* OTHER */
 $die-border-width: 0.1em;
