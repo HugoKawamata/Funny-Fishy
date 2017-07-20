@@ -52,8 +52,6 @@ body {
     font-size: 2em;
     text-align: center;
     line-height: 3em;
-    transition-property: background-color;
-    transition-delay: 1s;
 }
 
 .die-clicked {
@@ -61,7 +59,7 @@ body {
 }
 
 .die-inactive {
-    background-color: $die-color;
+    background-color: $inactive-die-color;
     cursor: default;
 }
 

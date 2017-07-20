@@ -40,12 +40,18 @@ class User(db.Model, UserMixin):
         }
         return data
         
+    def loaddie(self):
+        data = {
+            "startg": self.gold
+        }
+        return data
+
     def rolldie(self):
         # Sends a json containing the roll result, the multiplier, the cooldown, and the total gold
         min = 1
         max = 6
         mult = 1
-        self.currentcooldown = 10      # Cooldown is 10 second
+        self.currentcooldown = 4      # Cooldown is 1 second
         if self.hook0[0] == 1 : mult += 0.2
         if self.hook0[1] == 1 : mult += 0.3
         if self.hook0[2] == 1 : mult += 0.5

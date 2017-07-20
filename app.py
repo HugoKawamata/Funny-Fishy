@@ -95,6 +95,13 @@ def login():
     return render_template("login.html")
 
 ### Logic ###
+
+@app.route("/loaddie", methods=["GET"])
+@login_required
+def loaddie():
+    response = ok(current_user.loaddie())
+    return response
+
 @app.route("/rolldie", methods=["GET", "POST"])
 @login_required
 def rolldie():

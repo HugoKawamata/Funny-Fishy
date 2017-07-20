@@ -37,15 +37,13 @@
   cursor: pointer;
   font-size: 2em;
   text-align: center;
-  line-height: 3em;
-  transition-property: background-color;
-  transition-delay: 1s; }
+  line-height: 3em; }
 
 .die-clicked {
   background-color: #aaa; }
 
 .die-inactive {
-  background-color: #3db4ff;
+  background-color: #aaa;
   cursor: default; }
 
 .die-active {

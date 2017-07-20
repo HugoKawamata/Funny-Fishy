@@ -22539,14 +22539,15 @@ var AppScreen = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (AppScreen.__proto__ || Object.getPrototypeOf(AppScreen)).call(this));
 
         _this.state = {
-            cd: 0
+            cd: 0,
+            dieClass: "die die-active"
         };
         return _this;
     }
 
     _createClass(AppScreen, [{
         key: "getData",
-        value: function getData() {
+        value: function getData(cooldown) {
             console.log("getting data");
             var self = this;
             fetch("/cooldown", {
@@ -22562,21 +22563,31 @@ var AppScreen = function (_React$Component) {
                     self.setState({
                         cd: json.data.cd
                     });
+                    if (cooldown === 0) {
+                        self.setState({ dieClass: "die die-active" });
+                    }
+                    console.log(json.data.cd);
+                    self.gameloop(json.data.cd);
                 });
             });
-            this.gameloop(this.state.cd);
         }
     }, {
         key: "gameloop",
-        value: function gameloop(cooldown) {
+        value: function gameloop(cooldown, startingCooldown) {
             var _this2 = this;
 
+            if (cooldown === startingCooldown) {
+                // Start cooldown
+                this.setState({ dieClass: "die die-inactive" });
+            }
             this.setState({ cd: cooldown });
             console.log("iterate gl");
-            if (this.state.cd > 1) {
+            if (this.state.cd > 0) {
                 setTimeout(function () {
-                    return _this2.getData();
+                    return _this2.getData(cooldown - 1);
                 }, 1000);
+            } else {
+                // Cooldown finished
             }
         }
     }, {
@@ -22590,8 +22601,11 @@ var AppScreen = function (_React$Component) {
                     page = _react2.default.createElement(_Fish2.default, null);
                     break;
                 default:
-                    page = _react2.default.createElement(_Die2.default, { cd: this.state.cd, gameloop: function gameloop(cooldown) {
-                            return _this3.gameloop(cooldown);
+                    page = _react2.default.createElement(_Die2.default, {
+                        dieClass: this.state.dieClass,
+                        cd: this.state.cd,
+                        gameloop: function gameloop(cooldown, sc) {
+                            return _this3.gameloop(cooldown, sc);
                         } });
                     break;
             };
@@ -22702,8 +22716,7 @@ var Die = function (_React$Component) {
             lastmult: 1,
             lastcd: 1,
             totalg: 0,
-            active: 1,
-            classes: "die die-active"
+            active: 1
         };
         return _this;
     }
@@ -22711,37 +22724,52 @@ var Die = function (_React$Component) {
     _createClass(Die, [{
         key: "componentDidMount",
         value: function componentDidMount() {
-            this.roll();
+            var self = this;
+            fetch("/loaddie", {
+                method: "GET",
+                credentials: "same-origin"
+            }).then(function (response) {
+                if (response.status !== 200) {
+                    console.log("Error " + response.status);
+                    return;
+                }
+
+                response.json().then(function (json) {
+                    self.setState({
+                        totalg: json.data.startg
+                    });
+                });
+            });
         }
     }, {
         key: "roll",
         value: function roll() {
             var self = this;
-            fetch("/rolldie", {
-                method: "GET",
-                credentials: 'same-origin'
-            }).then(function (response) {
-                if (response.status !== 200) {
-                    console.log('Error ' + response.status);
-                    return;
-                }
+            if (this.props.dieClass == "die die-inactive") {
+                return;
+            } else {
+                fetch("/rolldie", {
+                    method: "GET",
+                    credentials: 'same-origin'
+                }).then(function (response) {
+                    if (response.status !== 200) {
+                        console.log('Error ' + response.status);
+                        return;
+                    }
 
-                // Update the view with information about the last roll
-                response.json().then(function (json) {
-                    self.setState({
-                        lastroll: json.data.roll,
-                        lastmult: json.data.mult,
-                        lastcd: json.data.cd,
-                        totalg: json.data.totalg,
-                        active: 0,
-                        classes: "die die-inactive"
+                    // Update the view with information about the last roll
+                    response.json().then(function (json) {
+                        self.setState({
+                            lastroll: json.data.roll,
+                            lastmult: json.data.mult,
+                            lastcd: json.data.cd,
+                            totalg: json.data.totalg,
+                            active: 0
+                        });
+                        self.props.gameloop(json.data.cd, json.data.cd);
                     });
-                    setTimeout(function () {
-                        return self.setState({ active: 1, classes: "die die-active" });
-                    }, self.state.lastcd * 1000);
-                    self.props.gameloop(json.data.cd);
                 });
-            });
+            }
         }
     }, {
         key: "render",
@@ -22763,7 +22791,7 @@ var Die = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     "div",
-                    { className: this.state.classes,
+                    { className: this.props.dieClass,
                         onClick: function onClick() {
                             return _this2.roll();
                         } },
