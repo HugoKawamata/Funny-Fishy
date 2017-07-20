@@ -22548,7 +22548,6 @@ var AppScreen = function (_React$Component) {
     _createClass(AppScreen, [{
         key: "getData",
         value: function getData(cooldown) {
-            console.log("getting data");
             var self = this;
             fetch("/cooldown", {
                 method: "GET",
@@ -22566,7 +22565,6 @@ var AppScreen = function (_React$Component) {
                     if (cooldown === 0) {
                         self.setState({ dieClass: "die die-active" });
                     }
-                    console.log(json.data.cd);
                     self.gameloop(json.data.cd);
                 });
             });
@@ -22581,7 +22579,6 @@ var AppScreen = function (_React$Component) {
                 this.setState({ dieClass: "die die-inactive" });
             }
             this.setState({ cd: cooldown });
-            console.log("iterate gl");
             if (this.state.cd > 0) {
                 setTimeout(function () {
                     return _this2.getData(cooldown - 1);

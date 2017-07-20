@@ -51,7 +51,7 @@ class User(db.Model, UserMixin):
         min = 1
         max = 6
         mult = 1
-        self.currentcooldown = 4      # Cooldown is 1 second
+        self.currentcooldown = 1      # Cooldown is 1 second
         if self.hook0[0] == 1 : mult += 0.2
         if self.hook0[1] == 1 : mult += 0.3
         if self.hook0[2] == 1 : mult += 0.5

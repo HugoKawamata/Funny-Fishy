@@ -13,7 +13,6 @@ export default class AppScreen extends React.Component {
     }
 
     getData(cooldown) {
-        console.log("getting data");
         var self = this;
         fetch("/cooldown",
             {
@@ -34,7 +33,6 @@ export default class AppScreen extends React.Component {
                 if (cooldown === 0) {
                     self.setState({dieClass: "die die-active"})
                 }
-                console.log(json.data.cd)
                 self.gameloop(json.data.cd);
             });
         });
@@ -46,7 +44,6 @@ export default class AppScreen extends React.Component {
             this.setState({dieClass: "die die-inactive"})
         }
         this.setState({cd: cooldown});
-        console.log("iterate gl")
         if (this.state.cd > 0) {
             setTimeout((() => this.getData(cooldown - 1)), 1000);
         } else {
