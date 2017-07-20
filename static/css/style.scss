@@ -48,11 +48,28 @@ body {
 .die {
     width: 3em;
     height: 3em;
-    background-color: $secondary;
     cursor: pointer;
     font-size: 2em;
     text-align: center;
     line-height: 3em;
+    transition-property: background-color;
+    transition-delay: 1s;
+}
+
+.die-clicked {
+    background-color: #aaa;
+}
+
+.die-inactive {
+    background-color: $die-color;
+    cursor: default;
+}
+
+.die-active {
+    background-color: $die-color;
+    border: $die-border-width solid $primary;
+    width: 3em + ($die-border-width * 2);
+    height: 3em + ($die-border-width * 2);
 }
 
 

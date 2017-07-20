@@ -27,7 +27,6 @@ class User(db.Model, UserMixin):
         self.hook1 = "00000"
         logging.info
 
-        logging.info("creating user with email and pw:" + self.email + " " + password + "\n" + "hook0 = " + self.hook0 + " hook1 = " + self.hook1)
 
     def check_password(self, password_attempt):
         return check_password_hash(self.passwordhash, password_attempt)
@@ -39,7 +38,6 @@ class User(db.Model, UserMixin):
         max = 6
         mult = 1
         cd = 1      # Cooldown is 1 second
-        logging.info("user hook0 " + self.hook0)
         if self.hook0[0] == 1 : mult += 0.2
         if self.hook0[1] == 1 : mult += 0.3
         if self.hook0[2] == 1 : mult += 0.5
@@ -47,13 +45,15 @@ class User(db.Model, UserMixin):
         if self.hook0[4] == 1 : min = 3
 
         roll = random.randint(min, max)
+        self.gold += (roll * mult)
 
         data = {
             "roll": roll,
             "mult": mult,
             "cd": cd,
-            "totalg": self.gold + (roll * mult)
+            "totalg": self.gold
         }
 
-        self.gold += (roll * mult)
         return data
+
+        

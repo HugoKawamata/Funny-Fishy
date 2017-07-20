@@ -9,18 +9,27 @@ export default class Die extends React.Component {
             lastroll: 6,
             lastmult: 1,
             lastcd: 1,
-            totalg: 0
+            totalg: 0,
+            active: 1,
+            classes: "die die-active"
         }
+    }
+
+    componentDidMount() {
+        this.roll();
     }
 
     roll() {
         var self = this
+        self.setState({
+            classes: "die die-clicked"
+        });
         fetch("/rolldie",
-        {
-            method: "GET",
-            credentials: 'same-origin'
-        }
-    ).then(function(response) {
+            {
+                method: "GET",
+                credentials: 'same-origin'
+            }
+        ).then(function(response) {
             if (response.status !== 200) {  
                 console.log('Error ' +  
                 response.status);  
@@ -33,17 +42,22 @@ export default class Die extends React.Component {
                     lastroll: json.data.roll,
                     lastmult: json.data.mult,
                     lastcd: json.data.cd,
-                    totalg: json.data.totalg
+                    totalg: json.data.totalg,
+                    active: 0,
+                    classes: "die die-inactive"
                 })
+                setTimeout(() => self.setState({active: 1, classes: "die die-active"}), self.state.lastcd * 1000);
             });
-        })
+        });
     }
 
     render() {
         return(
             <div id="die-page" className="top-parent">
                 <div className="totalg">{this.state.totalg}</div>
-                <div className="die" onClick={() => this.roll()}>{this.state.lastroll}</div>
+                <div className={this.state.classes} 
+                    onClick={() => this.roll()}>
+                    {this.state.lastroll}</div>
             </div>
         )
     }

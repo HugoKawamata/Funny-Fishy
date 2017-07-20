@@ -1,5 +1,6 @@
 /* COLOR */
 /* FONT */
+/* OTHER */
 .top-parent {
   padding: 0px 25px; }
 
@@ -33,11 +34,25 @@
 .die {
   width: 3em;
   height: 3em;
-  background-color: #3db4ff;
   cursor: pointer;
   font-size: 2em;
   text-align: center;
-  line-height: 3em; }
+  line-height: 3em;
+  transition-property: background-color;
+  transition-delay: 1s; }
+
+.die-clicked {
+  background-color: #aaa; }
+
+.die-inactive {
+  background-color: #3db4ff;
+  cursor: default; }
+
+.die-active {
+  background-color: #3db4ff;
+  border: 0.1em solid #ffd089;
+  width: 3.2em;
+  height: 3.2em; }
 
 /* Home */
 .home-header {

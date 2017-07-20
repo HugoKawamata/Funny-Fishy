@@ -22541,6 +22541,19 @@ var AppScreen = function (_React$Component) {
 
     _createClass(AppScreen, [{
         key: "render",
+
+
+        /*constructor() {
+            super();
+            this.state = {
+             }
+        }
+         gameloop() {
+            while(1) {
+                setTimeout((() => this.getData()), 1000);
+            }
+        }*/
+
         value: function render() {
             var page;
             switch (this.props.current) {
@@ -22594,16 +22607,24 @@ var Fish = function (_React$Component) {
     function Fish() {
         _classCallCheck(this, Fish);
 
-        return _possibleConstructorReturn(this, (Fish.__proto__ || Object.getPrototypeOf(Fish)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (Fish.__proto__ || Object.getPrototypeOf(Fish)).call(this));
+
+        _this.state = {};
+        return _this;
     }
 
     _createClass(Fish, [{
         key: "render",
         value: function render() {
+            var collection;
+            for (var i = 0; i < 6; i++) {
+                // add row of fish to "collection" for each hook before corrupt hooks // 6?
+            }
+
             return _react2.default.createElement(
                 "div",
                 { id: "fish-page", className: "top-parent" },
-                "Fish page"
+                _react2.default.createElement("div", { className: "fish-collection" })
             );
         }
     }]);
@@ -22652,15 +22673,25 @@ var Die = function (_React$Component) {
             lastroll: 6,
             lastmult: 1,
             lastcd: 1,
-            totalg: 0
+            totalg: 0,
+            active: 1,
+            classes: "die die-active"
         };
         return _this;
     }
 
     _createClass(Die, [{
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            this.roll();
+        }
+    }, {
         key: "roll",
         value: function roll() {
             var self = this;
+            self.setState({
+                classes: "die die-clicked"
+            });
             fetch("/rolldie", {
                 method: "GET",
                 credentials: 'same-origin'
@@ -22676,8 +22707,13 @@ var Die = function (_React$Component) {
                         lastroll: json.data.roll,
                         lastmult: json.data.mult,
                         lastcd: json.data.cd,
-                        totalg: json.data.totalg
+                        totalg: json.data.totalg,
+                        active: 0,
+                        classes: "die die-inactive"
                     });
+                    setTimeout(function () {
+                        return self.setState({ active: 1, classes: "die die-active" });
+                    }, self.state.lastcd * 1000);
                 });
             });
         }
@@ -22696,7 +22732,8 @@ var Die = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     "div",
-                    { className: "die", onClick: function onClick() {
+                    { className: this.state.classes,
+                        onClick: function onClick() {
                             return _this2.roll();
                         } },
                     this.state.lastroll
