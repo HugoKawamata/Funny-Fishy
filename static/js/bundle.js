@@ -22536,35 +22536,63 @@ var AppScreen = function (_React$Component) {
     function AppScreen() {
         _classCallCheck(this, AppScreen);
 
-        return _possibleConstructorReturn(this, (AppScreen.__proto__ || Object.getPrototypeOf(AppScreen)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (AppScreen.__proto__ || Object.getPrototypeOf(AppScreen)).call(this));
+
+        _this.state = {
+            cd: 0
+        };
+        return _this;
     }
 
     _createClass(AppScreen, [{
-        key: "render",
+        key: "getData",
+        value: function getData() {
+            console.log("getting data");
+            var self = this;
+            fetch("/cooldown", {
+                method: "GET",
+                credentials: 'same-origin'
+            }).then(function (response) {
+                if (response.status !== 200) {
+                    console.log('Error ' + response.status);
+                    return;
+                }
 
-
-        /*constructor() {
-            super();
-            this.state = {
-             }
+                response.json().then(function (json) {
+                    self.setState({
+                        cd: json.data.cd
+                    });
+                });
+            });
+            this.gameloop(this.state.cd);
         }
-         gameloop() {
-            while(1) {
-                setTimeout((() => this.getData()), 1000);
-            }
-        }*/
+    }, {
+        key: "gameloop",
+        value: function gameloop(cooldown) {
+            var _this2 = this;
 
+            this.setState({ cd: cooldown });
+            console.log("iterate gl");
+            if (this.state.cd > 1) {
+                setTimeout(function () {
+                    return _this2.getData();
+                }, 1000);
+            }
+        }
+    }, {
+        key: "render",
         value: function render() {
+            var _this3 = this;
+
             var page;
             switch (this.props.current) {
                 case "fish":
                     page = _react2.default.createElement(_Fish2.default, null);
                     break;
-                case "die":
-                    page = _react2.default.createElement(_Die2.default, null);
-                    break;
                 default:
-                    page = _react2.default.createElement(_Die2.default, null);
+                    page = _react2.default.createElement(_Die2.default, { cd: this.state.cd, gameloop: function gameloop(cooldown) {
+                            return _this3.gameloop(cooldown);
+                        } });
                     break;
             };
             return page;
@@ -22689,9 +22717,6 @@ var Die = function (_React$Component) {
         key: "roll",
         value: function roll() {
             var self = this;
-            self.setState({
-                classes: "die die-clicked"
-            });
             fetch("/rolldie", {
                 method: "GET",
                 credentials: 'same-origin'
@@ -22714,6 +22739,7 @@ var Die = function (_React$Component) {
                     setTimeout(function () {
                         return self.setState({ active: 1, classes: "die die-active" });
                     }, self.state.lastcd * 1000);
+                    self.props.gameloop(json.data.cd);
                 });
             });
         }
@@ -22729,6 +22755,11 @@ var Die = function (_React$Component) {
                     "div",
                     { className: "totalg" },
                     this.state.totalg
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "counter" },
+                    this.props.cd
                 ),
                 _react2.default.createElement(
                     "div",

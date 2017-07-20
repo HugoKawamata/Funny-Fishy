@@ -102,6 +102,12 @@ def rolldie():
     db.session.commit()
     return response
 
+@app.route("/cooldown", methods=["GET"])
+@login_required
+def cooldown():
+    response = ok(current_user.cooldown_tick())
+    db.session.commit()
+    return response
 
 
 

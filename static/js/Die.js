@@ -21,9 +21,6 @@ export default class Die extends React.Component {
 
     roll() {
         var self = this
-        self.setState({
-            classes: "die die-clicked"
-        });
         fetch("/rolldie",
             {
                 method: "GET",
@@ -47,6 +44,7 @@ export default class Die extends React.Component {
                     classes: "die die-inactive"
                 })
                 setTimeout(() => self.setState({active: 1, classes: "die die-active"}), self.state.lastcd * 1000);
+                self.props.gameloop(json.data.cd)
             });
         });
     }
@@ -55,6 +53,7 @@ export default class Die extends React.Component {
         return(
             <div id="die-page" className="top-parent">
                 <div className="totalg">{this.state.totalg}</div>
+                <div className="counter">{this.props.cd}</div>
                 <div className={this.state.classes} 
                     onClick={() => this.roll()}>
                     {this.state.lastroll}</div>

@@ -16,6 +16,7 @@ class User(db.Model, UserMixin):
     email           = db.Column('email',        db.String(128),         unique=True)
     passwordhash    = db.Column('passwordhash', db.String(128))
     gold            = db.Column('gold',         db.Float)
+    currentcooldown = db.Column('currentcooldown', db.Integer)
     hook0           = db.Column('hook0',        db.String(64))
     hook1           = db.Column('hook1',        db.String(64))
 
@@ -25,19 +26,26 @@ class User(db.Model, UserMixin):
         self.gold = 0
         self.hook0 = "00000"
         self.hook1 = "00000"
+        self.currentcooldown = 0
         logging.info
 
 
     def check_password(self, password_attempt):
         return check_password_hash(self.passwordhash, password_attempt)
 
+    def cooldown_tick(self):
+        self.currentcooldown -= 1
+        data = {
+            "cd": self.currentcooldown
+        }
+        return data
         
     def rolldie(self):
         # Sends a json containing the roll result, the multiplier, the cooldown, and the total gold
         min = 1
         max = 6
         mult = 1
-        cd = 1      # Cooldown is 1 second
+        self.currentcooldown = 10      # Cooldown is 10 second
         if self.hook0[0] == 1 : mult += 0.2
         if self.hook0[1] == 1 : mult += 0.3
         if self.hook0[2] == 1 : mult += 0.5
@@ -50,7 +58,7 @@ class User(db.Model, UserMixin):
         data = {
             "roll": roll,
             "mult": mult,
-            "cd": cd,
+            "cd": self.currentcooldown,
             "totalg": self.gold
         }
 
