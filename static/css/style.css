@@ -1,33 +1,24 @@
 /* COLOR */
 /* FONT */
 /* OTHER */
-.top-parent {
-  padding: 0px 25px; }
+body {
+  color: #333; }
 
-.pillar {
-  height: 100vh;
-  width: 25px;
-  position: fixed;
-  background-color: #3dffa7; }
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Baloo", sans-serif; }
 
-@media (max-width: 780px) {
-  .top-parent {
-    padding: 0px; }
+p, div, span {
+  font-family: "Montserrat", sans-serif; }
 
-  .pillar {
-    width: 0px; } }
-.left-pillar {
-  left: 0; }
-
-.right-pillar {
-  right: 0; }
+.sinister-text {
+  font-family: "Spectral", serif; }
 
 /* App */
 .navbar {
   display: flex;
   justify-content: space-around;
   padding: 1em 0;
-  background-color: #3db4ff; }
+  background-color: #3680C9; }
   .navbar a {
     color: #555; }
 
@@ -47,8 +38,8 @@
   cursor: default; }
 
 .die-active {
-  background-color: #3db4ff;
-  border: 0.1em solid #ffd089;
+  background-color: #3680C9;
+  border: 0.1em solid #0FCDC5;
   width: 3.2em;
   height: 3.2em; }
 
@@ -56,7 +47,11 @@
 .home-header {
   padding-top: 10vh;
   height: 90vh;
-  background-color: #3db4ff; }
+  background: linear-gradient(#0FCDC5, #3680C9); }
+
+.home-header-bottom {
+  height: 10vh;
+  background-color: #3680C9; }
 
 .home-logo-cont {
   text-align: center; }
@@ -65,28 +60,33 @@
   margin: auto; }
 
 .button-cont {
+  margin: auto;
+  max-width: 27rem;
   padding-top: 10vh;
   display: flex;
   justify-content: space-around; }
   .button-cont a {
     text-align: center;
     width: 30%; }
-  .button-cont button {
-    font-size: 2em;
-    font-family: "Baloo", sans-serif;
-    background-color: #3dffa7;
-    border: 0px;
-    border-radius: 15px;
-    border-bottom: 5px solid #0eba69; }
-  .button-cont button:hover {
-    border-bottom: 5px solid #0ecc72;
-    background-color: #7affc0;
-    color: #555; }
-  .button-cont button:active {
-    border-bottom: 0px solid #0eba69;
-    border-top: 2px solid #0eba69;
-    background-color: #0ecc72;
-    color: #444; }
+
+button, .button {
+  font-size: 2em;
+  font-family: "Baloo", sans-serif;
+  background-color: #3dffa7;
+  border: 0px;
+  border-radius: 15px;
+  border-bottom: 5px solid #0eba69; }
+
+button:hover, .button:hover {
+  border-bottom: 5px solid #0ecc72;
+  background-color: #7affc0;
+  color: #555; }
+
+button:active, .button:active {
+  border-bottom: 0px solid #0eba69;
+  border-top: 2px solid #0eba69;
+  background-color: #0ecc72;
+  color: #444; }
 
 .home-title {
   font-size: 5em;
@@ -99,14 +99,33 @@
   text-shadow: 3px 3px 0 #222, -1px -1px 0 #222, 1px -1px 0 #222, -1px 1px 0 #222, 1px 1px 0 #222; }
 
 .home-description {
-  padding: 2em;
-  background-color: #ffd089;
+  text-align: center;
+  padding: 2em 20%;
+  background-color: #3680C9;
   font-family: "Montserrat", sans-serif; }
   .home-description h2 {
     font-size: 2em;
     font-family: "Baloo", sans-serif; }
 
-.sinister-text {
-  font-family: "Spectral", serif; }
+/* Login, register */
+.login-form {
+  margin: auto;
+  padding: 1.5em 3em 3em 3em;
+  width: 30em;
+  background-color: #D8CBBB;
+  border-bottom: 10px solid #B1BAA0;
+  font-family: "Montserrat", sans-serif;
+  border-radius: 20px;
+  text-align: center; }
+  .login-form h1 {
+    font-size: 3em;
+    text-align: center; }
+  .login-form .button {
+    margin: auto; }
+  .login-form .fields {
+    width: 19em;
+    text-align: right;
+    margin-top: 1em;
+    margin-bottom: 2em; }
 
 /*# sourceMappingURL=style.css.map */

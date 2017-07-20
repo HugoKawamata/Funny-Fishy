@@ -18,7 +18,7 @@ export default class Die extends React.Component {
         var self = this;
         fetch("/loaddie",
             {
-                method: "GET",
+                method: "POST",
                 credentials: "same-origin"
             }
         ).then(function(response) {
@@ -43,7 +43,7 @@ export default class Die extends React.Component {
         } else {
             fetch("/rolldie",
                 {
-                    method: "GET",
+                    method: "POST",
                     credentials: 'same-origin'
                 }
             ).then(function(response) {

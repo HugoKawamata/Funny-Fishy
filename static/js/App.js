@@ -19,10 +19,8 @@ export default class App extends React.Component {
     render() {
         return(
             <div id="app" className="top-parent">
-                <div className="left-pillar pillar"></div>
-                <div className="right-pillar pillar"></div>
                 <nav className="navbar">
-                    <a className="navbar-item">
+                    <a className="navbar-item" href="/logout">
                         Log Out
                     </a>
                     <a className="navbar-item" onClick={() => this.changePage("fish")}>

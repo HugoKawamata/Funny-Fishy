@@ -22462,14 +22462,12 @@ var App = function (_React$Component) {
             return _react2.default.createElement(
                 "div",
                 { id: "app", className: "top-parent" },
-                _react2.default.createElement("div", { className: "left-pillar pillar" }),
-                _react2.default.createElement("div", { className: "right-pillar pillar" }),
                 _react2.default.createElement(
                     "nav",
                     { className: "navbar" },
                     _react2.default.createElement(
                         "a",
-                        { className: "navbar-item" },
+                        { className: "navbar-item", href: "/logout" },
                         "Log Out"
                     ),
                     _react2.default.createElement(
@@ -22723,7 +22721,7 @@ var Die = function (_React$Component) {
         value: function componentDidMount() {
             var self = this;
             fetch("/loaddie", {
-                method: "GET",
+                method: "POST",
                 credentials: "same-origin"
             }).then(function (response) {
                 if (response.status !== 200) {
@@ -22746,7 +22744,7 @@ var Die = function (_React$Component) {
                 return;
             } else {
                 fetch("/rolldie", {
-                    method: "GET",
+                    method: "POST",
                     credentials: 'same-origin'
                 }).then(function (response) {
                     if (response.status !== 200) {

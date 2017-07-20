@@ -1,8 +1,16 @@
 /* COLOR */
 
 // Base colors
-$primary: #ffd089;
-$secondary: #3db4ff;
+$stratos: #25468B;
+$atmos: #3680C9;
+$surface: #0FCDC5;
+$wetsand: #B1BAA0;
+$sand: #D8CBBB;
+
+$primary: $surface;
+$secondary: $atmos;
+
+
 $highlight: #3dffa7;
 $highlight-light: #7affc0;
 $highlight-less-dark: #0ecc72;

@@ -1,35 +1,19 @@
 @import 'variables';
 
 body {
+    color: #333;
 }
 
-.top-parent {
-    padding: 0px $pillar-width;
+h1, h2, h3, h4, h5, h6 {
+    font-family: $heading;
 }
 
-.pillar {
-    height: 100vh;
-    width: $pillar-width;
-    position: fixed;
-    background-color: $pillar;
+p, div, span {
+    font-family: $body;
 }
 
-// Remove pillars on mobile
-@media (max-width: 780px) {
-    .top-parent {
-        padding: 0px;
-    }
-    .pillar {
-        width: 0px;
-    }
-}
-
-.left-pillar {
-    left:0;
-}
-
-.right-pillar {
-    right:0;
+.sinister-text {
+    font-family: $horror;
 }
 
 /* App */
@@ -76,7 +60,16 @@ body {
 .home-header {
     padding-top: 10vh;
     height: 90vh;
+    background: linear-gradient($primary, $secondary);
+}
+
+.home-header-bottom {
+    // This is for when I want to use .home-header for login type pages
+    // but the gradient needs to end at 90vh
+
+    height: 10vh;
     background-color: $secondary;
+
 }
 
 .home-logo-cont {
@@ -88,6 +81,8 @@ body {
 }
 
 .button-cont {
+    margin: auto;
+    max-width: 27rem;
     padding-top: 10vh;
     display: flex;
     justify-content: space-around;
@@ -97,28 +92,29 @@ body {
         width: 30%;
     }
 
-    button {
-        font-size: 2em;
-        font-family: $heading;
-        background-color: $button-color;
-        border: 0px;
-        border-radius: 15px;
-        border-bottom: 5px solid $button-border-color;
-    }
+}
 
-    button:hover {
-        border-bottom: 5px solid $button-border-hover-color;
-        background-color: $button-hover-color;
-        color: #555;
-    }
+button, .button {
+    font-size: 2em;
+    font-family: $heading;
+    background-color: $button-color;
+    border: 0px;
+    border-radius: 15px;
+    border-bottom: 5px solid $button-border-color;
+}
 
-    button:active {
-        border-bottom: 0px solid $button-border-color;
-        border-top: 2px solid $button-border-color;
-        background-color: $button-border-hover-color;
-        color: #444;
+button:hover, .button:hover {
+    border-bottom: 5px solid $button-border-hover-color;
+    background-color: $button-hover-color;
+    color: #555;
+}
 
-    }
+button:active, .button:active {
+    border-bottom: 0px solid $button-border-color;
+    border-top: 2px solid $button-border-color;
+    background-color: $button-border-hover-color;
+    color: #444;
+
 }
 
 .home-title {
@@ -139,8 +135,9 @@ body {
 
 .home-description {
 
-    padding: 2em;
-    background-color: $primary;
+    text-align: center;
+    padding: 2em 20%;
+    background-color: $secondary;
     font-family: $body;
 
     
@@ -150,6 +147,37 @@ body {
     }
 }
 
-.sinister-text {
-    font-family: $horror;
+/* Login, register */
+
+.login-form {
+    margin: auto;
+    padding: 1.5em 3em 3em 3em;
+    width: 30em;
+    background-color: $sand;
+    border-bottom: 10px solid $wetsand;
+    font-family: $body;
+    border-radius: 20px;
+    text-align: center;
+
+    h1 {
+        font-size: 3em;
+        text-align: center;
+    }
+
+    .button {
+        margin: auto;
+    }
+
+    .fields {
+        width: 19em;
+        text-align: right;
+        margin-top: 1em;
+        margin-bottom: 2em;
+    }
+
+    label {
+    }
+
+    .form-field {
+    }
 }

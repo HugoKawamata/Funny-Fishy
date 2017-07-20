@@ -58,7 +58,8 @@ def register():
             user = User(email, password)
             db.session.add(user)
             db.session.commit()
-            return "You in boi"
+            login_user(user, remember=True)
+            return redirect(url_for('game'))
         else:
             return "User aready exists"
     else:
@@ -68,6 +69,12 @@ def register():
 @login_required
 def game():
     return app.send_static_file("game.html")
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
 
 
 @app.route("/check_login", methods=["GET", "POST"])
@@ -96,13 +103,13 @@ def login():
 
 ### Logic ###
 
-@app.route("/loaddie", methods=["GET"])
+@app.route("/loaddie", methods=["POST"])
 @login_required
 def loaddie():
     response = ok(current_user.loaddie())
     return response
 
-@app.route("/rolldie", methods=["GET", "POST"])
+@app.route("/rolldie", methods=["POST"])
 @login_required
 def rolldie():
     response = ok(current_user.rolldie())
