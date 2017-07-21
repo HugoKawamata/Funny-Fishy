@@ -61,7 +61,7 @@ export default class AppScreen extends React.Component {
                 page = <Die 
                         dieClass={this.state.dieClass}
                         cd={this.state.cd} 
-                        gameloop={(cooldown, sc) => this.gameloop(cooldown, sc)} />
+                        gameloop={(cooldown, scd) => this.gameloop(cooldown, scd)} />
                 break;
         };
         return page;

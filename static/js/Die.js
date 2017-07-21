@@ -11,6 +11,7 @@ export default class Die extends React.Component {
             lastcd: 1,
             totalg: 0,
             active: 1,
+            rolling: "",
         }
     }
 
@@ -36,36 +37,44 @@ export default class Die extends React.Component {
         })
     }
 
-    roll() {
-        var self = this;
-        if (this.props.dieClass == "die die-inactive") {
+    animateRoll() {
+        if (this.props.dieClass === "die die-inactive" || this.state.rolling === "rolling") {
             return
         } else {
-            fetch("/rolldie",
-                {
-                    method: "POST",
-                    credentials: 'same-origin'
-                }
-            ).then(function(response) {
-                if (response.status !== 200) {  
-                    console.log('Error ' +  
-                    response.status);  
-                    return;  
-                }
-
-                // Update the view with information about the last roll
-                response.json().then(function(json) {  
-                    self.setState({
-                        lastroll: json.data.roll,
-                        lastmult: json.data.mult,
-                        lastcd: json.data.cd,
-                        totalg: json.data.totalg,
-                        active: 0,
-                    })
-                    self.props.gameloop(json.data.cd, json.data.cd)
-                });
-            });
+            this.setState({
+                rolling: "rolling"
+            })
+            setTimeout(() => this.roll(), 800)
         }
+    }
+
+    roll() {
+        this.setState({rolling: ""})
+        var self = this;
+        fetch("/rolldie",
+            {
+                method: "POST",
+                credentials: 'same-origin'
+            }
+        ).then(function(response) {
+            if (response.status !== 200) {  
+                console.log('Error ' +  
+                response.status);  
+                return;  
+            }
+
+            // Update the view with information about the last roll
+            response.json().then(function(json) {  
+                self.setState({
+                    lastroll: json.data.roll,
+                    lastmult: json.data.mult,
+                    lastcd: json.data.cd,
+                    totalg: json.data.totalg,
+                    active: 0,
+                })
+                self.props.gameloop(json.data.cd, json.data.cd)
+            });
+        });
     }
 
     render() {
@@ -82,8 +91,8 @@ export default class Die extends React.Component {
                     </div>
                 </div>
                 <div className="die-container">
-                    <div className={this.props.dieClass} 
-                        onClick={() => this.roll()}>
+                    <div className={this.props.dieClass + " " + this.state.rolling} 
+                        onClick={() => this.animateRoll()}>
                         {this.state.lastroll}</div>
                 </div>
             </div>

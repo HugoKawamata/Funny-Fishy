@@ -22611,8 +22611,8 @@ var AppScreen = function (_React$Component) {
                     page = _react2.default.createElement(_Die2.default, {
                         dieClass: this.state.dieClass,
                         cd: this.state.cd,
-                        gameloop: function gameloop(cooldown, sc) {
-                            return _this3.gameloop(cooldown, sc);
+                        gameloop: function gameloop(cooldown, scd) {
+                            return _this3.gameloop(cooldown, scd);
                         } });
                     break;
             };
@@ -22723,7 +22723,8 @@ var Die = function (_React$Component) {
             lastmult: 1,
             lastcd: 1,
             totalg: 0,
-            active: 1
+            active: 1,
+            rolling: ""
         };
         return _this;
     }
@@ -22749,39 +22750,52 @@ var Die = function (_React$Component) {
             });
         }
     }, {
-        key: "roll",
-        value: function roll() {
-            var self = this;
-            if (this.props.dieClass == "die die-inactive") {
+        key: "animateRoll",
+        value: function animateRoll() {
+            var _this2 = this;
+
+            if (this.props.dieClass === "die die-inactive" || this.state.rolling === "rolling") {
                 return;
             } else {
-                fetch("/rolldie", {
-                    method: "POST",
-                    credentials: 'same-origin'
-                }).then(function (response) {
-                    if (response.status !== 200) {
-                        console.log('Error ' + response.status);
-                        return;
-                    }
-
-                    // Update the view with information about the last roll
-                    response.json().then(function (json) {
-                        self.setState({
-                            lastroll: json.data.roll,
-                            lastmult: json.data.mult,
-                            lastcd: json.data.cd,
-                            totalg: json.data.totalg,
-                            active: 0
-                        });
-                        self.props.gameloop(json.data.cd, json.data.cd);
-                    });
+                this.setState({
+                    rolling: "rolling"
                 });
+                setTimeout(function () {
+                    return _this2.roll();
+                }, 800);
             }
+        }
+    }, {
+        key: "roll",
+        value: function roll() {
+            this.setState({ rolling: "" });
+            var self = this;
+            fetch("/rolldie", {
+                method: "POST",
+                credentials: 'same-origin'
+            }).then(function (response) {
+                if (response.status !== 200) {
+                    console.log('Error ' + response.status);
+                    return;
+                }
+
+                // Update the view with information about the last roll
+                response.json().then(function (json) {
+                    self.setState({
+                        lastroll: json.data.roll,
+                        lastmult: json.data.mult,
+                        lastcd: json.data.cd,
+                        totalg: json.data.totalg,
+                        active: 0
+                    });
+                    self.props.gameloop(json.data.cd, json.data.cd);
+                });
+            });
         }
     }, {
         key: "render",
         value: function render() {
-            var _this2 = this;
+            var _this3 = this;
 
             return _react2.default.createElement(
                 "div",
@@ -22811,9 +22825,9 @@ var Die = function (_React$Component) {
                     { className: "die-container" },
                     _react2.default.createElement(
                         "div",
-                        { className: this.props.dieClass,
+                        { className: this.props.dieClass + " " + this.state.rolling,
                             onClick: function onClick() {
-                                return _this2.roll();
+                                return _this3.animateRoll();
                             } },
                         this.state.lastroll
                     )

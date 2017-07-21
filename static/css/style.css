@@ -63,6 +63,20 @@ p, div, span {
   line-height: 3em;
   font-family: "Baloo", sans-serif; }
 
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+    text-shadow: #333 0 0 0px; }
+  50% {
+    text-shadow: #333 0 0 13px; }
+  100% {
+    transform: rotate(720deg);
+    text-shadow: #333 0 0 7px; } }
+.rolling {
+  animation: spin 800ms ease-in-out infinite;
+  color: transparent;
+  text-shadow: #333 0 0 10px; }
+
 .die-clicked {
   background-color: #aaa; }
 
