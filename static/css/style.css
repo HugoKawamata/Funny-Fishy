@@ -172,5 +172,9 @@ button:active, .button:active {
     text-align: right;
     margin-top: 1em;
     margin-bottom: 2em; }
+  .login-form p {
+    padding: 2em 0 0 0; }
+    .login-form p a {
+      color: #0eba69; }
 
 /*# sourceMappingURL=style.css.map */

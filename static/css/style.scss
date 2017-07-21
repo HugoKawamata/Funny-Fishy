@@ -239,4 +239,12 @@ button:active, .button:active {
 
     .form-field {
     }
+
+    p {
+        padding: 2em 0 0 0;
+
+        a {
+            color: $highlight-dark;
+        }
+    }
 }
