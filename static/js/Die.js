@@ -91,6 +91,7 @@ export default class Die extends React.Component {
                     </div>
                 </div>
                 <div className="die-container">
+                    <div className={"floating-number " + this.props.fnm}>{this.state.lastroll * this.state.lastmult}</div>
                     <div className={this.props.dieClass + " " + this.state.rolling} 
                         onClick={() => this.animateRoll()}>
                         {this.state.lastroll}</div>

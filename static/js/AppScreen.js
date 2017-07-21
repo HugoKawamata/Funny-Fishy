@@ -8,7 +8,8 @@ export default class AppScreen extends React.Component {
         super();
         this.state = {
             cd: 0,
-            dieClass: "die die-active"
+            dieClass: "die die-active",
+            fnm: "floating-number-still"
         }
     }
 
@@ -31,7 +32,7 @@ export default class AppScreen extends React.Component {
                     cd: json.data.cd
                 })
                 if (cooldown === 0) {
-                    self.setState({dieClass: "die die-active"})
+                    self.setState({dieClass: "die die-active", fnm: "floating-number-still"})
                 }
                 self.gameloop(json.data.cd);
             });
@@ -41,7 +42,7 @@ export default class AppScreen extends React.Component {
     gameloop(cooldown, startingCooldown) {
         if (cooldown === startingCooldown) {
             // Start cooldown
-            this.setState({dieClass: "die die-inactive"})
+            this.setState({dieClass: "die die-inactive", fnm: "floating-number-move"})
         }
         this.setState({cd: cooldown});
         if (this.state.cd > 0) {
@@ -60,6 +61,7 @@ export default class AppScreen extends React.Component {
             default:
                 page = <Die 
                         dieClass={this.state.dieClass}
+                        fnm={this.state.fnm}
                         cd={this.state.cd} 
                         gameloop={(cooldown, scd) => this.gameloop(cooldown, scd)} />
                 break;

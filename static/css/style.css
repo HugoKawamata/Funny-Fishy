@@ -22,7 +22,7 @@ p, div, span {
   display: flex;
   justify-content: space-around;
   padding: 0.3em 0 0 0;
-  background-color: #FFC0B1; }
+  background-color: #97D5FF; }
   .navbar a {
     color: #333;
     width: 30%;
@@ -51,6 +51,26 @@ p, div, span {
 .die-container {
   display: flex;
   justify-content: center; }
+
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+    top: 1.5em; }
+  100% {
+    opacity: 0;
+    top: -10em; } }
+.floating-number {
+  position: relative;
+  top: 1em;
+  left: 2.35em;
+  font-family: "Baloo", sans-serif;
+  font-size: 1.4em; }
+
+.floating-number-move {
+  animation: fadeout 1.6s linear; }
+
+.floating-number-still {
+  opacity: 0; }
 
 .die {
   border-radius: 4px;

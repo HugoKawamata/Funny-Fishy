@@ -22550,7 +22550,8 @@ var AppScreen = function (_React$Component) {
 
         _this.state = {
             cd: 0,
-            dieClass: "die die-active"
+            dieClass: "die die-active",
+            fnm: "floating-number-still"
         };
         return _this;
     }
@@ -22573,7 +22574,7 @@ var AppScreen = function (_React$Component) {
                         cd: json.data.cd
                     });
                     if (cooldown === 0) {
-                        self.setState({ dieClass: "die die-active" });
+                        self.setState({ dieClass: "die die-active", fnm: "floating-number-still" });
                     }
                     self.gameloop(json.data.cd);
                 });
@@ -22586,7 +22587,7 @@ var AppScreen = function (_React$Component) {
 
             if (cooldown === startingCooldown) {
                 // Start cooldown
-                this.setState({ dieClass: "die die-inactive" });
+                this.setState({ dieClass: "die die-inactive", fnm: "floating-number-move" });
             }
             this.setState({ cd: cooldown });
             if (this.state.cd > 0) {
@@ -22610,6 +22611,7 @@ var AppScreen = function (_React$Component) {
                 default:
                     page = _react2.default.createElement(_Die2.default, {
                         dieClass: this.state.dieClass,
+                        fnm: this.state.fnm,
                         cd: this.state.cd,
                         gameloop: function gameloop(cooldown, scd) {
                             return _this3.gameloop(cooldown, scd);
@@ -22823,6 +22825,11 @@ var Die = function (_React$Component) {
                 _react2.default.createElement(
                     "div",
                     { className: "die-container" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "floating-number " + this.props.fnm },
+                        this.state.lastroll * this.state.lastmult
+                    ),
                     _react2.default.createElement(
                         "div",
                         { className: this.props.dieClass + " " + this.state.rolling,
