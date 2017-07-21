@@ -22467,22 +22467,34 @@ var App = function (_React$Component) {
                     { className: "navbar" },
                     _react2.default.createElement(
                         "a",
-                        { className: "navbar-item", href: "/logout" },
-                        "Log Out"
-                    ),
-                    _react2.default.createElement(
-                        "a",
                         { className: "navbar-item", onClick: function onClick() {
                                 return _this2.changePage("fish");
                             } },
-                        "See Fish"
+                        _react2.default.createElement(
+                            "div",
+                            { className: "navbar-tab" + (this.state.page === "fish" ? " active-navtab" : "") },
+                            "See Fish"
+                        )
                     ),
                     _react2.default.createElement(
                         "a",
                         { className: "navbar-item", onClick: function onClick() {
                                 return _this2.changePage("die");
                             } },
-                        "Dive Die"
+                        _react2.default.createElement(
+                            "div",
+                            { className: "navbar-tab" + (this.state.page === "die" ? " active-navtab" : "") },
+                            "Dive Die"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "a",
+                        { className: "navbar-item", href: "/logout" },
+                        _react2.default.createElement(
+                            "div",
+                            { className: "navbar-tab" },
+                            "Log Out"
+                        )
                     )
                 ),
                 _react2.default.createElement(_AppScreen2.default, null)
@@ -22776,21 +22788,35 @@ var Die = function (_React$Component) {
                 { id: "die-page", className: "top-parent" },
                 _react2.default.createElement(
                     "div",
-                    { className: "totalg" },
-                    this.state.totalg
+                    { className: "die-stat-container" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "totalg" },
+                        "Total Gold: ",
+                        _react2.default.createElement("br", null),
+                        this.state.totalg
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "counter" },
+                        "Die Cooldown: ",
+                        _react2.default.createElement("br", null),
+                        this.props.cd,
+                        " second",
+                        this.props.cd !== 1 ? "s" : ""
+                    )
                 ),
                 _react2.default.createElement(
                     "div",
-                    { className: "counter" },
-                    this.props.cd
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: this.props.dieClass,
-                        onClick: function onClick() {
-                            return _this2.roll();
-                        } },
-                    this.state.lastroll
+                    { className: "die-container" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: this.props.dieClass,
+                            onClick: function onClick() {
+                                return _this2.roll();
+                            } },
+                        this.state.lastroll
+                    )
                 )
             );
         }

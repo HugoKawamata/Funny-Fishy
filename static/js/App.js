@@ -20,14 +20,20 @@ export default class App extends React.Component {
         return(
             <div id="app" className="top-parent">
                 <nav className="navbar">
-                    <a className="navbar-item" href="/logout">
-                        Log Out
-                    </a>
                     <a className="navbar-item" onClick={() => this.changePage("fish")}>
-                        See Fish
+                        <div className={"navbar-tab" + (this.state.page === "fish" ? " active-navtab" : "")}>
+                            See Fish
+                        </div>
                     </a>
                     <a className="navbar-item" onClick={() => this.changePage("die")}>
-                        Dive Die
+                        <div className={"navbar-tab" + (this.state.page === "die" ? " active-navtab" : "")} >
+                            Dive Die
+                        </div>
+                    </a>
+                    <a className="navbar-item" href="/logout">
+                        <div className="navbar-tab">
+                            Log Out
+                        </div>
                     </a>
                 </nav>
                 <AppScreen />

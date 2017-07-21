@@ -71,11 +71,21 @@ export default class Die extends React.Component {
     render() {
         return(
             <div id="die-page" className="top-parent">
-                <div className="totalg">{this.state.totalg}</div>
-                <div className="counter">{this.props.cd}</div>
-                <div className={this.props.dieClass} 
-                    onClick={() => this.roll()}>
-                    {this.state.lastroll}</div>
+                <div className="die-stat-container">
+                    <div className="totalg">
+                        Total Gold: <br />
+                        {this.state.totalg}
+                    </div>
+                    <div className="counter">
+                        Die Cooldown: <br />
+                        {this.props.cd} second{this.props.cd !== 1 ? "s" : ""}
+                    </div>
+                </div>
+                <div className="die-container">
+                    <div className={this.props.dieClass} 
+                        onClick={() => this.roll()}>
+                        {this.state.lastroll}</div>
+                </div>
             </div>
         )
     }

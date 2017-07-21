@@ -18,24 +18,68 @@ p, div, span {
 
 /* App */
 
+.top-parent {
+    background: linear-gradient($primary, $secondary);
+    min-height: 100vh;
+}
+
 .navbar {
     display: flex;
     justify-content: space-around;
-    padding: 1em 0;
-    background-color: $secondary;
+    padding: 0.3em 0 0 0;
+    background-color: $peach;
 
     a {
-        color: #555;
+        color: #333;
+        width: 30%;
+        max-width: 13em;
+        text-align: center;
+    }
+
+    .navbar-tab {
+        border-radius: 5px 5px 0 0;
+        padding: 0.4em 0 0.2em 0;
+        background-color: $secondary;
+        font-family: $heading;
+        font-size: 1.2em;
+    }
+
+    .active-navtab {
+        background-color: $primary;
     }
 }
 
+.die-stat-container {
+    display: flex;
+    justify-content: space-around;
+    min-height: 30vh;
+    padding: 15vh 0;
+    font-size: 1.5em;
+
+    .totalg {
+        text-align: center;
+    }
+
+    .counter {
+        text-align: center;
+    }
+}
+
+.die-container {
+    display: flex;
+    justify-content: center;
+}
+
 .die {
+    border-radius: 4px;
+    border: 2px solid $stratos;
     width: 3em;
     height: 3em;
     cursor: pointer;
     font-size: 2em;
     text-align: center;
     line-height: 3em;
+    font-family: $heading;
 }
 
 .die-clicked {
@@ -44,14 +88,15 @@ p, div, span {
 
 .die-inactive {
     background-color: $inactive-die-color;
+    border-color: #333;
     cursor: default;
 }
 
 .die-active {
     background-color: $die-color;
-    border: $die-border-width solid $primary;
-    width: 3em + ($die-border-width * 2);
-    height: 3em + ($die-border-width * 2);
+    //border: $die-border-width solid $primary;
+    //width: 3em + ($die-border-width * 2);
+    //height: 3em + ($die-border-width * 2);
 }
 
 

@@ -14,34 +14,65 @@ p, div, span {
   font-family: "Spectral", serif; }
 
 /* App */
+.top-parent {
+  background: linear-gradient(#0FCDC5, #3680C9);
+  min-height: 100vh; }
+
 .navbar {
   display: flex;
   justify-content: space-around;
-  padding: 1em 0;
-  background-color: #3680C9; }
+  padding: 0.3em 0 0 0;
+  background-color: #FFC0B1; }
   .navbar a {
-    color: #555; }
+    color: #333;
+    width: 30%;
+    max-width: 13em;
+    text-align: center; }
+  .navbar .navbar-tab {
+    border-radius: 5px 5px 0 0;
+    padding: 0.4em 0 0.2em 0;
+    background-color: #3680C9;
+    font-family: "Baloo", sans-serif;
+    font-size: 1.2em; }
+  .navbar .active-navtab {
+    background-color: #0FCDC5; }
+
+.die-stat-container {
+  display: flex;
+  justify-content: space-around;
+  min-height: 30vh;
+  padding: 15vh 0;
+  font-size: 1.5em; }
+  .die-stat-container .totalg {
+    text-align: center; }
+  .die-stat-container .counter {
+    text-align: center; }
+
+.die-container {
+  display: flex;
+  justify-content: center; }
 
 .die {
+  border-radius: 4px;
+  border: 2px solid #25468B;
   width: 3em;
   height: 3em;
   cursor: pointer;
   font-size: 2em;
   text-align: center;
-  line-height: 3em; }
+  line-height: 3em;
+  font-family: "Baloo", sans-serif; }
 
 .die-clicked {
   background-color: #aaa; }
 
 .die-inactive {
   background-color: #aaa;
+  border-color: #333;
   cursor: default; }
 
 .die-active {
-  background-color: #3680C9;
-  border: 0.1em solid #0FCDC5;
-  width: 3.2em;
-  height: 3.2em; }
+  background-color: #3680C9; }
 
 /* Home */
 .home-header {
