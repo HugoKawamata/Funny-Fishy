@@ -40,6 +40,15 @@ class User(db.Model, UserMixin):
         }
         return data
         
+    def loadfish(self):
+        hooks = []
+        hooks.append(self.hook0)
+        hooks.append(self.hook1)
+        data = {
+            "hooks": hooks
+        }
+        return data
+
     def loaddie(self):
         data = {
             "startg": self.gold

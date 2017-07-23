@@ -5,11 +5,36 @@ export default class Fish extends React.Component {
     constructor() {
         super();
         this.state = {
-            hooks: [
-                "00000", // Hook0
-                "00000", // Hook1
-            ]
+            hooks: []
         }
+        this.getFishInfo = this.getFishInfo.bind(this)
+    }
+
+    componentDidMount() {
+        this.getFishInfo();
+    }
+
+    getFishInfo() {
+        console.log("Starting fish info call");
+        var self = this;
+        fetch("/loadfish",
+            {
+                method: "POST",
+                credentials: "same-origin"
+            }
+        ).then(function(response) {
+            if (response.status !== 200) {
+                console.log("Error " +
+                response.status);
+                return;
+            }
+
+            response.json().then(function(json) {
+                self.setState({
+                    hooks: json.data.hooks
+                })
+            })
+        })
     }
     
     render() {

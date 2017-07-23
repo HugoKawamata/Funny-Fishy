@@ -116,6 +116,12 @@ def rolldie():
     db.session.commit()
     return response
 
+@app.route("/loadfish", methods=["GET", "POST"])
+@login_required
+def loadfish():
+    response = ok(current_user.loadfish())
+    return response
+
 @app.route("/cooldown", methods=["GET"])
 @login_required
 def cooldown():

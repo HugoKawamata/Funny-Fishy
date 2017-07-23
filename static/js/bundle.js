@@ -22663,13 +22663,39 @@ var Fish = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Fish.__proto__ || Object.getPrototypeOf(Fish)).call(this));
 
         _this.state = {
-            hooks: ["00000", // Hook0
-            "00000"]
+            hooks: []
         };
+        _this.getFishInfo = _this.getFishInfo.bind(_this);
         return _this;
     }
 
     _createClass(Fish, [{
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            this.getFishInfo();
+        }
+    }, {
+        key: "getFishInfo",
+        value: function getFishInfo() {
+            console.log("Starting fish info call");
+            var self = this;
+            fetch("/loadfish", {
+                method: "POST",
+                credentials: "same-origin"
+            }).then(function (response) {
+                if (response.status !== 200) {
+                    console.log("Error " + response.status);
+                    return;
+                }
+
+                response.json().then(function (json) {
+                    self.setState({
+                        hooks: json.data.hooks
+                    });
+                });
+            });
+        }
+    }, {
         key: "render",
         value: function render() {
             var collection = [];
