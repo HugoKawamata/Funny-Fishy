@@ -22666,6 +22666,7 @@ var Fish = function (_React$Component) {
             hooks: []
         };
         _this.getFishInfo = _this.getFishInfo.bind(_this);
+        _this.buyHook = _this.buyHook.bind(_this);
         return _this;
     }
 
@@ -22673,6 +22674,12 @@ var Fish = function (_React$Component) {
         key: "componentDidMount",
         value: function componentDidMount() {
             this.getFishInfo();
+        }
+    }, {
+        key: "buyHook",
+        value: function buyHook(hookNum) {
+            console.log("buy hook " + hookNum);
+            return;
         }
     }, {
         key: "getFishInfo",
@@ -22698,22 +22705,47 @@ var Fish = function (_React$Component) {
     }, {
         key: "render",
         value: function render() {
+            var _this2 = this;
+
             var collection = [];
-            for (var rowI = 0; rowI < this.state.hooks.length; rowI++) {
+
+            var _loop = function _loop(rowI) {
                 // add row of fish to "collection" for each hook before corrupt hooks // 6?
-                var fishlist = [];
-                for (var fishI = 0; fishI < this.state.hooks[rowI].length; fishI++) {
+                fishlist = [];
+
+                for (var fishI = 0; fishI < _this2.state.hooks[rowI].length; fishI++) {
                     fishlist[fishI] = _react2.default.createElement(
                         "div",
                         { className: "fish-card", key: "fish" + fishI + "row" + rowI },
-                        this.state.hooks[rowI][fishI]
+                        _react2.default.createElement("img", {
+                            src: "static/images/fish/r" + rowI + "-f" + fishI + "-" + _this2.state.hooks[rowI][fishI] + ".png",
+                            alt: "Hook " + rowI + ", Fish " + fishI,
+                            key: "Hook " + rowI + ", Fish " + fishI
+                        })
                     );
                 }
                 collection[rowI] = _react2.default.createElement(
                     "div",
                     { className: "fish-row", key: "fish-row" + rowI },
+                    _react2.default.createElement(
+                        "div",
+                        {
+                            className: "hook hook" + rowI,
+                            key: "hook" + rowI,
+                            onClick: function onClick() {
+                                return _this2.buyHook(rowI);
+                            } },
+                        "Buy hook ",
+                        rowI
+                    ),
                     fishlist
                 );
+            };
+
+            for (var rowI = 0; rowI < this.state.hooks.length; rowI++) {
+                var fishlist;
+
+                _loop(rowI);
             }
 
             return _react2.default.createElement(
