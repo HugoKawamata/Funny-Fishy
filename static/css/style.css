@@ -108,6 +108,10 @@ p, div, span {
 .die-active {
   background-color: #3680C9; }
 
+/* Fish */
+.fish-row {
+  display: flex; }
+
 /* Home */
 .home-header {
   padding-top: 10vh;

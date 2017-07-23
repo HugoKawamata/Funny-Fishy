@@ -22497,7 +22497,9 @@ var App = function (_React$Component) {
                         )
                     )
                 ),
-                _react2.default.createElement(_AppScreen2.default, null)
+                _react2.default.createElement(_AppScreen2.default, {
+                    current: this.state.page
+                })
             );
         }
     }]);
@@ -22660,22 +22662,42 @@ var Fish = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (Fish.__proto__ || Object.getPrototypeOf(Fish)).call(this));
 
-        _this.state = {};
+        _this.state = {
+            hooks: ["00000", // Hook0
+            "00000"]
+        };
         return _this;
     }
 
     _createClass(Fish, [{
         key: "render",
         value: function render() {
-            var collection;
-            for (var i = 0; i < 6; i++) {
+            var collection = [];
+            for (var rowI = 0; rowI < this.state.hooks.length; rowI++) {
                 // add row of fish to "collection" for each hook before corrupt hooks // 6?
+                var fishlist = [];
+                for (var fishI = 0; fishI < this.state.hooks[rowI].length; fishI++) {
+                    fishlist[fishI] = _react2.default.createElement(
+                        "div",
+                        { className: "fish-card", key: "fish" + fishI + "row" + rowI },
+                        this.state.hooks[rowI][fishI]
+                    );
+                }
+                collection[rowI] = _react2.default.createElement(
+                    "div",
+                    { className: "fish-row", key: "fish-row" + rowI },
+                    fishlist
+                );
             }
 
             return _react2.default.createElement(
                 "div",
                 { id: "fish-page", className: "top-parent" },
-                _react2.default.createElement("div", { className: "fish-collection" })
+                _react2.default.createElement(
+                    "div",
+                    { className: "fish-collection" },
+                    collection
+                )
             );
         }
     }]);

@@ -36,7 +36,9 @@ export default class App extends React.Component {
                         </div>
                     </a>
                 </nav>
-                <AppScreen />
+                <AppScreen 
+                    current={this.state.page}
+                />
             </div>
 
         )
