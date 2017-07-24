@@ -15,6 +15,9 @@ export default class Die extends React.Component {
         }
     }
 
+    /*
+     * Get initial render information (gold)
+     */
     componentDidMount() {
         var self = this;
         fetch("/loaddie",
@@ -37,6 +40,17 @@ export default class Die extends React.Component {
         })
     }
 
+    /*
+     * The first part of the two part process of rolling the die.
+     * Animate roll takes 800ms to complete. In this time, it will display
+     * an animation of the die rolling by changing the css classes of the die.
+     * 
+     * The die should not be able to be rolled again while it is rolling
+     * or while inactive.
+     * 
+     * Once this animation is complete, roll() is called to get roll information
+     * from the backend
+     */
     animateRoll() {
         if (this.props.dieClass === "die die-inactive" || this.state.rolling === "rolling") {
             return
@@ -48,6 +62,13 @@ export default class Die extends React.Component {
         }
     }
 
+    /*
+     * The second part of rolling the die. Gets all the useful information
+     * needed for displaying and updating roll data (gold, multipliers, the roll result)
+     * from the backend. 
+     * 
+     * Calling this endpoint has important side effects (updating the user class)
+     */
     roll() {
         this.setState({rolling: ""})
         var self = this;

@@ -31,8 +31,8 @@ class User(db.Model, UserMixin):
         self.email = email
         self.passwordhash = generate_password_hash(password)
         self.gold = 0
-        self.hook0 = "0000000"
-        self.hook1 = "0000000"
+        self.hook0 = "0,0,0,0,0,0,0"
+        self.hook1 = "0,0,0,0,0,0,0"
         self.currentcooldown = 0
 
 
@@ -75,18 +75,20 @@ class User(db.Model, UserMixin):
         logging.info("Fish got: " + str(hookIndex))
 
         if hookNum == 0:
-            getNumFish = int(self.hook0[hookIndex]) + 1
-            # At the moment, make hookIndex = 1, TODO: change to =getNumFish
-            self.hook0[hookIndex] 
-            self.gold -= 10
+            if self.gold < 20:
+                return self.loadfish()
+            self.gold -= 20
+            hook0list = self.csvToList(self.hook0)
+            hook0list[hookIndex] = str(int(hook0list[hookIndex]) + 1)
+            self.hook0 = self.listToCsv(hook0list)
         elif hookNum == 1:
             logging.info("buying hook 1")
-        return
+        return self.loadfish()
 
     def loadfish(self):
         hooks = []
-        hooks.append(self.hook0)
-        hooks.append(self.hook1)
+        hooks.append(self.csvToList(self.hook0))
+        hooks.append(self.csvToList(self.hook1))
         data = {
             "hooks": hooks,
             "totalg": self.gold
@@ -99,17 +101,27 @@ class User(db.Model, UserMixin):
         }
         return data
 
+    def csvToList(self, csv):
+        return csv.split(",")
+
+    def listToCsv(self, lis):
+        csv = ",".join(lis)
+        logging.info(csv)
+        return csv
+
+
     def rolldie(self):
         # Sends a json containing the roll result, the multiplier, the cooldown, and the total gold
         min = 1
         max = 6
         mult = 1
         self.currentcooldown = 1      # Cooldown is 1 second
-        if self.hook0[0] == 1 : mult += 0.2
-        if self.hook0[1] == 1 : mult += 0.3
-        if self.hook0[2] == 1 : mult += 0.5
-        if self.hook0[3] == 1 : max = 8
-        if self.hook0[4] == 1 : min = 3
+        hook0list = self.csvToList(self.hook0)
+        if hook0list[0] == 1 : mult += 0.2
+        if hook0list[1] == 1 : mult += 0.3
+        if hook0list[2] == 1 : mult += 0.5
+        if hook0list[3] == 1 : max = 8
+        if hook0list[4] == 1 : min = 3
 
         roll = random.randint(min, max)
         self.gold += (roll * mult)

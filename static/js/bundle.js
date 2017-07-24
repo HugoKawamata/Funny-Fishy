@@ -22671,24 +22671,51 @@ var Fish = function (_React$Component) {
         return _this;
     }
 
+    /*
+     * Get initial render information
+     */
+
+
     _createClass(Fish, [{
         key: "componentDidMount",
         value: function componentDidMount() {
             this.getFishInfo();
         }
+
+        /*
+         * Sends a json message to the backend to indicate the user wishes to buy a hook.
+         * Validating that the user has enough gold is done in the backend (User class)
+         */
+
     }, {
         key: "buyHook",
         value: function buyHook(hookNum) {
-            console.log("buy hook " + hookNum);
             var self = this;
             fetch("/buyhook", {
                 method: "POST",
                 credentials: "same-origin",
                 body: JSON.stringify({ hook: hookNum }),
                 headers: { "Content-Type": "application/json" }
+            }).then(function (response) {
+                if (response.status !== 200) {
+                    console.log("Error " + response.status);
+                    return;
+                }
+
+                response.json().then(function (json) {
+                    self.setState({
+                        hooks: json.data.hooks,
+                        totalg: json.data.totalg
+                    });
+                });
             });
-            return;
         }
+
+        /*
+         * Gets the hook values (the fish the user has obtained)
+         * as well as the user's gold in order to display it.
+         */
+
     }, {
         key: "getFishInfo",
         value: function getFishInfo() {
@@ -22711,44 +22738,66 @@ var Fish = function (_React$Component) {
                 });
             });
         }
+
+        /*
+         * Renders the fish tab.
+         * 
+         * Generates the rows of fish the user owns. Unobtained cosmic rare fish are 
+         * not displayed (as completionists will be annoyed by this since they are so rare)
+         */
+
     }, {
         key: "render",
         value: function render() {
             var _this2 = this;
 
             var collection = [];
+            var hookprice = [20, 40];
 
             var _loop = function _loop(rowI) {
                 // add row of fish to "collection" for each hook before corrupt hooks // 6?
                 fishlist = [];
 
                 for (var fishI = 0; fishI < _this2.state.hooks[rowI].length; fishI++) {
-                    fishlist[fishI] = _react2.default.createElement(
-                        "div",
-                        { className: "fish-card", key: "fish" + fishI + "row" + rowI },
-                        _this2.state.hooks[rowI][fishI],
-                        _react2.default.createElement("img", {
-                            src: "static/images/fish/r" + rowI + "-f" + fishI + "-" + (_this2.state.hooks[rowI][fishI] == 0 ? "0" : "1") + ".png",
-                            alt: "Hook " + rowI + ", Fish " + fishI,
-                            key: "Hook " + rowI + ", Fish " + fishI
-                        })
-                    );
+                    if (fishI == 6 && _this2.state.hooks[rowI][fishI] == 0) {
+                        // Nothing, because only reveal cosmic rare fish to people who have them already
+                    } else {
+                        fishlist[fishI] = _react2.default.createElement(
+                            "div",
+                            { className: "fish-card", key: "fish" + fishI + "row" + rowI },
+                            _react2.default.createElement(
+                                "div",
+                                { className: "fish-number" },
+                                _this2.state.hooks[rowI][fishI]
+                            ),
+                            _react2.default.createElement("img", {
+                                className: "fish-image",
+                                src: "static/images/fish/r" + rowI + "-f" + fishI + "-" + (_this2.state.hooks[rowI][fishI] == 0 ? "0" : "1") + ".png",
+                                alt: "Hook " + rowI + ", Fish " + fishI,
+                                key: "Hook " + rowI + ", Fish " + fishI
+                            })
+                        );
+                    }
                 }
                 collection[rowI] = _react2.default.createElement(
                     "div",
-                    { className: "fish-row", key: "fish-row" + rowI },
+                    { className: "fish-section", key: "fish-section" + rowI },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "fish-row", key: "fish-row" + rowI },
+                        fishlist
+                    ),
                     _react2.default.createElement(
                         "div",
                         {
-                            className: "hook hook" + rowI,
+                            className: "hook button hook" + rowI + " " + (_this2.state.totalg > hookprice[rowI] ? "" : "hook-inactive"),
                             key: "hook" + rowI,
                             onClick: function onClick() {
                                 return _this2.buyHook(rowI);
                             } },
                         "Buy hook ",
                         rowI
-                    ),
-                    fishlist
+                    )
                 );
             };
 
@@ -22764,6 +22813,8 @@ var Fish = function (_React$Component) {
                 _react2.default.createElement(
                     "div",
                     { className: "totalg" },
+                    "Total Gold:",
+                    _react2.default.createElement("br", null),
                     this.state.totalg
                 ),
                 _react2.default.createElement(
@@ -22826,6 +22877,11 @@ var Die = function (_React$Component) {
         return _this;
     }
 
+    /*
+     * Get initial render information (gold)
+     */
+
+
     _createClass(Die, [{
         key: "componentDidMount",
         value: function componentDidMount() {
@@ -22846,6 +22902,19 @@ var Die = function (_React$Component) {
                 });
             });
         }
+
+        /*
+         * The first part of the two part process of rolling the die.
+         * Animate roll takes 800ms to complete. In this time, it will display
+         * an animation of the die rolling by changing the css classes of the die.
+         * 
+         * The die should not be able to be rolled again while it is rolling
+         * or while inactive.
+         * 
+         * Once this animation is complete, roll() is called to get roll information
+         * from the backend
+         */
+
     }, {
         key: "animateRoll",
         value: function animateRoll() {
@@ -22862,6 +22931,15 @@ var Die = function (_React$Component) {
                 }, 800);
             }
         }
+
+        /*
+         * The second part of rolling the die. Gets all the useful information
+         * needed for displaying and updating roll data (gold, multipliers, the roll result)
+         * from the backend. 
+         * 
+         * Calling this endpoint has important side effects (updating the user class)
+         */
+
     }, {
         key: "roll",
         value: function roll() {

@@ -13,6 +13,25 @@ p, div, span {
 .sinister-text {
   font-family: "Spectral", serif; }
 
+button, .button {
+  font-size: 2em;
+  font-family: "Baloo", sans-serif;
+  background-color: #3dffa7;
+  border: 0px;
+  border-radius: 15px;
+  border-bottom: 5px solid #0eba69; }
+
+button:hover, .button:hover {
+  border-bottom: 5px solid #0ecc72;
+  background-color: #7affc0;
+  color: #555; }
+
+button:active, .button:active {
+  border-bottom: 0px solid #0eba69;
+  border-top: 2px solid #0eba69;
+  background-color: #0ecc72;
+  color: #444; }
+
 /* App */
 .top-parent {
   background: linear-gradient(#0FCDC5, #3680C9);
@@ -112,6 +131,50 @@ p, div, span {
 .fish-row {
   display: flex; }
 
+#fish-page .totalg {
+  font-size: 1.5em;
+  text-align: center;
+  padding: 1em; }
+
+.fish-section {
+  text-align: center; }
+
+.fish-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  max-width: 1000px;
+  margin: auto; }
+
+.fish-card {
+  text-align: center; }
+  .fish-card .fish-number {
+    font-size: 1.2em;
+    font-family: "Baloo", sans-serif; }
+
+.hook {
+  margin: 1em 0 2em 0; }
+
+.hook-inactive {
+  color: #333;
+  background-color: #555;
+  font-size: 2em;
+  font-family: "Baloo", sans-serif;
+  border-radius: 15px;
+  border-bottom: 0px;
+  cursor: default; }
+
+.hook-inactive:hover {
+  border-bottom: 0px;
+  background-color: #555;
+  color: #333; }
+
+.hook-inactive:active {
+  border-bottom: 0px;
+  border-top: 0px;
+  background-color: #555;
+  color: #333; }
+
 /* Home */
 .home-header {
   padding-top: 10vh;
@@ -137,25 +200,6 @@ p, div, span {
   .button-cont a {
     text-align: center;
     width: 30%; }
-
-button, .button {
-  font-size: 2em;
-  font-family: "Baloo", sans-serif;
-  background-color: #3dffa7;
-  border: 0px;
-  border-radius: 15px;
-  border-bottom: 5px solid #0eba69; }
-
-button:hover, .button:hover {
-  border-bottom: 5px solid #0ecc72;
-  background-color: #7affc0;
-  color: #555; }
-
-button:active, .button:active {
-  border-bottom: 0px solid #0eba69;
-  border-top: 2px solid #0eba69;
-  background-color: #0ecc72;
-  color: #444; }
 
 .home-title {
   font-size: 5em;

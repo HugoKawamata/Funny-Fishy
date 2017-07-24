@@ -16,6 +16,28 @@ p, div, span {
     font-family: $horror;
 }
 
+button, .button {
+    font-size: 2em;
+    font-family: $heading;
+    background-color: $button-color;
+    border: 0px;
+    border-radius: 15px;
+    border-bottom: 5px solid $button-border-color;
+}
+
+button:hover, .button:hover {
+    border-bottom: 5px solid $button-border-hover-color;
+    background-color: $button-hover-color;
+    color: #555;
+}
+
+button:active, .button:active {
+    border-bottom: 0px solid $button-border-color;
+    border-top: 2px solid $button-border-color;
+    background-color: $button-border-hover-color;
+    color: #444;
+}
+
 /* App */
 
 .top-parent {
@@ -146,6 +168,66 @@ p, div, span {
     display: flex;
 }
 
+#fish-page {
+    .totalg {
+        font-size: 1.5em;
+        text-align: center;
+        padding: 1em;
+    }
+}
+
+.fish-section {
+    text-align: center;
+}
+
+.fish-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 100px * 10;
+    margin: auto;
+}
+
+.fish-card {
+    text-align: center;
+
+    .fish-number {
+        font-size: 1.2em;
+        font-family: $heading;
+    }
+
+    .fish-image {
+
+    }
+}
+
+.hook {
+    margin: 1em 0 2em 0;
+}
+
+.hook-inactive {
+    color: #333;
+    background-color: #555;
+    font-size: 2em;
+    font-family: $heading;
+    border-radius: 15px;
+    border-bottom: 0px;
+    cursor: default;
+}
+
+.hook-inactive:hover {
+    border-bottom: 0px;
+    background-color: #555;
+    color: #333;
+}
+
+.hook-inactive:active {
+    border-bottom: 0px;
+    border-top: 0px;
+    background-color: #555;
+    color: #333;
+}
+
 
 /* Home */
 
@@ -186,28 +268,6 @@ p, div, span {
 
 }
 
-button, .button {
-    font-size: 2em;
-    font-family: $heading;
-    background-color: $button-color;
-    border: 0px;
-    border-radius: 15px;
-    border-bottom: 5px solid $button-border-color;
-}
-
-button:hover, .button:hover {
-    border-bottom: 5px solid $button-border-hover-color;
-    background-color: $button-hover-color;
-    color: #555;
-}
-
-button:active, .button:active {
-    border-bottom: 0px solid $button-border-color;
-    border-top: 2px solid $button-border-color;
-    background-color: $button-border-hover-color;
-    color: #444;
-
-}
 
 .home-title {
     font-size: 5em;
