@@ -122,6 +122,15 @@ def loadfish():
     response = ok(current_user.loadfish())
     return response
 
+@app.route("/buyhook", methods=["POST"])
+@login_required
+def buyhook():
+    hooknum = request.json['hook']
+    logging.info(hooknum)
+    response = ok(current_user.buyhook(hooknum))
+    db.session.commit()
+    return response
+
 @app.route("/cooldown", methods=["GET"])
 @login_required
 def cooldown():

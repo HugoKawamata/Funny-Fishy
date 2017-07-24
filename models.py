@@ -4,8 +4,15 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import flask_login
 from flask_login import UserMixin
+from enum import Enum
 
 db = SQLAlchemy()
+
+class Rarity(Enum):
+    COMMON = 1
+    UNCOMMON = 2
+    RARE = 3
+    COSMIC = 4
 
 class User(db.Model, UserMixin):
     """
@@ -24,10 +31,9 @@ class User(db.Model, UserMixin):
         self.email = email
         self.passwordhash = generate_password_hash(password)
         self.gold = 0
-        self.hook0 = "00000"
-        self.hook1 = "00000"
+        self.hook0 = "0000000"
+        self.hook1 = "0000000"
         self.currentcooldown = 0
-        logging.info
 
 
     def check_password(self, password_attempt):
@@ -40,12 +46,50 @@ class User(db.Model, UserMixin):
         }
         return data
         
+    def buyhook(self, hookNum):
+        # Hooks will have 7 possible fish: 
+        # 3 Commons, 2 Uncommons, 1 Rare, and 1 Cosmic Rare
+        # COM% = 89/140
+        # UNC% = 40/140
+        # RAR% = 10/140
+        # COS% = 1/140
+
+        rng = random.randint(0, 140)
+        if rng <= 89:
+            rarity = Rarity.COMMON
+            whichFish = random.randint(0, 2)
+            hookIndex = whichFish
+        elif rng > 89 and rng <= 129:
+            rarity = Rarity.UNCOMMON
+            whichFish = random.randint(0, 1)
+            hookIndex = whichFish + 3
+        elif rng > 129 and rng <= 139:
+            rarity = Rarity.RARE
+            hookIndex = 5
+        elif rng > 139:
+            rarity = Rarity.COSMIC
+            hookIndex = 6
+        else:
+            logging.info("RNG for rarity generation failed")
+        
+        logging.info("Fish got: " + str(hookIndex))
+
+        if hookNum == 0:
+            getNumFish = int(self.hook0[hookIndex]) + 1
+            # At the moment, make hookIndex = 1, TODO: change to =getNumFish
+            self.hook0[hookIndex] 
+            self.gold -= 10
+        elif hookNum == 1:
+            logging.info("buying hook 1")
+        return
+
     def loadfish(self):
         hooks = []
         hooks.append(self.hook0)
         hooks.append(self.hook1)
         data = {
-            "hooks": hooks
+            "hooks": hooks,
+            "totalg": self.gold
         }
         return data
 

@@ -5,7 +5,8 @@ export default class Fish extends React.Component {
     constructor() {
         super();
         this.state = {
-            hooks: []
+            hooks: [],
+            totalg: 0
         }
         this.getFishInfo = this.getFishInfo.bind(this)
         this.buyHook = this.buyHook.bind(this)
@@ -17,6 +18,15 @@ export default class Fish extends React.Component {
 
     buyHook(hookNum) {
         console.log("buy hook " + hookNum);
+        var self = this;
+        fetch("/buyhook",
+            {
+                method: "POST",
+                credentials: "same-origin",
+                body: JSON.stringify({hook: hookNum}),
+                headers: { "Content-Type": "application/json" }
+            }
+        )
         return;
     }
 
@@ -26,7 +36,7 @@ export default class Fish extends React.Component {
         fetch("/loadfish",
             {
                 method: "POST",
-                credentials: "same-origin"
+                credentials: "same-origin",
             }
         ).then(function(response) {
             if (response.status !== 200) {
@@ -37,7 +47,8 @@ export default class Fish extends React.Component {
 
             response.json().then(function(json) {
                 self.setState({
-                    hooks: json.data.hooks
+                    hooks: json.data.hooks,
+                    totalg: json.data.totalg
                 })
             })
         })
@@ -50,8 +61,9 @@ export default class Fish extends React.Component {
             var fishlist = [];
             for (let fishI = 0; fishI < this.state.hooks[rowI].length; fishI++) {
                 fishlist[fishI] = <div className="fish-card" key={"fish" + fishI + "row" + rowI}>
+                    {this.state.hooks[rowI][fishI]}
                     <img 
-                        src={"static/images/fish/r" + rowI + "-f" + fishI + "-" + this.state.hooks[rowI][fishI] + ".png"}
+                        src={"static/images/fish/r" + rowI + "-f" + fishI + "-" + (this.state.hooks[rowI][fishI] == 0 ? "0" : "1") + ".png"}
                         alt={"Hook " + rowI + ", Fish " + fishI}
                         key={"Hook " + rowI + ", Fish " + fishI}
                     />
@@ -69,6 +81,7 @@ export default class Fish extends React.Component {
 
         return(
             <div id="fish-page" className="top-parent">
+                <div className="totalg">{this.state.totalg}</div>
                 <div className="fish-collection" >
                     {collection}
                 </div>

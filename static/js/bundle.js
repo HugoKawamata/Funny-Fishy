@@ -22663,7 +22663,8 @@ var Fish = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Fish.__proto__ || Object.getPrototypeOf(Fish)).call(this));
 
         _this.state = {
-            hooks: []
+            hooks: [],
+            totalg: 0
         };
         _this.getFishInfo = _this.getFishInfo.bind(_this);
         _this.buyHook = _this.buyHook.bind(_this);
@@ -22679,6 +22680,13 @@ var Fish = function (_React$Component) {
         key: "buyHook",
         value: function buyHook(hookNum) {
             console.log("buy hook " + hookNum);
+            var self = this;
+            fetch("/buyhook", {
+                method: "POST",
+                credentials: "same-origin",
+                body: JSON.stringify({ hook: hookNum }),
+                headers: { "Content-Type": "application/json" }
+            });
             return;
         }
     }, {
@@ -22697,7 +22705,8 @@ var Fish = function (_React$Component) {
 
                 response.json().then(function (json) {
                     self.setState({
-                        hooks: json.data.hooks
+                        hooks: json.data.hooks,
+                        totalg: json.data.totalg
                     });
                 });
             });
@@ -22717,8 +22726,9 @@ var Fish = function (_React$Component) {
                     fishlist[fishI] = _react2.default.createElement(
                         "div",
                         { className: "fish-card", key: "fish" + fishI + "row" + rowI },
+                        _this2.state.hooks[rowI][fishI],
                         _react2.default.createElement("img", {
-                            src: "static/images/fish/r" + rowI + "-f" + fishI + "-" + _this2.state.hooks[rowI][fishI] + ".png",
+                            src: "static/images/fish/r" + rowI + "-f" + fishI + "-" + (_this2.state.hooks[rowI][fishI] == 0 ? "0" : "1") + ".png",
                             alt: "Hook " + rowI + ", Fish " + fishI,
                             key: "Hook " + rowI + ", Fish " + fishI
                         })
@@ -22751,6 +22761,11 @@ var Fish = function (_React$Component) {
             return _react2.default.createElement(
                 "div",
                 { id: "fish-page", className: "top-parent" },
+                _react2.default.createElement(
+                    "div",
+                    { className: "totalg" },
+                    this.state.totalg
+                ),
                 _react2.default.createElement(
                     "div",
                     { className: "fish-collection" },
