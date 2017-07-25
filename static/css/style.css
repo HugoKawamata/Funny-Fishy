@@ -146,10 +146,26 @@ button:active, .button:active {
   margin: auto; }
 
 .fish-card {
-  text-align: center; }
+  text-align: center;
+  position: relative; }
   .fish-card .fish-number {
     font-size: 1.2em;
     font-family: "Baloo", sans-serif; }
+  .fish-card .fish-image {
+    width: 80px; }
+  .fish-card .fish-desc {
+    display: none;
+    width: 15em;
+    padding: 1em;
+    text-align: left; }
+
+.fish-card:hover .fish-desc {
+  display: block;
+  position: absolute;
+  background-color: #D8CBBB;
+  z-index: 2; }
+.fish-card:hover .fish-desc-right {
+  right: 0; }
 
 .hook {
   margin: 1em 0 2em 0; }

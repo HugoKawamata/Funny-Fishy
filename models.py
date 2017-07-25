@@ -132,10 +132,10 @@ class User(db.Model, UserMixin):
 
         # Hook 0
         hook0list = self.csvToList(self.hook0)
-        mult += 0.5 * int(hook0list[0]) # Common 1
+        mult += 0.25 * int(hook0list[0]) # Common 1
         max += 1 * int(hook0list[1]) # Common 2
         min += 1 * int(hook0list[2]) # Common 3
-        mult += 2 * int(hook0list[3]) # Uncommon 1
+        mult += 1 * int(hook0list[3]) # Uncommon 1
         cd += 1 * int(hook0list[3]) # Uncommon 1
         max += 2 * int(hook0list[4]) # Uncommon 2
         mult += 40 * int(hook0list[6]) # Cosmic
@@ -144,9 +144,12 @@ class User(db.Model, UserMixin):
 
 
         self.currentcooldown = cd      # Cooldown is 1 second
-        roll = random.randint(min, max)
+        if min > max:
+            roll = min
+        else:
+            roll = random.randint(min, max)
         if roll == min:
-            if int(hook0list[5]):
+            if int(hook0list[5]) > 0:
                 roll = 0
                 roll += max * hook0list[5] # Hook 0 Rare
             

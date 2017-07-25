@@ -22675,24 +22675,100 @@ var Fish = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Fish.__proto__ || Object.getPrototypeOf(Fish)).call(this));
 
         _this.state = {
+            width: 0,
+            height: 0,
             hooks: [],
             totalg: 0,
-            hookprices: []
+            hookprices: [],
+            hookdesc: []
         };
         _this.getFishInfo = _this.getFishInfo.bind(_this);
         _this.buyHook = _this.buyHook.bind(_this);
+        _this.updateWindowDimensions = _this.updateWindowDimensions.bind(_this);
+        _this.loadFishDescriptions = _this.loadFishDescriptions.bind(_this);
         return _this;
     }
 
-    /*
-     * Get initial render information
-     */
-
-
     _createClass(Fish, [{
-        key: "componentDidMount",
+        key: 'loadFishDescriptions',
+        value: function loadFishDescriptions() {
+            var hook0 = [_react2.default.createElement(
+                'div',
+                null,
+                'Jeffy Fish',
+                _react2.default.createElement('br', null),
+                'Common',
+                _react2.default.createElement('br', null),
+                'Multiplier +0.25'
+            ), _react2.default.createElement(
+                'div',
+                null,
+                'Clown Fish',
+                _react2.default.createElement('br', null),
+                'Common',
+                _react2.default.createElement('br', null),
+                'Die Max +1'
+            ), _react2.default.createElement(
+                'div',
+                null,
+                'Angel Fish',
+                _react2.default.createElement('br', null),
+                'Common',
+                _react2.default.createElement('br', null),
+                'Die Min +1'
+            ), _react2.default.createElement(
+                'div',
+                null,
+                'Fish of Paradise',
+                _react2.default.createElement('br', null),
+                'Uncommon',
+                _react2.default.createElement('br', null),
+                'Multiplier +1, Cooldown +1s'
+            ), _react2.default.createElement(
+                'div',
+                null,
+                'Fish Avenger',
+                _react2.default.createElement('br', null),
+                'Uncommon',
+                _react2.default.createElement('br', null),
+                'Die Max +1'
+            ), _react2.default.createElement(
+                'div',
+                null,
+                'Funny Fish',
+                _react2.default.createElement('br', null),
+                'Rare',
+                _react2.default.createElement('br', null),
+                'If you roll your die min, change it to your die max!'
+            )];
+            var hook1 = [1, 2, 3, 4, 5, 6, 7];
+            var descriptions = [];
+            descriptions[0] = hook0;
+            descriptions[1] = hook1;
+            this.setState({ hookdesc: descriptions });
+        }
+    }, {
+        key: 'updateWindowDimensions',
+        value: function updateWindowDimensions() {
+            this.setState({ width: window.innerWidth, height: window.innerHeight });
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            window.removeEventListener('resize', this.updateWindowDimensions);
+        }
+
+        /*
+         * Get initial render information
+         */
+
+    }, {
+        key: 'componentDidMount',
         value: function componentDidMount() {
+            this.updateWindowDimensions();
+            window.addEventListener('resize', this.updateWindowDimensions);
             this.getFishInfo();
+            this.loadFishDescriptions();
         }
 
         /*
@@ -22701,7 +22777,7 @@ var Fish = function (_React$Component) {
          */
 
     }, {
-        key: "buyHook",
+        key: 'buyHook',
         value: function buyHook(hookNum) {
             var self = this;
             fetch("/buyhook", {
@@ -22731,7 +22807,7 @@ var Fish = function (_React$Component) {
          */
 
     }, {
-        key: "getFishInfo",
+        key: 'getFishInfo',
         value: function getFishInfo() {
             console.log("Starting fish info call");
             var self = this;
@@ -22762,81 +22838,137 @@ var Fish = function (_React$Component) {
          */
 
     }, {
-        key: "render",
+        key: 'render',
         value: function render() {
             var _this2 = this;
 
             var collection = [];
 
             var _loop = function _loop(rowI) {
+                // Get number of fish in the row (cause cosmic rare fish aren't automatically revealed)
+                numFishInRow = _this2.state.hooks[rowI][6] == 0 ? 6 : 7;
+                // Which fish are on the right side?
+
+                rightSideFish = [];
+                minWidth = 80 * numFishInRow;
+
+                if (_this2.state.width >= minWidth) {
+                    // All fish fit in screen
+                    rightSideFish[0] = numFishInRow - 3;
+                    rightSideFish[1] = numFishInRow - 2;
+                    rightSideFish[2] = numFishInRow - 1; // Minus 1 because indexes begin at 0
+                } else {
+                    // There are two or more rows of flex wrapping fish
+
+                    if (Math.floor(_this2.state.width / 80) == 5) {
+                        // 5 fish on top row
+                        console.log("5 fish top row");
+                        rightSideFish[0] = 3;
+                        rightSideFish[1] = 4;
+                    } else if (Math.floor(_this2.state.width / 80) == 4) {
+                        // 4 fish on top row
+                        console.log("4 fish top row");
+                        rightSideFish[0] = 2;
+                        rightSideFish[1] = 3;
+                        rightSideFish[2] = numFishInRow - 1;
+                    } else if (Math.floor(_this2.state.width / 80) == 3) {
+                        // 3 fish on top row, 3 fish bottom row
+                        console.log("3 fish top row");
+                        rightSideFish[0] = 2;
+                        rightSideFish[1] = 5;
+                    }
+
+                    // Don't worry if there are 3 rows of fish because the screen has to be
+                    // ridiculously narrow for that to happen.
+                }
                 // add row of fish to "collection" for each hook before corrupt hooks // 6?
                 fishlist = [];
+                rightFishIndex = 0;
 
                 for (var fishI = 0; fishI < _this2.state.hooks[rowI].length; fishI++) {
+                    fishDescClass = "fish-desc";
+
+                    if (rightSideFish[rightFishIndex] === fishI) {
+                        console.log("came across fish " + fishI + " which is a rightfish");
+                        fishDescClass = "fish-desc fish-desc-right";
+                        console.log(fishDescClass);
+                        rightFishIndex += 1;
+                    }
+                    console.log("outside if " + fishDescClass);
                     if (fishI == 6 && _this2.state.hooks[rowI][fishI] == 0) {
                         // Nothing, because only reveal cosmic rare fish to people who have them already
                     } else {
                         fishlist[fishI] = _react2.default.createElement(
-                            "div",
-                            { className: "fish-card", key: "fish" + fishI + "row" + rowI },
+                            'div',
+                            { className: 'fish-card', key: "fish" + fishI + "row" + rowI },
                             _react2.default.createElement(
-                                "div",
-                                { className: "fish-number" },
+                                'div',
+                                { className: 'fish-number' },
                                 _this2.state.hooks[rowI][fishI]
                             ),
-                            _react2.default.createElement("img", {
-                                className: "fish-image",
+                            _react2.default.createElement('img', {
+                                className: 'fish-image',
                                 src: "static/images/fish/r" + rowI + "-f" + fishI + "-" + (_this2.state.hooks[rowI][fishI] == 0 ? "0" : "1") + ".png",
                                 alt: "Hook " + rowI + ", Fish " + fishI,
                                 key: "Hook " + rowI + ", Fish " + fishI
-                            })
+                            }),
+                            _react2.default.createElement(
+                                'div',
+                                { className: fishDescClass },
+                                _this2.state.hookdesc[rowI][fishI]
+                            )
                         );
                     }
                 }
                 collection[rowI] = _react2.default.createElement(
-                    "div",
-                    { className: "fish-section", key: "fish-section" + rowI },
+                    'div',
+                    { className: 'fish-section', key: "fish-section" + rowI },
                     _react2.default.createElement(
-                        "div",
-                        { className: "fish-row", key: "fish-row" + rowI },
+                        'div',
+                        { className: 'fish-row', key: "fish-row" + rowI },
                         fishlist
                     ),
                     _react2.default.createElement(
-                        "div",
+                        'div',
                         {
                             className: "hook button hook" + rowI + " " + (_this2.state.totalg > _this2.state.hookprices[rowI] ? "" : "hook-inactive"),
                             key: "hook" + rowI,
                             onClick: function onClick() {
                                 return _this2.buyHook(rowI);
                             } },
-                        "Buy hook ",
+                        'Buy hook ',
                         rowI,
-                        ": ",
+                        ': ',
                         _this2.state.hookprices[rowI],
-                        "g"
+                        'g'
                     )
                 );
             };
 
             for (var rowI = 0; rowI < this.state.hooks.length; rowI++) {
+                var numFishInRow;
+                var rightSideFish;
+                var minWidth;
                 var fishlist;
+                var rightFishIndex;
+                var fishDescClass;
 
                 _loop(rowI);
             }
 
             return _react2.default.createElement(
-                "div",
-                { id: "fish-page", className: "top-parent" },
+                'div',
+                { id: 'fish-page', className: 'top-parent' },
                 _react2.default.createElement(
-                    "div",
-                    { className: "totalg" },
-                    "Total Gold:",
-                    _react2.default.createElement("br", null),
+                    'div',
+                    { className: 'totalg' },
+                    'Total Gold:',
+                    _react2.default.createElement('br', null),
                     this.state.totalg
                 ),
                 _react2.default.createElement(
-                    "div",
-                    { className: "fish-collection" },
+                    'div',
+                    { className: 'fish-collection' },
                     collection
                 )
             );

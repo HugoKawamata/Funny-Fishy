@@ -5,20 +5,55 @@ export default class Fish extends React.Component {
     constructor() {
         super();
         this.state = {
+            width: 0,
+            height: 0,
             hooks: [],
             totalg: 0,
-            hookprices: []
+            hookprices: [],
+            hookdesc: []
         }
         this.getFishInfo = this.getFishInfo.bind(this)
         this.buyHook = this.buyHook.bind(this)
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
+        this.loadFishDescriptions = this.loadFishDescriptions.bind(this)
+    }
+
+    loadFishDescriptions() {
+        var hook0 = [
+            <div>Jeffy Fish<br/>Common<br/>Multiplier +0.25</div>,
+            <div>Clown Fish<br/>Common<br/>Die Max +1</div>,
+            <div>Angel Fish<br/>Common<br/>Die Min +1</div>,
+            <div>Fish of Paradise<br/>Uncommon<br/>Multiplier +1, Cooldown +1s</div>,
+            <div>Fish Avenger<br/>Uncommon<br/>Die Max +1</div>,
+            <div>Funny Fish<br/>Rare<br/>If you roll your die min, change it to your die max!</div>
+        ]
+        var hook1 = [
+            1, 2, 3, 4, 5, 6, 7
+        ]
+        var descriptions = []
+        descriptions[0] = hook0
+        descriptions[1] = hook1
+        this.setState({hookdesc: descriptions})
+    }
+
+    updateWindowDimensions() {
+        this.setState({ width: window.innerWidth, height: window.innerHeight });
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
     }
 
     /*
      * Get initial render information
      */
     componentDidMount() {
+        this.updateWindowDimensions()
+        window.addEventListener('resize', this.updateWindowDimensions);
         this.getFishInfo();
+        this.loadFishDescriptions();
     }
+    
 
     /*
      * Sends a json message to the backend to indicate the user wishes to buy a hook.
@@ -88,9 +123,49 @@ export default class Fish extends React.Component {
     render() {
         var collection = [];
         for (let rowI = 0; rowI < this.state.hooks.length; rowI++) {
+            // Get number of fish in the row (cause cosmic rare fish aren't automatically revealed)
+            var numFishInRow = this.state.hooks[rowI][6] == 0 ? 6 : 7;
+            // Which fish are on the right side?
+            var rightSideFish = [];
+            var minWidth = 80 * numFishInRow;
+            if (this.state.width >= minWidth) {
+                // All fish fit in screen
+                rightSideFish[0] = numFishInRow - 3;
+                rightSideFish[1] = numFishInRow - 2;
+                rightSideFish[2] = numFishInRow - 1; // Minus 1 because indexes begin at 0
+            } else {
+                // There are two or more rows of flex wrapping fish
+
+                if (Math.floor(this.state.width / 80) == 5) { // 5 fish on top row
+                    console.log("5 fish top row")
+                    rightSideFish[0] = 3;
+                    rightSideFish[1] = 4;
+                } else if (Math.floor(this.state.width / 80) == 4) { // 4 fish on top row
+                    console.log("4 fish top row")
+                    rightSideFish[0] = 2;
+                    rightSideFish[1] = 3;
+                    rightSideFish[2] = numFishInRow - 1;
+                } else if (Math.floor(this.state.width / 80) == 3) { // 3 fish on top row, 3 fish bottom row
+                    console.log("3 fish top row")
+                    rightSideFish[0] = 2;
+                    rightSideFish[1] = 5;
+                }
+
+                // Don't worry if there are 3 rows of fish because the screen has to be
+                // ridiculously narrow for that to happen.
+            }
             // add row of fish to "collection" for each hook before corrupt hooks // 6?
             var fishlist = [];
+            var rightFishIndex = 0;
             for (let fishI = 0; fishI < this.state.hooks[rowI].length; fishI++) {
+                var fishDescClass = "fish-desc"
+                if (rightSideFish[rightFishIndex] === fishI) {
+                    console.log("came across fish " + fishI + " which is a rightfish")
+                    fishDescClass = "fish-desc fish-desc-right";
+                    console.log(fishDescClass)
+                    rightFishIndex += 1;
+                }
+                console.log("outside if " + fishDescClass)
                 if (fishI == 6 && this.state.hooks[rowI][fishI] == 0) {
                     // Nothing, because only reveal cosmic rare fish to people who have them already
                 } else {
@@ -105,6 +180,9 @@ export default class Fish extends React.Component {
                                 alt={"Hook " + rowI + ", Fish " + fishI}
                                 key={"Hook " + rowI + ", Fish " + fishI}
                             />
+                            <div className={fishDescClass} >
+                                {this.state.hookdesc[rowI][fishI]}
+                            </div>
                         </div>
                     )
                 }

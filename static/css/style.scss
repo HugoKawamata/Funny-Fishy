@@ -191,6 +191,7 @@ button:active, .button:active {
 
 .fish-card {
     text-align: center;
+    position: relative;
 
     .fish-number {
         font-size: 1.2em;
@@ -198,7 +199,27 @@ button:active, .button:active {
     }
 
     .fish-image {
+        width: 80px;
+    }
 
+    .fish-desc {
+        display: none;
+        width: 15em;
+        padding: 1em;
+        text-align: left;
+    }
+}
+
+.fish-card:hover {
+    .fish-desc {
+        display: block;
+        position: absolute;
+        background-color: $sand;
+        z-index: 2;
+    }
+
+    .fish-desc-right {
+        right: 0;
     }
 }
 
