@@ -22576,7 +22576,7 @@ var AppScreen = function (_React$Component) {
                         cd: json.data.cd
                     });
                     if (cooldown === 0) {
-                        self.setState({ dieClass: "die die-active", fnm: "floating-number-still" });
+                        self.setState({ dieClass: "die die-active" });
                     }
                     self.gameloop(json.data.cd);
                 });
@@ -22590,6 +22590,9 @@ var AppScreen = function (_React$Component) {
             if (cooldown === startingCooldown) {
                 // Start cooldown
                 this.setState({ dieClass: "die die-inactive", fnm: "floating-number-move" });
+                setTimeout(function () {
+                    return _this2.setState({ fnm: "floating-number-still" });
+                }, 800);
             }
             this.setState({ cd: cooldown });
             if (this.state.cd > 0) {
