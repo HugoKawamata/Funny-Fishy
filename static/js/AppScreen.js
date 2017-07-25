@@ -8,7 +8,7 @@ export default class AppScreen extends React.Component {
         super();
         this.state = {
             cd: 0,
-            dieClass: "die die-active",
+            dieClass: "die die-inactive", // Until proven guilty
             fnm: "floating-number-still"
         }
     }
@@ -40,16 +40,25 @@ export default class AppScreen extends React.Component {
     }
 
     gameloop(cooldown, startingCooldown) {
+        console.log("starting gameloop, cd == " + this.state.cd)
         if (cooldown === startingCooldown) {
             // Start cooldown
             this.setState({dieClass: "die die-inactive", fnm: "floating-number-move"});
             setTimeout(() => this.setState({fnm: "floating-number-still"}), 800);
+        } else if (cooldown > 0 && startingCooldown == "boot") {
+            this.setState({dieClass: "die die-inactive"})
         }
         this.setState({cd: cooldown});
         if (this.state.cd > 0) {
             setTimeout((() => this.getData(cooldown - 1)), 1000);
         } else {
-            // Cooldown finished
+            // This part should be called in two cases:
+            // 1. The initial cooldown is 0. This will occur
+            //    when the game begins.
+            // 2. The die has already been reset to die-active and gameloop
+            //    is doing a final pass through.
+            console.log("ending gameloop, cd == " + this.state.cd)
+            this.setState({dieClass: "die die-active"})
         }
     }
 

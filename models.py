@@ -1,5 +1,6 @@
 import logging
 import random
+import math
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import flask_login
@@ -24,6 +25,8 @@ class User(db.Model, UserMixin):
     passwordhash    = db.Column('passwordhash', db.String(128))
     gold            = db.Column('gold',         db.Float)
     currentcooldown = db.Column('currentcooldown', db.Integer)
+    hook0price      = db.Column('hook0price',   db.Integer)
+    hook1price      = db.Column('hook1price',   db.Integer)
     hook0           = db.Column('hook0',        db.String(64))
     hook1           = db.Column('hook1',        db.String(64))
 
@@ -31,6 +34,8 @@ class User(db.Model, UserMixin):
         self.email = email
         self.passwordhash = generate_password_hash(password)
         self.gold = 0
+        self.hook0price = 15
+        self.hook1price = 100
         self.hook0 = "0,0,0,0,0,0,0"
         self.hook1 = "0,0,0,0,0,0,0"
         self.currentcooldown = 0
@@ -41,6 +46,8 @@ class User(db.Model, UserMixin):
 
     def cooldown_tick(self):
         self.currentcooldown -= 1
+        if self.currentcooldown < 0:
+            self.currentcooldown = 0
         data = {
             "cd": self.currentcooldown
         }
@@ -75,29 +82,35 @@ class User(db.Model, UserMixin):
         logging.info("Fish got: " + str(hookIndex))
 
         if hookNum == 0:
-            if self.gold < 20:
+            if self.gold < self.hook0price: # Ensure user has enough gold
                 return self.loadfish()
-            self.gold -= 20
-            hook0list = self.csvToList(self.hook0)
-            hook0list[hookIndex] = str(int(hook0list[hookIndex]) + 1)
-            self.hook0 = self.listToCsv(hook0list)
+            self.gold -= self.hook0price # Take away gold from user
+            self.hook0price = math.ceil(self.hook0price * 1.15) # Increase price of hook0
+            hook0list = self.csvToList(self.hook0) # Convert string csv to list
+            hook0list[hookIndex] = str(int(hook0list[hookIndex]) + 1) # Increment the fish that you got
+            self.hook0 = self.listToCsv(hook0list) # Send back to database
         elif hookNum == 1:
             logging.info("buying hook 1")
         return self.loadfish()
 
     def loadfish(self):
+        hookprices = []
+        hookprices.append(self.hook0price)
+        hookprices.append(self.hook1price)
         hooks = []
         hooks.append(self.csvToList(self.hook0))
         hooks.append(self.csvToList(self.hook1))
         data = {
             "hooks": hooks,
-            "totalg": self.gold
+            "totalg": self.gold,
+            "hookprices" : hookprices
         }
         return data
 
     def loaddie(self):
         data = {
-            "startg": self.gold
+            "startg": self.gold,
+            "cd": self.currentcooldown
         }
         return data
 

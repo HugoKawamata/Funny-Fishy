@@ -22552,7 +22552,7 @@ var AppScreen = function (_React$Component) {
 
         _this.state = {
             cd: 0,
-            dieClass: "die die-active",
+            dieClass: "die die-inactive", // Until proven guilty
             fnm: "floating-number-still"
         };
         return _this;
@@ -22587,12 +22587,15 @@ var AppScreen = function (_React$Component) {
         value: function gameloop(cooldown, startingCooldown) {
             var _this2 = this;
 
+            console.log("starting gameloop, cd == " + this.state.cd);
             if (cooldown === startingCooldown) {
                 // Start cooldown
                 this.setState({ dieClass: "die die-inactive", fnm: "floating-number-move" });
                 setTimeout(function () {
                     return _this2.setState({ fnm: "floating-number-still" });
                 }, 800);
+            } else if (cooldown > 0 && startingCooldown == "boot") {
+                this.setState({ dieClass: "die die-inactive" });
             }
             this.setState({ cd: cooldown });
             if (this.state.cd > 0) {
@@ -22600,7 +22603,13 @@ var AppScreen = function (_React$Component) {
                     return _this2.getData(cooldown - 1);
                 }, 1000);
             } else {
-                // Cooldown finished
+                // This part should be called in two cases:
+                // 1. The initial cooldown is 0. This will occur
+                //    when the game begins.
+                // 2. The die has already been reset to die-active and gameloop
+                //    is doing a final pass through.
+                console.log("ending gameloop, cd == " + this.state.cd);
+                this.setState({ dieClass: "die die-active" });
             }
         }
     }, {
@@ -22667,7 +22676,8 @@ var Fish = function (_React$Component) {
 
         _this.state = {
             hooks: [],
-            totalg: 0
+            totalg: 0,
+            hookprices: []
         };
         _this.getFishInfo = _this.getFishInfo.bind(_this);
         _this.buyHook = _this.buyHook.bind(_this);
@@ -22708,7 +22718,8 @@ var Fish = function (_React$Component) {
                 response.json().then(function (json) {
                     self.setState({
                         hooks: json.data.hooks,
-                        totalg: json.data.totalg
+                        totalg: json.data.totalg,
+                        hookprices: json.data.hookprices
                     });
                 });
             });
@@ -22736,7 +22747,8 @@ var Fish = function (_React$Component) {
                 response.json().then(function (json) {
                     self.setState({
                         hooks: json.data.hooks,
-                        totalg: json.data.totalg
+                        totalg: json.data.totalg,
+                        hookprices: json.data.hookprices
                     });
                 });
             });
@@ -22755,7 +22767,6 @@ var Fish = function (_React$Component) {
             var _this2 = this;
 
             var collection = [];
-            var hookprice = [20, 40];
 
             var _loop = function _loop(rowI) {
                 // add row of fish to "collection" for each hook before corrupt hooks // 6?
@@ -22793,13 +22804,16 @@ var Fish = function (_React$Component) {
                     _react2.default.createElement(
                         "div",
                         {
-                            className: "hook button hook" + rowI + " " + (_this2.state.totalg > hookprice[rowI] ? "" : "hook-inactive"),
+                            className: "hook button hook" + rowI + " " + (_this2.state.totalg > _this2.state.hookprices[rowI] ? "" : "hook-inactive"),
                             key: "hook" + rowI,
                             onClick: function onClick() {
                                 return _this2.buyHook(rowI);
                             } },
                         "Buy hook ",
-                        rowI
+                        rowI,
+                        ": ",
+                        _this2.state.hookprices[rowI],
+                        "g"
                     )
                 );
             };
@@ -22872,9 +22886,9 @@ var Die = function (_React$Component) {
         _this.state = {
             lastroll: 6,
             lastmult: 1,
-            lastcd: 1,
+            lastcd: 0,
             totalg: 0,
-            active: 1,
+            active: 0,
             rolling: ""
         };
         return _this;
@@ -22893,6 +22907,7 @@ var Die = function (_React$Component) {
                 method: "POST",
                 credentials: "same-origin"
             }).then(function (response) {
+                console.log("getting inital load");
                 if (response.status !== 200) {
                     console.log("Error " + response.status);
                     return;
@@ -22900,8 +22915,11 @@ var Die = function (_React$Component) {
 
                 response.json().then(function (json) {
                     self.setState({
-                        totalg: json.data.startg
+                        totalg: json.data.startg,
+                        lastcd: json.data.cd
                     });
+                    console.log("calling gameloop with cd == " + json.data.cd);
+                    self.props.gameloop(json.data.cd, "boot");
                 });
             });
         }

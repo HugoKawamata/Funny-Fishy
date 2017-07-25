@@ -6,7 +6,8 @@ export default class Fish extends React.Component {
         super();
         this.state = {
             hooks: [],
-            totalg: 0
+            totalg: 0,
+            hookprices: []
         }
         this.getFishInfo = this.getFishInfo.bind(this)
         this.buyHook = this.buyHook.bind(this)
@@ -42,7 +43,8 @@ export default class Fish extends React.Component {
             response.json().then(function(json) {
                 self.setState({
                     hooks: json.data.hooks,
-                    totalg: json.data.totalg
+                    totalg: json.data.totalg,
+                    hookprices: json.data.hookprices
                 })
             })
         })
@@ -70,7 +72,8 @@ export default class Fish extends React.Component {
             response.json().then(function(json) {
                 self.setState({
                     hooks: json.data.hooks,
-                    totalg: json.data.totalg
+                    totalg: json.data.totalg,
+                    hookprices: json.data.hookprices
                 })
             })
         })
@@ -84,10 +87,6 @@ export default class Fish extends React.Component {
      */
     render() {
         var collection = [];
-        var hookprice = [
-            20,
-            40
-        ];
         for (let rowI = 0; rowI < this.state.hooks.length; rowI++) {
             // add row of fish to "collection" for each hook before corrupt hooks // 6?
             var fishlist = [];
@@ -113,9 +112,9 @@ export default class Fish extends React.Component {
             collection[rowI] = <div className="fish-section" key={"fish-section" + rowI}>
                     <div className="fish-row" key={"fish-row" + rowI}>{fishlist}</div>
                     <div 
-                        className={"hook button hook" + rowI + " " + (this.state.totalg > hookprice[rowI] ? "" : "hook-inactive")}
+                        className={"hook button hook" + rowI + " " + (this.state.totalg > this.state.hookprices[rowI] ? "" : "hook-inactive")}
                         key={"hook" + rowI}
-                        onClick={() => this.buyHook(rowI)}>Buy hook {rowI}
+                        onClick={() => this.buyHook(rowI)}>Buy hook {rowI}: {this.state.hookprices[rowI]}g
                     </div>
                 </div>
         }

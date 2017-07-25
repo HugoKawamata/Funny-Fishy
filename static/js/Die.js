@@ -8,9 +8,9 @@ export default class Die extends React.Component {
         this.state = {
             lastroll: 6,
             lastmult: 1,
-            lastcd: 1,
+            lastcd: 0,
             totalg: 0,
-            active: 1,
+            active: 0,
             rolling: "",
         }
     }
@@ -26,6 +26,7 @@ export default class Die extends React.Component {
                 credentials: "same-origin"
             }
         ).then(function(response) {
+            console.log("getting inital load");
             if (response.status !== 200) {
                 console.log("Error " +
                 response.status);
@@ -34,8 +35,11 @@ export default class Die extends React.Component {
 
             response.json().then(function(json) {
                 self.setState({
-                    totalg: json.data.startg
+                    totalg: json.data.startg,
+                    lastcd: json.data.cd,
                 })
+                console.log("calling gameloop with cd == " + json.data.cd)
+                self.props.gameloop(json.data.cd, "boot")
             })
         })
     }
