@@ -9,6 +9,8 @@ export default class Die extends React.Component {
             lastroll: 6,
             lastmult: 1,
             lastcd: 0,
+            lastmin: 0,
+            lastmax: 0,
             totalg: 0,
             active: 0,
             rolling: "",
@@ -35,12 +37,16 @@ export default class Die extends React.Component {
 
             response.json().then(function(json) {
                 self.setState({
-                    totalg: json.data.startg,
-                    lastcd: json.data.cd,
+                    lastroll: json.data.roll,
+                    lastmult: json.data.mult,
+                    lastcd: json.data.savedCd,
+                    lastmin: json.data.min,
+                    lastmax: json.data.max,
+                    totalg: json.data.totalg
                 })
                 console.log("calling gameloop with cd == " + json.data.cd)
                 if (!self.props.counting) { // If the die isn't already counting down
-                    self.props.gameloop(json.data.cd, "boot")
+                    self.props.gameloop(0, "boot")
                 }
             })
         })
@@ -96,6 +102,8 @@ export default class Die extends React.Component {
                     lastroll: json.data.roll,
                     lastmult: json.data.mult,
                     lastcd: json.data.cd,
+                    lastmin: json.data.min,
+                    lastmax: json.data.max,
                     totalg: json.data.totalg,
                     active: 0,
                 })
@@ -122,6 +130,13 @@ export default class Die extends React.Component {
                     <div className={this.props.dieClass + " " + this.state.rolling} 
                         onClick={() => this.animateRoll()}>
                         {this.state.lastroll}</div>
+                </div>
+                <div className="die-stats">
+                    <p>Last roll: {this.state.lastroll}</p>
+                    <p>Die min: {this.state.lastmin}</p>
+                    <p>Die max: {this.state.lastmax}</p>
+                    <p>Multiplier: {this.state.lastmult}</p>
+                    <p>Cooldown per roll: {this.state.lastcd}</p>
                 </div>
             </div>
         )

@@ -152,9 +152,8 @@ class User(db.Model, UserMixin):
         logging.info(csv)
         return csv
 
+    def calcDieStats(self):
 
-    def rolldie(self):
-        # Sends a json containing the roll result, the multiplier, the cooldown, and the total gold
         min = 1
         max = 6
         mult = 1
@@ -170,10 +169,6 @@ class User(db.Model, UserMixin):
         max += 2 * int(hook0list[4]) # Uncommon 2
         mult += 40 * int(hook0list[6]) # Cosmic
 
-        
-
-
-        self.currentcooldown = cd      # Cooldown is 1 second
         if min > max:
             roll = min
         else:
@@ -181,16 +176,28 @@ class User(db.Model, UserMixin):
         if roll == min:
             if int(hook0list[5]) > 0:
                 roll = 0
-                roll += max * hook0list[5] # Hook 0 Rare
-            
-        self.gold += math.floor(roll * mult)
+                roll += max * int(hook0list[5]) # Hook 0 Rare
 
         data = {
             "roll": roll,
             "mult": mult,
-            "cd": self.currentcooldown,
+            "savedCd": self.currentcooldown,
+            "cd": cd,
+            "min": min,
+            "max": max,
             "totalg": self.gold
         }
+        return data
+
+
+    def rolldie(self):
+        # Sends a json containing the roll result, the multiplier, the cooldown, and the total gold
+        data = self.calcDieStats()
+
+        self.gold += math.floor(data["roll"] * data["mult"])
+        self.currentcooldown = data["cd"]
+
+        data["totalg"] = self.gold
 
         return data
 

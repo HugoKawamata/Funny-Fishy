@@ -106,7 +106,7 @@ def login():
 @app.route("/loaddie", methods=["POST"])
 @login_required
 def loaddie():
-    response = ok(current_user.loaddie())
+    response = ok(current_user.calcDieStats())
     return response
 
 @app.route("/rolldie", methods=["POST"])
