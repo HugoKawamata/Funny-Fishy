@@ -216,10 +216,14 @@ button:active, .button:active {
         position: absolute;
         background-color: $sand;
         z-index: 2;
+
+        border-radius: 0px 10px 10px 10px;
+        border: 2px solid black;
     }
 
     .fish-desc-right {
         right: 0;
+        border-radius: 10px 0px 10px 10px;
     }
 }
 

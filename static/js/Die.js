@@ -39,7 +39,9 @@ export default class Die extends React.Component {
                     lastcd: json.data.cd,
                 })
                 console.log("calling gameloop with cd == " + json.data.cd)
-                self.props.gameloop(json.data.cd, "boot")
+                if (!self.props.counting) { // If the die isn't already counting down
+                    self.props.gameloop(json.data.cd, "boot")
+                }
             })
         })
     }
@@ -108,7 +110,7 @@ export default class Die extends React.Component {
                 <div className="die-stat-container">
                     <div className="totalg">
                         Total Gold: <br />
-                        {this.state.totalg}
+                        {this.props.addCommas(this.state.totalg)}
                     </div>
                     <div className="counter">
                         Die Cooldown: <br />
@@ -116,7 +118,7 @@ export default class Die extends React.Component {
                     </div>
                 </div>
                 <div className="die-container">
-                    <div className={"floating-number " + this.props.fnm}>{this.state.lastroll * this.state.lastmult}</div>
+                    <div className={"floating-number " + this.props.fnm}>{this.props.addCommas(this.state.lastroll * this.state.lastmult)}</div>
                     <div className={this.props.dieClass + " " + this.state.rolling} 
                         onClick={() => this.animateRoll()}>
                         {this.state.lastroll}</div>

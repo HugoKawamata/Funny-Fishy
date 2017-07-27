@@ -23,12 +23,22 @@ class User(db.Model, UserMixin):
     id              = db.Column('id',           db.Integer,             primary_key=True)
     email           = db.Column('email',        db.String(128),         unique=True)
     passwordhash    = db.Column('passwordhash', db.String(128))
-    gold            = db.Column('gold',         db.Float)
+    gold            = db.Column('gold',         db.Integer)
     currentcooldown = db.Column('currentcooldown', db.Integer)
     hook0price      = db.Column('hook0price',   db.Integer)
     hook1price      = db.Column('hook1price',   db.Integer)
+    hook2price      = db.Column('hook2price',   db.Integer)
+    hook3price      = db.Column('hook3price',   db.Integer)
+    hook4price      = db.Column('hook4price',   db.Integer)
+    hook5price      = db.Column('hook5price',   db.Integer)
+    hook6price      = db.Column('hook6price',   db.Integer)
     hook0           = db.Column('hook0',        db.String(64))
     hook1           = db.Column('hook1',        db.String(64))
+    hook2           = db.Column('hook2',        db.String(64))
+    hook3           = db.Column('hook3',        db.String(64))
+    hook4           = db.Column('hook4',        db.String(64))
+    hook5           = db.Column('hook5',        db.String(64))
+    hook6           = db.Column('hook6',        db.String(64))
 
     def __init__(self, email, password):
         self.email = email
@@ -36,8 +46,18 @@ class User(db.Model, UserMixin):
         self.gold = 0
         self.hook0price = 15
         self.hook1price = 100
+        self.hook2price = 900
+        self.hook3price = 11000
+        self.hook4price = 210000
+        self.hook5price = 6000000
+        self.hook6price = 33000000
         self.hook0 = "0,0,0,0,0,0,0"
         self.hook1 = "0,0,0,0,0,0,0"
+        self.hook2 = "0,0,0,0,0,0,0"
+        self.hook3 = "0,0,0,0,0,0,0"
+        self.hook4 = "0,0,0,0,0,0,0"
+        self.hook5 = "0,0,0,0,0,0,0"
+        self.hook6 = "0,0,0,0,0,0,0"
         self.currentcooldown = 0
 
 
@@ -97,9 +117,19 @@ class User(db.Model, UserMixin):
         hookprices = []
         hookprices.append(self.hook0price)
         hookprices.append(self.hook1price)
+        hookprices.append(self.hook2price)
+        hookprices.append(self.hook3price)
+        hookprices.append(self.hook4price)
+        hookprices.append(self.hook5price)
+        hookprices.append(self.hook6price)
         hooks = []
         hooks.append(self.csvToList(self.hook0))
         hooks.append(self.csvToList(self.hook1))
+        hooks.append(self.csvToList(self.hook2))
+        hooks.append(self.csvToList(self.hook3))
+        hooks.append(self.csvToList(self.hook4))
+        hooks.append(self.csvToList(self.hook5))
+        hooks.append(self.csvToList(self.hook6))
         data = {
             "hooks": hooks,
             "totalg": self.gold,
@@ -153,7 +183,7 @@ class User(db.Model, UserMixin):
                 roll = 0
                 roll += max * hook0list[5] # Hook 0 Rare
             
-        self.gold += (roll * mult)
+        self.gold += math.floor(roll * mult)
 
         data = {
             "roll": roll,

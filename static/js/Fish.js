@@ -19,20 +19,71 @@ export default class Fish extends React.Component {
     }
 
     loadFishDescriptions() {
-        var hook0 = [
-            <div>Jeffy Fish<br/>Common<br/>Multiplier +0.25</div>,
-            <div>Clown Fish<br/>Common<br/>Die Max +1</div>,
+        let hook0 = [ // Plastic hook - looks like baby toy
+            <div>Clown Fish<br/>Common<br/>Multiplier +0.25</div>,
+            <div>Baby Fish<br/>Common<br/>Die Max +1</div>, // They grow up so fast
             <div>Angel Fish<br/>Common<br/>Die Min +1</div>,
             <div>Fish of Paradise<br/>Uncommon<br/>Multiplier +1, Cooldown +1s</div>,
-            <div>Fish Avenger<br/>Uncommon<br/>Die Max +1</div>,
+            <div>Fish Avenger<br/>Uncommon<br/>Die Max +2</div>,
             <div>Funny Fish<br/>Rare<br/>If you roll your die min, change it to your die max!</div>
-        ]
-        var hook1 = [
-            1, 2, 3, 4, 5, 6, 7
-        ]
-        var descriptions = []
-        descriptions[0] = hook0
-        descriptions[1] = hook1
+        ];
+        let hook1 = [ // River hook - Regular looking hook with lure, maybe blue metal?
+            <div>Mangrove Jack<br/>Common<br/>Placeholder</div>,
+            <div>Catfish<br/>Common<br/>Placeholder</div>,
+            <div>Toadfish<br/>Common<br/>Placeholder</div>,
+            <div>Barramundi<br/>Uncommon<br/>Placeholder</div>,
+            <div>Mud Crab<br/>Uncommon<br/>Placeholder</div>,
+            <div>Baby Croc<br/>Rare<br/>Placeholder</div>, // Holy shit, you got a crocodile??
+            <div>Mama Croc<br/>Cosmic<br/>Placeholder</div> // UHHHHHHHH
+        ];
+        let hook2 = [ // Plastic hook - looks like baby toy
+            <div>Clown Fish<br/>Common<br/>Multiplier +0.25</div>,
+            <div>Baby Fish<br/>Common<br/>Die Max +1</div>, // They grow up so fast
+            <div>Angel Fish<br/>Common<br/>Die Min +1</div>,
+            <div>Fish of Paradise<br/>Uncommon<br/>Multiplier +1, Cooldown +1s</div>,
+            <div>Fish Avenger<br/>Uncommon<br/>Die Max +2</div>,
+            <div>Funny Fish<br/>Rare<br/>If you roll your die min, change it to your die max!</div>
+        ];
+        let hook3 = [ // Plastic hook - looks like baby toy
+            <div>Clown Fish<br/>Common<br/>Multiplier +0.25</div>,
+            <div>Baby Fish<br/>Common<br/>Die Max +1</div>, // They grow up so fast
+            <div>Angel Fish<br/>Common<br/>Die Min +1</div>,
+            <div>Fish of Paradise<br/>Uncommon<br/>Multiplier +1, Cooldown +1s</div>,
+            <div>Fish Avenger<br/>Uncommon<br/>Die Max +2</div>,
+            <div>Funny Fish<br/>Rare<br/>If you roll your die min, change it to your die max!</div>
+        ];
+        let hook4 = [ // Plastic hook - looks like baby toy
+            <div>Clown Fish<br/>Common<br/>Multiplier +0.25</div>,
+            <div>Baby Fish<br/>Common<br/>Die Max +1</div>, // They grow up so fast
+            <div>Angel Fish<br/>Common<br/>Die Min +1</div>,
+            <div>Fish of Paradise<br/>Uncommon<br/>Multiplier +1, Cooldown +1s</div>,
+            <div>Fish Avenger<br/>Uncommon<br/>Die Max +2</div>,
+            <div>Funny Fish<br/>Rare<br/>If you roll your die min, change it to your die max!</div>
+        ];
+        let hook5 = [ // Plastic hook - looks like baby toy
+            <div>Clown Fish<br/>Common<br/>Multiplier +0.25</div>,
+            <div>Baby Fish<br/>Common<br/>Die Max +1</div>, // They grow up so fast
+            <div>Angel Fish<br/>Common<br/>Die Min +1</div>,
+            <div>Fish of Paradise<br/>Uncommon<br/>Multiplier +1, Cooldown +1s</div>,
+            <div>Fish Avenger<br/>Uncommon<br/>Die Max +2</div>,
+            <div>Funny Fish<br/>Rare<br/>If you roll your die min, change it to your die max!</div>
+        ];
+        let hook6 = [ // Plastic hook - looks like baby toy
+            <div>Clown Fish<br/>Common<br/>Multiplier +0.25</div>,
+            <div>Baby Fish<br/>Common<br/>Die Max +1</div>, // They grow up so fast
+            <div>Angel Fish<br/>Common<br/>Die Min +1</div>,
+            <div>Fish of Paradise<br/>Uncommon<br/>Multiplier +1, Cooldown +1s</div>,
+            <div>Fish Avenger<br/>Uncommon<br/>Die Max +2</div>,
+            <div>Funny Fish<br/>Rare<br/>If you roll your die min, change it to your die max!</div>
+        ];
+        var descriptions = [];
+        descriptions[0] = hook0;
+        descriptions[1] = hook1;
+        descriptions[2] = hook2;
+        descriptions[3] = hook3;
+        descriptions[4] = hook4;
+        descriptions[5] = hook5;
+        descriptions[6] = hook6;
         this.setState({hookdesc: descriptions})
     }
 
@@ -123,6 +174,7 @@ export default class Fish extends React.Component {
     render() {
         var collection = [];
         for (let rowI = 0; rowI < this.state.hooks.length; rowI++) {
+            console.log("row " + rowI + " being rendered")
             // Get number of fish in the row (cause cosmic rare fish aren't automatically revealed)
             var numFishInRow = this.state.hooks[rowI][6] == 0 ? 6 : 7;
             // Which fish are on the right side?
@@ -192,14 +244,14 @@ export default class Fish extends React.Component {
                     <div 
                         className={"hook button hook" + rowI + " " + (this.state.totalg > this.state.hookprices[rowI] ? "" : "hook-inactive")}
                         key={"hook" + rowI}
-                        onClick={() => this.buyHook(rowI)}>Buy hook {rowI}: {this.state.hookprices[rowI]}g
+                        onClick={() => this.buyHook(rowI)}>Buy hook {rowI}: {this.props.addCommas(this.state.hookprices[rowI])}g
                     </div>
                 </div>
         }
 
         return(
             <div id="fish-page" className="top-parent">
-                <div className="totalg">Total Gold:<br />{this.state.totalg}</div>
+                <div className="totalg">Total Gold:<br />{this.props.addCommas(this.state.totalg)}</div>
                 <div className="fish-collection" >
                     {collection}
                 </div>

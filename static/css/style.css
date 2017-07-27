@@ -163,9 +163,12 @@ button:active, .button:active {
   display: block;
   position: absolute;
   background-color: #D8CBBB;
-  z-index: 2; }
+  z-index: 2;
+  border-radius: 0px 10px 10px 10px;
+  border: 2px solid black; }
 .fish-card:hover .fish-desc-right {
-  right: 0; }
+  right: 0;
+  border-radius: 10px 0px 10px 10px; }
 
 .hook {
   margin: 1em 0 2em 0; }

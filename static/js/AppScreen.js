@@ -8,9 +8,21 @@ export default class AppScreen extends React.Component {
         super();
         this.state = {
             cd: 0,
-            dieClass: "die die-inactive", // Until proven guilty
-            fnm: "floating-number-still"
+            dieClass: "die die-inactive", // Until proven innocent (stops people speedclicking before it's rendered fully)
+            fnm: "floating-number-still",
+            counting: false, // Until proven guilty (necessity for preventing double cooldowns)
         }
+        this.addCommas = this.addCommas.bind(this)
+    }
+
+    addCommas(number) {
+        number = Math.floor(number);
+        let convNum = number + "";
+        let commas = Math.ceil(convNum.length / 3) - 1;
+        for (let i = 1; i <= commas; i++) {
+            convNum = convNum.slice(0, convNum.length - (3 * i + i - 1)) + "," + convNum.slice(convNum.length - (3 * i + i - 1), convNum.length)
+        }
+        return convNum
     }
 
     getData(cooldown) {
@@ -32,7 +44,7 @@ export default class AppScreen extends React.Component {
                     cd: json.data.cd
                 })
                 if (cooldown === 0) {
-                    self.setState({dieClass: "die die-active"})
+                    self.setState({dieClass: "die die-active", counting: false})
                 }
                 self.gameloop(json.data.cd);
             });
@@ -48,7 +60,7 @@ export default class AppScreen extends React.Component {
         } else if (cooldown > 0 && startingCooldown == "boot") {
             this.setState({dieClass: "die die-inactive"})
         }
-        this.setState({cd: cooldown});
+        this.setState({cd: cooldown, counting: true});
         if (this.state.cd > 0) {
             setTimeout((() => this.getData(cooldown - 1)), 1000);
         } else {
@@ -58,7 +70,7 @@ export default class AppScreen extends React.Component {
             // 2. The die has already been reset to die-active and gameloop
             //    is doing a final pass through.
             console.log("ending gameloop, cd == " + this.state.cd)
-            this.setState({dieClass: "die die-active"})
+            this.setState({dieClass: "die die-active", counting: false})
         }
     }
 
@@ -66,13 +78,16 @@ export default class AppScreen extends React.Component {
         var page;
         switch(this.props.current) {
             case "fish":
-                page = <Fish />
+                page = <Fish 
+                        addCommas={(number) => this.addCommas(number)} />
                 break;
             default:
                 page = <Die 
                         dieClass={this.state.dieClass}
                         fnm={this.state.fnm}
                         cd={this.state.cd} 
+                        counting={this.state.counting}
+                        addCommas={(number) => this.addCommas(number)}
                         gameloop={(cooldown, scd) => this.gameloop(cooldown, scd)} />
                 break;
         };
