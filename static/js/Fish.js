@@ -141,7 +141,6 @@ export default class Fish extends React.Component {
      * as well as the user's gold in order to display it.
      */
     getFishInfo() {
-        console.log("Starting fish info call");
         var self = this;
         fetch("/loadfish",
             {
@@ -174,7 +173,6 @@ export default class Fish extends React.Component {
     render() {
         var collection = [];
         for (let rowI = 0; rowI < this.state.hooks.length; rowI++) {
-            console.log("row " + rowI + " being rendered")
             // Get number of fish in the row (cause cosmic rare fish aren't automatically revealed)
             var numFishInRow = this.state.hooks[rowI][6] == 0 ? 6 : 7;
             // Which fish are on the right side?
@@ -189,16 +187,13 @@ export default class Fish extends React.Component {
                 // There are two or more rows of flex wrapping fish
 
                 if (Math.floor(this.state.width / 80) == 5) { // 5 fish on top row
-                    console.log("5 fish top row")
                     rightSideFish[0] = 3;
                     rightSideFish[1] = 4;
                 } else if (Math.floor(this.state.width / 80) == 4) { // 4 fish on top row
-                    console.log("4 fish top row")
                     rightSideFish[0] = 2;
                     rightSideFish[1] = 3;
                     rightSideFish[2] = numFishInRow - 1;
                 } else if (Math.floor(this.state.width / 80) == 3) { // 3 fish on top row, 3 fish bottom row
-                    console.log("3 fish top row")
                     rightSideFish[0] = 2;
                     rightSideFish[1] = 5;
                 }
@@ -212,12 +207,9 @@ export default class Fish extends React.Component {
             for (let fishI = 0; fishI < this.state.hooks[rowI].length; fishI++) {
                 var fishDescClass = "fish-desc"
                 if (rightSideFish[rightFishIndex] === fishI) {
-                    console.log("came across fish " + fishI + " which is a rightfish")
                     fishDescClass = "fish-desc fish-desc-right";
-                    console.log(fishDescClass)
                     rightFishIndex += 1;
                 }
-                console.log("outside if " + fishDescClass)
                 if (fishI == 6 && this.state.hooks[rowI][fishI] == 0) {
                     // Nothing, because only reveal cosmic rare fish to people who have them already
                 } else {

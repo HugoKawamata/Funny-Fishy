@@ -78,8 +78,7 @@ export default class AppScreen extends React.Component {
         var page;
         switch(this.props.current) {
             case "fish":
-                page = <Fish 
-                        addCommas={(number) => this.addCommas(number)} />
+                page = <Fish addCommas={(number) => this.addCommas(number)} />
                 break;
             default:
                 page = <Die 
@@ -89,6 +88,7 @@ export default class AppScreen extends React.Component {
                         counting={this.state.counting}
                         addCommas={(number) => this.addCommas(number)}
                         gameloop={(cooldown, scd) => this.gameloop(cooldown, scd)} />
+                        
                 break;
         };
         return page;

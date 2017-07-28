@@ -1,4 +1,5 @@
 import React from "react"
+import Mousetrap from "mousetrap"
 import AppScreen from "./AppScreen"
 
 export default class App extends React.Component {
@@ -8,6 +9,14 @@ export default class App extends React.Component {
             page: "die"
         };
         this.changePage = this.changePage.bind(this);
+    }
+
+    componentDidMount() {
+        Mousetrap.bind(["right", "left", "space"], () => this.changePage(this.state.page === "die" ? "fish" : "die"));
+    }
+
+    componentWillUnmount() {
+        Mousetrap.unbind(["right", "left", "space"], () => this.changePage(this.state.page === "die" ? "fish" : "die"));
     }
 
     changePage(pagename) {

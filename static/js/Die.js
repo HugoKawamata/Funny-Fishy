@@ -12,7 +12,6 @@ export default class Die extends React.Component {
             lastmin: 0,
             lastmax: 0,
             totalg: 0,
-            active: 0,
             rolling: "",
         }
     }
@@ -28,7 +27,6 @@ export default class Die extends React.Component {
                 credentials: "same-origin"
             }
         ).then(function(response) {
-            console.log("getting inital load");
             if (response.status !== 200) {
                 console.log("Error " +
                 response.status);
@@ -44,7 +42,6 @@ export default class Die extends React.Component {
                     lastmax: json.data.max,
                     totalg: json.data.totalg
                 })
-                console.log("calling gameloop with cd == " + json.data.cd)
                 if (!self.props.counting) { // If the die isn't already counting down
                     self.props.gameloop(0, "boot")
                 }
@@ -105,7 +102,6 @@ export default class Die extends React.Component {
                     lastmin: json.data.min,
                     lastmax: json.data.max,
                     totalg: json.data.totalg,
-                    active: 0,
                 })
                 self.props.gameloop(json.data.cd, json.data.cd)
             });
