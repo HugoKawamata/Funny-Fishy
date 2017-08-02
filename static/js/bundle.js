@@ -22784,16 +22784,24 @@ var Fish = function (_React$Component) {
                 'Rare',
                 _react2.default.createElement('br', null),
                 'If you roll your die min, change it to your die max!'
+            ), _react2.default.createElement(
+                'div',
+                null,
+                'The Old Tome',
+                _react2.default.createElement('br', null),
+                'Cosmic',
+                _react2.default.createElement('br', null),
+                'Increase multiplier by 40!!!'
             )];
             var hook1 = [// River hook - Regular looking hook with lure, maybe blue metal?
             _react2.default.createElement(
                 'div',
                 null,
-                'Mangrove Jack',
+                'Toadfish',
                 _react2.default.createElement('br', null),
                 'Common',
                 _react2.default.createElement('br', null),
-                'Placeholder'
+                'Die Max +3, Cooldown +2s'
             ), _react2.default.createElement(
                 'div',
                 null,
@@ -22801,15 +22809,15 @@ var Fish = function (_React$Component) {
                 _react2.default.createElement('br', null),
                 'Common',
                 _react2.default.createElement('br', null),
-                'Placeholder'
+                'Die Max +3, Cooldown +2s'
             ), _react2.default.createElement(
                 'div',
                 null,
-                'Toadfish',
+                'Mangrove Jack',
                 _react2.default.createElement('br', null),
                 'Common',
                 _react2.default.createElement('br', null),
-                'Placeholder'
+                'Die Max +4, Cooldown +2s'
             ), _react2.default.createElement(
                 'div',
                 null,
@@ -22817,7 +22825,7 @@ var Fish = function (_React$Component) {
                 _react2.default.createElement('br', null),
                 'Uncommon',
                 _react2.default.createElement('br', null),
-                'Placeholder'
+                'Die Max +1 for each common river hook fish you own, Cooldown +3s'
             ), _react2.default.createElement(
                 'div',
                 null,
@@ -22825,24 +22833,24 @@ var Fish = function (_React$Component) {
                 _react2.default.createElement('br', null),
                 'Uncommon',
                 _react2.default.createElement('br', null),
-                'Placeholder'
+                'Die Min +1, Cooldown -3s'
             ), _react2.default.createElement(
                 'div',
                 null,
-                'Baby Croc',
+                'Crocodile',
                 _react2.default.createElement('br', null),
                 'Rare',
                 _react2.default.createElement('br', null),
-                'Placeholder'
+                'Die Max +8, Cooldown -5s'
             ), // Holy shit, you got a crocodile??
             _react2.default.createElement(
                 'div',
                 null,
-                'Mama Croc',
+                'Scaled Monstrosity',
                 _react2.default.createElement('br', null),
                 'Cosmic',
                 _react2.default.createElement('br', null),
-                'Placeholder'
+                'Die Max +500!'
             ) // UHHHHHHHH
             ];
             var hook2 = [// Plastic hook - looks like baby toy

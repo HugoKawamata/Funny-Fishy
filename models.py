@@ -110,7 +110,13 @@ class User(db.Model, UserMixin):
             hook0list[hookIndex] = str(int(hook0list[hookIndex]) + 1) # Increment the fish that you got
             self.hook0 = self.listToCsv(hook0list) # Send back to database
         elif hookNum == 1:
-            logging.info("buying hook 1")
+            if self.gold < self.hook1price: # Ensure user has enough gold
+                return self.loadfish()
+            self.gold -= self.hook1price # Take away gold from user
+            self.hook1price = math.ceil(self.hook1price * 1.15) # Increase price of hook0
+            hook1list = self.csvToList(self.hook1) # Convert string csv to list
+            hook1list[hookIndex] = str(int(hook1list[hookIndex]) + 1) # Increment the fish that you got
+            self.hook1 = self.listToCsv(hook1list) # Send back to database
         return self.loadfish()
 
     def loadfish(self):
@@ -168,6 +174,22 @@ class User(db.Model, UserMixin):
         cd += 1 * int(hook0list[3]) # Uncommon 1
         max += 2 * int(hook0list[4]) # Uncommon 2
         mult += 40 * int(hook0list[6]) # Cosmic
+
+        hook1list = self.csvToList(self.hook1)
+        max += 3 * int(hook1list[0])
+        cd += 2 * int(hook1list[0])
+        max += 3 * int(hook1list[1])
+        cd += 2 * int(hook1list[1])
+        max += 4 * int(hook1list[2])
+        cd += 2 * int(hook1list[2])
+        max += 1 * int(hook1list[3]) * (int(hook1list[0]) + int(hook1list[1]) + int(hook1list[2]))
+        cd += 3 * int(hook1list[3])
+        min += 1 * int(hook1list[4])
+        cd -= 3 * int(hook1list[4])
+        max += 8 * int(hook1list[5])
+        cd -= 5 * int(hook1list[5])
+        max += 5000 * int(hook1list[6])
+
 
         if min > max:
             roll = min

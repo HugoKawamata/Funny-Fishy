@@ -25,16 +25,17 @@ export default class Fish extends React.Component {
             <div>Angel Fish<br/>Common<br/>Die Min +1</div>,
             <div>Fish of Paradise<br/>Uncommon<br/>Multiplier +1, Cooldown +1s</div>,
             <div>Fish Avenger<br/>Uncommon<br/>Die Max +2</div>,
-            <div>Funny Fish<br/>Rare<br/>If you roll your die min, change it to your die max!</div>
+            <div>Funny Fish<br/>Rare<br/>If you roll your die min, change it to your die max!</div>,
+            <div>The Old Tome<br/>Cosmic<br/>Increase multiplier by 40!!!</div>
         ];
         let hook1 = [ // River hook - Regular looking hook with lure, maybe blue metal?
-            <div>Mangrove Jack<br/>Common<br/>Placeholder</div>,
-            <div>Catfish<br/>Common<br/>Placeholder</div>,
-            <div>Toadfish<br/>Common<br/>Placeholder</div>,
-            <div>Barramundi<br/>Uncommon<br/>Placeholder</div>,
-            <div>Mud Crab<br/>Uncommon<br/>Placeholder</div>,
-            <div>Baby Croc<br/>Rare<br/>Placeholder</div>, // Holy shit, you got a crocodile??
-            <div>Mama Croc<br/>Cosmic<br/>Placeholder</div> // UHHHHHHHH
+            <div>Toadfish<br/>Common<br/>Die Max +3, Cooldown +2s</div>,
+            <div>Catfish<br/>Common<br/>Die Max +3, Cooldown +2s</div>,
+            <div>Mangrove Jack<br/>Common<br/>Die Max +4, Cooldown +2s</div>,
+            <div>Barramundi<br/>Uncommon<br/>Die Max +1 for each common river hook fish you own, Cooldown +3s</div>,
+            <div>Mud Crab<br/>Uncommon<br/>Die Min +1, Cooldown -3s</div>,
+            <div>Crocodile<br/>Rare<br/>Die Max +8, Cooldown -5s</div>, // Holy shit, you got a crocodile??
+            <div>Scaled Monstrosity<br/>Cosmic<br/>Die Max +500!</div> // UHHHHHHHH
         ];
         let hook2 = [ // Plastic hook - looks like baby toy
             <div>Clown Fish<br/>Common<br/>Multiplier +0.25</div>,
