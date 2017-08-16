@@ -53,11 +53,9 @@ export default class Fish extends React.Component {
             <div>Great White Shark<br/>Uncommon<br/>Multiplier +5, Cooldown +3s</div>,
             <div>Marlin<br/>Uncommon<br/>Multipler +10, Cooldown +6s</div>,
             <div>Nightfish<br/>Rare<br/>
-                {// console.log(this.state.hooks)
-                }
-                {//this.state.hooks[0][3] == 0 ? 
+                {//this.state.hooks[2][3] == 0 ? 
                 //"You've heard whispers of the great and terrible Nightfish, and rumours that its slick, black skin can never truly be touched by human hands." :
-                //"The Nightfish slips and slides out of your grasp, but its body bumps against your Die in the commotion. The Die glows with dark energy."
+                "The Nightfish slips and slides out of your grasp, but its body bumps against your Die in the commotion. The Die glows with dark energy."
                 }
                 </div>,
             <div>A Shift In the Eventide<br/>Cosmic<br/>You feel a pull to the water, as if a dark tide has washed over your soul and is dragging you into the brackish deep.</div>
@@ -109,11 +107,14 @@ export default class Fish extends React.Component {
     /*
      * Get initial render information
      */
-    async componentDidMount() {
+    componentDidMount() {
         this.updateWindowDimensions()
         window.addEventListener('resize', this.updateWindowDimensions);
-        await this.getFishInfo();
+        this.getFishInfo();
         this.loadFishDescriptions();
+    }
+
+    componentDidUpdate() {
     }
     
 
@@ -164,12 +165,15 @@ export default class Fish extends React.Component {
                 response.status);
                 return;
             }
-
             response.json().then(function(json) {
                 self.setState({
                     hooks: json.data.hooks,
                     totalg: json.data.totalg,
                     hookprices: json.data.hookprices
+                }, function(){
+                    console.log(self.state.hooks);
+                    self.loadFishDescriptions();
+                    console.log(self.state.descriptions)
                 });
             })
         })

@@ -24256,397 +24256,400 @@ var Fish = function (_React$Component) {
     }
 
     _createClass(Fish, [{
-        key: 'loadFishDescriptions',
+        key: "loadFishDescriptions",
         value: function loadFishDescriptions() {
             var hook0 = [// Plastic hook - looks like baby toy
             _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Clown Fish',
-                _react2.default.createElement('br', null),
-                'Common',
-                _react2.default.createElement('br', null),
-                'Multiplier +0.25'
+                "Clown Fish",
+                _react2.default.createElement("br", null),
+                "Common",
+                _react2.default.createElement("br", null),
+                "Multiplier +0.25"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Baby Fish',
-                _react2.default.createElement('br', null),
-                'Common',
-                _react2.default.createElement('br', null),
-                'Die Max +4'
+                "Baby Fish",
+                _react2.default.createElement("br", null),
+                "Common",
+                _react2.default.createElement("br", null),
+                "Die Max +4"
             ), // They grow up so fast
             _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Angel Fish',
-                _react2.default.createElement('br', null),
-                'Common',
-                _react2.default.createElement('br', null),
-                'Die Min +4'
+                "Angel Fish",
+                _react2.default.createElement("br", null),
+                "Common",
+                _react2.default.createElement("br", null),
+                "Die Min +4"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Fish of Paradise',
-                _react2.default.createElement('br', null),
-                'Uncommon',
-                _react2.default.createElement('br', null),
-                'Multiplier +1, Cooldown +1s'
+                "Fish of Paradise",
+                _react2.default.createElement("br", null),
+                "Uncommon",
+                _react2.default.createElement("br", null),
+                "Multiplier +1, Cooldown +1s"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Fish Avenger',
-                _react2.default.createElement('br', null),
-                'Uncommon',
-                _react2.default.createElement('br', null),
-                'Die Max +10'
+                "Fish Avenger",
+                _react2.default.createElement("br", null),
+                "Uncommon",
+                _react2.default.createElement("br", null),
+                "Die Max +10"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Funny Fish',
-                _react2.default.createElement('br', null),
-                'Rare',
-                _react2.default.createElement('br', null),
-                'If you roll your die min, change it to your die max!'
+                "Funny Fish",
+                _react2.default.createElement("br", null),
+                "Rare",
+                _react2.default.createElement("br", null),
+                "If you roll your die min, change it to your die max!"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'The Old Tome',
-                _react2.default.createElement('br', null),
-                'Cosmic',
-                _react2.default.createElement('br', null),
-                'You reel up, and dangling from your hook is a strange tome with inscriptions in an unknown language. It seems to increase your multiplier by 20!'
+                "The Old Tome",
+                _react2.default.createElement("br", null),
+                "Cosmic",
+                _react2.default.createElement("br", null),
+                "You reel up, and dangling from your hook is a strange tome with inscriptions in an unknown language. It seems to increase your multiplier by 20!"
             )];
             var hook1 = [// River hook - Regular looking hook with lure, maybe blue metal?
             _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Toadfish',
-                _react2.default.createElement('br', null),
-                'Common',
-                _react2.default.createElement('br', null),
-                'Die Max +7'
+                "Toadfish",
+                _react2.default.createElement("br", null),
+                "Common",
+                _react2.default.createElement("br", null),
+                "Die Max +7"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Catfish',
-                _react2.default.createElement('br', null),
-                'Common',
-                _react2.default.createElement('br', null),
-                'Die Max +7'
+                "Catfish",
+                _react2.default.createElement("br", null),
+                "Common",
+                _react2.default.createElement("br", null),
+                "Die Max +7"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Mangrove Jack',
-                _react2.default.createElement('br', null),
-                'Common',
-                _react2.default.createElement('br', null),
-                'Die Max +12, Cooldown +1s'
+                "Mangrove Jack",
+                _react2.default.createElement("br", null),
+                "Common",
+                _react2.default.createElement("br", null),
+                "Die Max +12, Cooldown +1s"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Barramundi',
-                _react2.default.createElement('br', null),
-                'Uncommon',
-                _react2.default.createElement('br', null),
-                'Die Max +2 for each common river hook fish you own, Cooldown +1s'
+                "Barramundi",
+                _react2.default.createElement("br", null),
+                "Uncommon",
+                _react2.default.createElement("br", null),
+                "Die Max +2 for each common river hook fish you own, Cooldown +1s"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Mud Crab',
-                _react2.default.createElement('br', null),
-                'Uncommon',
-                _react2.default.createElement('br', null),
-                'Die Min +10, Cooldown -3s'
+                "Mud Crab",
+                _react2.default.createElement("br", null),
+                "Uncommon",
+                _react2.default.createElement("br", null),
+                "Die Min +10, Cooldown -3s"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Crocodile',
-                _react2.default.createElement('br', null),
-                'Rare',
-                _react2.default.createElement('br', null),
-                'Die Max +14, Cooldown -5s'
+                "Crocodile",
+                _react2.default.createElement("br", null),
+                "Rare",
+                _react2.default.createElement("br", null),
+                "Die Max +14, Cooldown -5s"
             ), // Holy shit, you got a crocodile??
             _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Scaled Monstrosity',
-                _react2.default.createElement('br', null),
-                'Cosmic',
-                _react2.default.createElement('br', null),
-                'Die Max +500!'
+                "Scaled Monstrosity",
+                _react2.default.createElement("br", null),
+                "Cosmic",
+                _react2.default.createElement("br", null),
+                "Die Max +500!"
             ) // UHHHHHHHH
             ];
             var hook2 = [// Coral Hook - Looks like it made of coral yeet
             _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Butterfly Fish',
-                _react2.default.createElement('br', null),
-                'Common',
-                _react2.default.createElement('br', null),
-                'Die Min +14'
+                "Butterfly Fish",
+                _react2.default.createElement("br", null),
+                "Common",
+                _react2.default.createElement("br", null),
+                "Die Min +14"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Parrotfish',
-                _react2.default.createElement('br', null),
-                'Common',
-                _react2.default.createElement('br', null),
-                'Multiplier +2, Cooldown +1s'
+                "Parrotfish",
+                _react2.default.createElement("br", null),
+                "Common",
+                _react2.default.createElement("br", null),
+                "Multiplier +2, Cooldown +1s"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Coral Trout',
-                _react2.default.createElement('br', null),
-                'Common',
-                _react2.default.createElement('br', null),
-                'Multiplier +1'
+                "Coral Trout",
+                _react2.default.createElement("br", null),
+                "Common",
+                _react2.default.createElement("br", null),
+                "Multiplier +1"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Box Jelly',
-                _react2.default.createElement('br', null),
-                'Uncommon',
-                _react2.default.createElement('br', null),
-                'Multiplier +4, Cooldown +3s'
+                "Box Jelly",
+                _react2.default.createElement("br", null),
+                "Uncommon",
+                _react2.default.createElement("br", null),
+                "Multiplier +4, Cooldown +3s"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Nurse Shark',
-                _react2.default.createElement('br', null),
-                'Uncommon',
-                _react2.default.createElement('br', null),
-                'Die Min +13, Die Max +13'
+                "Nurse Shark",
+                _react2.default.createElement("br", null),
+                "Uncommon",
+                _react2.default.createElement("br", null),
+                "Die Min +13, Die Max +13"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Crown of Thorns',
-                _react2.default.createElement('br', null),
-                'Rare',
-                _react2.default.createElement('br', null),
-                'Multiplier +X, Cooldown +4s, where X is the number of Crown of Thorns you own.'
+                "Crown of Thorns",
+                _react2.default.createElement("br", null),
+                "Rare",
+                _react2.default.createElement("br", null),
+                "Multiplier +X, Cooldown +4s, where X is the number of Crown of Thorns you own."
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Crown of the Deep',
-                _react2.default.createElement('br', null),
-                'Cosmic',
-                _react2.default.createElement('br', null)
+                "Crown of the Deep",
+                _react2.default.createElement("br", null),
+                "Cosmic",
+                _react2.default.createElement("br", null)
             ) // Terrifying looking starfish monster
             ];
             var hook3 = [// Night Hook - stars in the night sky
             _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Dragonet',
-                _react2.default.createElement('br', null),
-                'Common',
-                _react2.default.createElement('br', null),
-                'Die Min +20'
+                "Dragonet",
+                _react2.default.createElement("br", null),
+                "Common",
+                _react2.default.createElement("br", null),
+                "Die Min +20"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Bluefin Tuna',
-                _react2.default.createElement('br', null),
-                'Common',
-                _react2.default.createElement('br', null),
-                'Die Max +20'
+                "Bluefin Tuna",
+                _react2.default.createElement("br", null),
+                "Common",
+                _react2.default.createElement("br", null),
+                "Die Max +20"
             ), // They grow up so fast
             _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Teasure Eel',
-                _react2.default.createElement('br', null),
-                'Common',
-                _react2.default.createElement('br', null),
-                'When you catch a Treasure Eel, double your total gold.'
+                "Teasure Eel",
+                _react2.default.createElement("br", null),
+                "Common",
+                _react2.default.createElement("br", null),
+                "When you catch a Treasure Eel, double your total gold."
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Great White Shark',
-                _react2.default.createElement('br', null),
-                'Uncommon',
-                _react2.default.createElement('br', null),
-                'Multiplier +5, Cooldown +3s'
+                "Great White Shark",
+                _react2.default.createElement("br", null),
+                "Uncommon",
+                _react2.default.createElement("br", null),
+                "Multiplier +5, Cooldown +3s"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Marlin',
-                _react2.default.createElement('br', null),
-                'Uncommon',
-                _react2.default.createElement('br', null),
-                'Multipler +10, Cooldown +6s'
+                "Marlin",
+                _react2.default.createElement("br", null),
+                "Uncommon",
+                _react2.default.createElement("br", null),
+                "Multipler +10, Cooldown +6s"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Nightfish',
-                _react2.default.createElement('br', null),
-                'Rare',
-                _react2.default.createElement('br', null)
+                "Nightfish",
+                _react2.default.createElement("br", null),
+                "Rare",
+                _react2.default.createElement("br", null),
+                //this.state.hooks[2][3] == 0 ? 
+                //"You've heard whispers of the great and terrible Nightfish, and rumours that its slick, black skin can never truly be touched by human hands." :
+                "The Nightfish slips and slides out of your grasp, but its body bumps against your Die in the commotion. The Die glows with dark energy."
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'A Shift In the Eventide',
-                _react2.default.createElement('br', null),
-                'Cosmic',
-                _react2.default.createElement('br', null),
-                'You feel a pull to the water, as if a dark tide has washed over your soul and is dragging you into the brackish deep.'
+                "A Shift In the Eventide",
+                _react2.default.createElement("br", null),
+                "Cosmic",
+                _react2.default.createElement("br", null),
+                "You feel a pull to the water, as if a dark tide has washed over your soul and is dragging you into the brackish deep."
             )
             // The above cosmic catch should increase the chance of other cosmic catches.
             ];
             var hook4 = [// Plastic hook - looks like baby toy
             _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Clown Fish',
-                _react2.default.createElement('br', null),
-                'Common',
-                _react2.default.createElement('br', null),
-                'Multiplier +0.25'
+                "Clown Fish",
+                _react2.default.createElement("br", null),
+                "Common",
+                _react2.default.createElement("br", null),
+                "Multiplier +0.25"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Baby Fish',
-                _react2.default.createElement('br', null),
-                'Common',
-                _react2.default.createElement('br', null),
-                'Die Max +1'
+                "Baby Fish",
+                _react2.default.createElement("br", null),
+                "Common",
+                _react2.default.createElement("br", null),
+                "Die Max +1"
             ), // They grow up so fast
             _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Angel Fish',
-                _react2.default.createElement('br', null),
-                'Common',
-                _react2.default.createElement('br', null),
-                'Die Min +1'
+                "Angel Fish",
+                _react2.default.createElement("br", null),
+                "Common",
+                _react2.default.createElement("br", null),
+                "Die Min +1"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Fish of Paradise',
-                _react2.default.createElement('br', null),
-                'Uncommon',
-                _react2.default.createElement('br', null),
-                'Multiplier +1, Cooldown +1s'
+                "Fish of Paradise",
+                _react2.default.createElement("br", null),
+                "Uncommon",
+                _react2.default.createElement("br", null),
+                "Multiplier +1, Cooldown +1s"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Fish Avenger',
-                _react2.default.createElement('br', null),
-                'Uncommon',
-                _react2.default.createElement('br', null),
-                'Die Max +2'
+                "Fish Avenger",
+                _react2.default.createElement("br", null),
+                "Uncommon",
+                _react2.default.createElement("br", null),
+                "Die Max +2"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Funny Fish',
-                _react2.default.createElement('br', null),
-                'Rare',
-                _react2.default.createElement('br', null),
-                'If you roll your die min, change it to your die max!'
+                "Funny Fish",
+                _react2.default.createElement("br", null),
+                "Rare",
+                _react2.default.createElement("br", null),
+                "If you roll your die min, change it to your die max!"
             )];
             var hook5 = [// Plastic hook - looks like baby toy
             _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Clown Fish',
-                _react2.default.createElement('br', null),
-                'Common',
-                _react2.default.createElement('br', null),
-                'Multiplier +0.25'
+                "Clown Fish",
+                _react2.default.createElement("br", null),
+                "Common",
+                _react2.default.createElement("br", null),
+                "Multiplier +0.25"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Baby Fish',
-                _react2.default.createElement('br', null),
-                'Common',
-                _react2.default.createElement('br', null),
-                'Die Max +1'
+                "Baby Fish",
+                _react2.default.createElement("br", null),
+                "Common",
+                _react2.default.createElement("br", null),
+                "Die Max +1"
             ), // They grow up so fast
             _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Angel Fish',
-                _react2.default.createElement('br', null),
-                'Common',
-                _react2.default.createElement('br', null),
-                'Die Min +1'
+                "Angel Fish",
+                _react2.default.createElement("br", null),
+                "Common",
+                _react2.default.createElement("br", null),
+                "Die Min +1"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Fish of Paradise',
-                _react2.default.createElement('br', null),
-                'Uncommon',
-                _react2.default.createElement('br', null),
-                'Multiplier +1, Cooldown +1s'
+                "Fish of Paradise",
+                _react2.default.createElement("br", null),
+                "Uncommon",
+                _react2.default.createElement("br", null),
+                "Multiplier +1, Cooldown +1s"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Fish Avenger',
-                _react2.default.createElement('br', null),
-                'Uncommon',
-                _react2.default.createElement('br', null),
-                'Die Max +2'
+                "Fish Avenger",
+                _react2.default.createElement("br", null),
+                "Uncommon",
+                _react2.default.createElement("br", null),
+                "Die Max +2"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Funny Fish',
-                _react2.default.createElement('br', null),
-                'Rare',
-                _react2.default.createElement('br', null),
-                'If you roll your die min, change it to your die max!'
+                "Funny Fish",
+                _react2.default.createElement("br", null),
+                "Rare",
+                _react2.default.createElement("br", null),
+                "If you roll your die min, change it to your die max!"
             )];
             var hook6 = [// Plastic hook - looks like baby toy
             _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Clown Fish',
-                _react2.default.createElement('br', null),
-                'Common',
-                _react2.default.createElement('br', null),
-                'Multiplier +0.25'
+                "Clown Fish",
+                _react2.default.createElement("br", null),
+                "Common",
+                _react2.default.createElement("br", null),
+                "Multiplier +0.25"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Baby Fish',
-                _react2.default.createElement('br', null),
-                'Common',
-                _react2.default.createElement('br', null),
-                'Die Max +1'
+                "Baby Fish",
+                _react2.default.createElement("br", null),
+                "Common",
+                _react2.default.createElement("br", null),
+                "Die Max +1"
             ), // They grow up so fast
             _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Angel Fish',
-                _react2.default.createElement('br', null),
-                'Common',
-                _react2.default.createElement('br', null),
-                'Die Min +1'
+                "Angel Fish",
+                _react2.default.createElement("br", null),
+                "Common",
+                _react2.default.createElement("br", null),
+                "Die Min +1"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Fish of Paradise',
-                _react2.default.createElement('br', null),
-                'Uncommon',
-                _react2.default.createElement('br', null),
-                'Multiplier +1, Cooldown +1s'
+                "Fish of Paradise",
+                _react2.default.createElement("br", null),
+                "Uncommon",
+                _react2.default.createElement("br", null),
+                "Multiplier +1, Cooldown +1s"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Fish Avenger',
-                _react2.default.createElement('br', null),
-                'Uncommon',
-                _react2.default.createElement('br', null),
-                'Die Max +2'
+                "Fish Avenger",
+                _react2.default.createElement("br", null),
+                "Uncommon",
+                _react2.default.createElement("br", null),
+                "Die Max +2"
             ), _react2.default.createElement(
-                'div',
+                "div",
                 null,
-                'Funny Fish',
-                _react2.default.createElement('br', null),
-                'Rare',
-                _react2.default.createElement('br', null),
-                'If you roll your die min, change it to your die max!'
+                "Funny Fish",
+                _react2.default.createElement("br", null),
+                "Rare",
+                _react2.default.createElement("br", null),
+                "If you roll your die min, change it to your die max!"
             )];
             var descriptions = [];
             descriptions[0] = hook0;
@@ -24659,12 +24662,12 @@ var Fish = function (_React$Component) {
             this.setState({ hookdesc: descriptions });
         }
     }, {
-        key: 'updateWindowDimensions',
+        key: "updateWindowDimensions",
         value: function updateWindowDimensions() {
             this.setState({ width: window.innerWidth, height: window.innerHeight });
         }
     }, {
-        key: 'componentWillUnmount',
+        key: "componentWillUnmount",
         value: function componentWillUnmount() {
             window.removeEventListener('resize', this.updateWindowDimensions);
         }
@@ -24674,13 +24677,16 @@ var Fish = function (_React$Component) {
          */
 
     }, {
-        key: 'componentDidMount',
-        value: async function componentDidMount() {
+        key: "componentDidMount",
+        value: function componentDidMount() {
             this.updateWindowDimensions();
             window.addEventListener('resize', this.updateWindowDimensions);
-            await this.getFishInfo();
+            this.getFishInfo();
             this.loadFishDescriptions();
         }
+    }, {
+        key: "componentDidUpdate",
+        value: function componentDidUpdate() {}
 
         /*
          * Sends a json message to the backend to indicate the user wishes to buy a hook.
@@ -24688,7 +24694,7 @@ var Fish = function (_React$Component) {
          */
 
     }, {
-        key: 'buyHook',
+        key: "buyHook",
         value: function buyHook(hookNum) {
             var self = this;
             fetch("/buyhook", {
@@ -24718,7 +24724,7 @@ var Fish = function (_React$Component) {
          */
 
     }, {
-        key: 'getFishInfo',
+        key: "getFishInfo",
         value: function getFishInfo() {
             var self = this;
             fetch("/loadfish", {
@@ -24729,12 +24735,15 @@ var Fish = function (_React$Component) {
                     console.log("Error " + response.status);
                     return;
                 }
-
                 response.json().then(function (json) {
                     self.setState({
                         hooks: json.data.hooks,
                         totalg: json.data.totalg,
                         hookprices: json.data.hookprices
+                    }, function () {
+                        console.log(self.state.hooks);
+                        self.loadFishDescriptions();
+                        console.log(self.state.descriptions);
                     });
                 });
             });
@@ -24748,7 +24757,7 @@ var Fish = function (_React$Component) {
          */
 
     }, {
-        key: 'render',
+        key: "render",
         value: function render() {
             var _this2 = this;
 
@@ -24803,21 +24812,21 @@ var Fish = function (_React$Component) {
                         // Nothing, because only reveal cosmic rare fish to people who have them already
                     } else {
                         fishlist[fishI] = _react2.default.createElement(
-                            'div',
-                            { className: 'fish-card', key: "fish" + fishI + "row" + rowI },
+                            "div",
+                            { className: "fish-card", key: "fish" + fishI + "row" + rowI },
                             _react2.default.createElement(
-                                'div',
-                                { className: 'fish-number' },
+                                "div",
+                                { className: "fish-number" },
                                 _this2.state.hooks[rowI][fishI]
                             ),
-                            _react2.default.createElement('img', {
-                                className: 'fish-image',
+                            _react2.default.createElement("img", {
+                                className: "fish-image",
                                 src: "static/images/fish/r" + rowI + "-f" + fishI + "-" + (_this2.state.hooks[rowI][fishI] == 0 ? "0" : "1") + ".png",
                                 alt: "Hook " + rowI + ", Fish " + fishI,
                                 key: "Hook " + rowI + ", Fish " + fishI
                             }),
                             _react2.default.createElement(
-                                'div',
+                                "div",
                                 { className: fishDescClass },
                                 _this2.state.hookdesc[rowI][fishI]
                             )
@@ -24825,26 +24834,26 @@ var Fish = function (_React$Component) {
                     }
                 }
                 collection[rowI] = _react2.default.createElement(
-                    'div',
-                    { className: 'fish-section', key: "fish-section" + rowI },
+                    "div",
+                    { className: "fish-section", key: "fish-section" + rowI },
                     _react2.default.createElement(
-                        'div',
-                        { className: 'fish-row', key: "fish-row" + rowI },
+                        "div",
+                        { className: "fish-row", key: "fish-row" + rowI },
                         fishlist
                     ),
                     _react2.default.createElement(
-                        'div',
+                        "div",
                         {
                             className: "hook button hook" + rowI + " " + (_this2.state.totalg > _this2.state.hookprices[rowI] ? "" : "hook-inactive"),
                             key: "hook" + rowI,
                             onClick: function onClick() {
                                 return _this2.buyHook(rowI);
                             } },
-                        'Buy hook ',
+                        "Buy hook ",
                         rowI,
-                        ': ',
+                        ": ",
                         _this2.props.addCommas(_this2.state.hookprices[rowI]),
-                        'g'
+                        "g"
                     )
                 );
             };
@@ -24861,18 +24870,18 @@ var Fish = function (_React$Component) {
             }
 
             return _react2.default.createElement(
-                'div',
-                { id: 'fish-page', className: 'top-parent' },
+                "div",
+                { id: "fish-page", className: "top-parent" },
                 _react2.default.createElement(
-                    'div',
-                    { className: 'totalg' },
-                    'Total Gold:',
-                    _react2.default.createElement('br', null),
+                    "div",
+                    { className: "totalg" },
+                    "Total Gold:",
+                    _react2.default.createElement("br", null),
                     this.props.addCommas(this.state.totalg)
                 ),
                 _react2.default.createElement(
-                    'div',
-                    { className: 'fish-collection' },
+                    "div",
+                    { className: "fish-collection" },
                     collection
                 )
             );
