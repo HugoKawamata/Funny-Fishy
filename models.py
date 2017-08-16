@@ -82,22 +82,42 @@ class User(db.Model, UserMixin):
         # COS% = 1/140
 
         rng = random.randint(0, 140)
-        if rng <= 89:
-            rarity = Rarity.COMMON
-            whichFish = random.randint(0, 2)
-            hookIndex = whichFish
-        elif rng > 89 and rng <= 129:
-            rarity = Rarity.UNCOMMON
-            whichFish = random.randint(0, 1)
-            hookIndex = whichFish + 3
-        elif rng > 129 and rng <= 139:
-            rarity = Rarity.RARE
-            hookIndex = 5
-        elif rng > 139:
-            rarity = Rarity.COSMIC
-            hookIndex = 6
+        if self.csvToList(self.hook3)[6] == 0: # A Shift In The Eventide
+            if rng <= 89:
+                rarity = Rarity.COMMON
+                whichFish = random.randint(0, 2)
+                hookIndex = whichFish
+            elif rng > 89 and rng <= 129:
+                rarity = Rarity.UNCOMMON
+                whichFish = random.randint(0, 1)
+                hookIndex = whichFish + 3
+            elif rng > 129 and rng <= 139:
+                rarity = Rarity.RARE
+                hookIndex = 5
+            elif rng > 139:
+                rarity = Rarity.COSMIC
+                hookIndex = 6
+            else:
+                logging.info("RNG for rarity generation failed")
         else:
-            logging.info("RNG for rarity generation failed")
+            if rng <= 75:
+                rarity = Rarity.COMMON
+                whichFish = random.randint(0, 2)
+                hookIndex = whichFish
+            elif rng > 75 and rng <= 120:
+                rarity = Rarity.UNCOMMON
+                whichFish = random.randint(0, 1)
+                hookIndex = whichFish + 3
+            elif rng > 120 and rng <= 130:
+                rarity = Rarity.RARE
+                hookIndex = 5
+            elif rng > 130:
+                rarity = Rarity.COSMIC
+                hookIndex = 6
+            else:
+                logging.info("RNG for rarity generation failed")
+
+
         
         logging.info("Fish got: " + str(hookIndex))
 
@@ -125,6 +145,16 @@ class User(db.Model, UserMixin):
             hook2list = self.csvToList(self.hook2) # Convert string csv to list
             hook2list[hookIndex] = str(int(hook2list[hookIndex]) + 1) # Increment the fish that you got
             self.hook2 = self.listToCsv(hook2list) # Send back to database
+        elif hookNum == 3:
+            if self.gold < self.hook3price: # Ensure user has enough gold
+                return self.loadfish()
+            self.gold -= self.hook3price # Take away gold from user
+            self.hook3price = math.ceil(self.hook3price * 1.15) # Increase price of hook0
+            hook3list = self.csvToList(self.hook3) # Convert string csv to list
+            hook3list[hookIndex] = str(int(hook3list[hookIndex]) + 1) # Increment the fish that you got
+            if hookIndex == 2: # Caught a treasure eel
+                self.gold = self.gold * 3
+            self.hook3 = self.listToCsv(hook3list) # Send back to database
         return self.loadfish()
 
     def loadfish(self):
@@ -193,7 +223,7 @@ class User(db.Model, UserMixin):
         cd += 1 * int(hook1list[3]) # Uncommon 1 Hook 1
         min += 10 * int(hook1list[4]) # Uncommon 2 Hook 1
         max += 8 * int(hook1list[5]) # Rare Hook 1
-        max += 140 * int(hook1list[6]) # Cosmic Hook 1
+        max += 200 * int(hook1list[6]) # Cosmic Hook 1
 
         hook2list = self.csvToList(self.hook2)
         min += 14 * int(hook2list[0]) # Common 1 Hook 2
@@ -205,7 +235,6 @@ class User(db.Model, UserMixin):
         max += 13 * int(hook2list[4]) # Uncommon 2 Hook 2
         min += 13 * int(hook2list[4]) # Uncommon 2 Hook 2
         mult += int(hook2list[5]) * int(hook2list[5]) # Rare Hook 2
-        cd += 4 * int(hook2list[5]) # Rare Hook 2
 
         hook3list = self.csvToList(self.hook3)
         min += 20 * int(hook3list[0]) # Common 1 Hook 3
@@ -224,6 +253,7 @@ class User(db.Model, UserMixin):
         # Minus effects (after everything else)
         cd -= 3 * int(hook1list[4]) # Uncommon 2 Hook 1
         cd -= 5 * int(hook1list[5]) # Rare Hook 1
+        cd -= 20 * int(hook2list[6])
 
         if min > max:
             roll = min

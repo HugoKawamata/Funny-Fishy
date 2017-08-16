@@ -62,7 +62,7 @@ export default class Fish extends React.Component {
                 </em><br/>
                 Max +15, Cooldown -5s
             </div>, 
-            <div>Scaled Monstrosity<br/>Cosmic<br/><em>The line breaks. An enormous reptilian monster <strong>erupts</strong>, raging, out of the water and onto your boat. Exposed to the air, it expires in seconds.</em><br/>Die Max +500!</div> // UHHHHHHHH
+            <div>Scaled Monstrosity<br/>Cosmic<br/><em>The line breaks. An enormous reptilian monster <strong>erupts</strong>, raging, out of the water and onto your boat. Exposed to the air, it expires in seconds.</em><br/>Die Max +200!</div> // UHHHHHHHH
         ];
         let hook2 = [ // Coral Hook - Looks like it made of coral yeet
             <div>Butterfly Fish<br/>Common<br/>Die Min +14</div>,
@@ -70,17 +70,22 @@ export default class Fish extends React.Component {
             <div>Coral Trout<br/>Common<br/>Multiplier +1</div>,
             <div>Box Jelly<br/>Uncommon<br/>Multiplier +4, Cooldown +3s</div>, 
             <div>Nurse Shark<br/>Uncommon<br/>Die Min +13, Die Max +13</div>,
-            <div>Crown of Thorns<br/>Rare<br/>Multiplier +X, Cooldown +4s, where X is the number of Crown of Thorns you own.</div>,
-            <div>Crown of the Deep<br/>Cosmic<br/></div> // Terrifying looking starfish monster
+            <div>Crown of Thorns<br/>Rare<br/>Multiplier +X, where X is the number of Crown of Thorns you own.</div>,
+            <div>Crown of the Deep<br/>Cosmic<br/>
+                <em>
+                    The boat rocks. Giant, pulsing starfish arms grab hold of the boat from all sides, their barbs anchoring them deep into the hull. The arms harden into a pitch black stone. There's no getting them off.
+                </em><br/>
+                Cooldown -20s
+            </div> // Terrifying looking starfish monster
         ];
         let hook3 = [ // Night Hook - stars in the night sky
             <div>Mystic Dragonet<br/>Common<br/>Die Min +20</div>,
             <div>Bluefin Tuna<br/>Common<br/>Die Max +20</div>, // They grow up so fast
-            <div>Treasure Eel<br/>Common<br/>When you catch a Treasure Eel, double your total gold.</div>,
+            <div>Treasure Eel<br/>Common<br/>When you catch a Treasure Eel, triple your current gold.</div>,
             <div>Great White Shark<br/>Uncommon<br/>Multiplier +5, Cooldown +3s</div>,
             <div>Marlin<br/>Uncommon<br/>Multipler +10, Cooldown +6s</div>,
             <div>Nightfish<br/>Rare<br/>
-                <em>{this.state.hooks[2][3] == 0 ? 
+                <em>{this.state.hooks[3][5] == 0 ? 
                 "You've heard whispers of the elusive Nightfish, and rumours that its slick, black skin can never truly be touched by human hands." :
                 "The Nightfish slips and slides out of your grasp, but its body bumps against your Die in the commotion. The Die glows with dark energy."
                 }</em><br/>

@@ -24411,7 +24411,7 @@ var Fish = function (_React$Component) {
                     ", raging, out of the water and onto your boat. Exposed to the air, it expires in seconds."
                 ),
                 _react2.default.createElement("br", null),
-                "Die Max +500!"
+                "Die Max +200!"
             ) // UHHHHHHHH
             ];
             var hook2 = [// Coral Hook - Looks like it made of coral yeet
@@ -24462,14 +24462,21 @@ var Fish = function (_React$Component) {
                 _react2.default.createElement("br", null),
                 "Rare",
                 _react2.default.createElement("br", null),
-                "Multiplier +X, Cooldown +4s, where X is the number of Crown of Thorns you own."
+                "Multiplier +X, where X is the number of Crown of Thorns you own."
             ), _react2.default.createElement(
                 "div",
                 null,
                 "Crown of the Deep",
                 _react2.default.createElement("br", null),
                 "Cosmic",
-                _react2.default.createElement("br", null)
+                _react2.default.createElement("br", null),
+                _react2.default.createElement(
+                    "em",
+                    null,
+                    "The boat rocks. Giant, pulsing starfish arms grab hold of the boat from all sides, their barbs anchoring them deep into the hull. The arms harden into a pitch black stone. There's no getting them off."
+                ),
+                _react2.default.createElement("br", null),
+                "Cooldown -20s"
             ) // Terrifying looking starfish monster
             ];
             var hook3 = [// Night Hook - stars in the night sky
@@ -24497,7 +24504,7 @@ var Fish = function (_React$Component) {
                 _react2.default.createElement("br", null),
                 "Common",
                 _react2.default.createElement("br", null),
-                "When you catch a Treasure Eel, double your total gold."
+                "When you catch a Treasure Eel, triple your current gold."
             ), _react2.default.createElement(
                 "div",
                 null,
@@ -24524,7 +24531,7 @@ var Fish = function (_React$Component) {
                 _react2.default.createElement(
                     "em",
                     null,
-                    this.state.hooks[2][3] == 0 ? "You've heard whispers of the elusive Nightfish, and rumours that its slick, black skin can never truly be touched by human hands." : "The Nightfish slips and slides out of your grasp, but its body bumps against your Die in the commotion. The Die glows with dark energy."
+                    this.state.hooks[3][5] == 0 ? "You've heard whispers of the elusive Nightfish, and rumours that its slick, black skin can never truly be touched by human hands." : "The Nightfish slips and slides out of your grasp, but its body bumps against your Die in the commotion. The Die glows with dark energy."
                 ),
                 _react2.default.createElement("br", null),
                 this.state.hooks[3][5] == 0 ? "" : "Multiplier +2, Die Min + 10, Die Max +10, Cooldown -2s"
