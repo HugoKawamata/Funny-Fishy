@@ -180,7 +180,7 @@ button:active, .button:active {
     padding: 1em;
     text-align: left;
     color: #333;
-    text-shadow: 0 0 0 #000; }
+    text-shadow: none; }
 
 .fish-card:hover .fish-desc {
   display: block;
@@ -195,7 +195,7 @@ button:active, .button:active {
 
 .hook {
   margin: 1em 0 2em 0;
-  text-shadow: 0 0 0 #000; }
+  text-shadow: none; }
 
 .hook-inactive {
   color: #333;

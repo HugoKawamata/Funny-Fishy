@@ -46,7 +46,7 @@ export default class Fish extends React.Component {
             <div>Fish of Paradise<br/>Uncommon<br/>Multiplier +1, Cooldown +1s</div>,
             <div>Fish Avenger<br/>Uncommon<br/>Die Max +10</div>,
             <div>Funny Fish<br/>Rare<br/>If you roll your die min, change it to your die max!</div>,
-            <div>The Old Tome<br/>Cosmic<br/>You reel up, and dangling from your hook is a strange tome with inscriptions in an unknown language. It seems to increase your multiplier by 20!</div>
+            <div>The Old Tome<br/>Cosmic<br/><em>You reel up, and dangling from your hook is a strange tome with inscriptions in an unknown language.</em><br/>Multiplier +20!</div>
         ];
         let hook1 = [ // River hook - Regular looking hook with lure, maybe blue metal?
             <div>Toadfish<br/>Common<br/>Die Max +7</div>,
@@ -54,8 +54,15 @@ export default class Fish extends React.Component {
             <div>Mangrove Jack<br/>Common<br/>Die Max +12, Cooldown +1s</div>,
             <div>Barramundi<br/>Uncommon<br/>Die Max +2 for each common river hook fish you own, Cooldown +1s</div>,
             <div>Mud Crab<br/>Uncommon<br/>Die Min +10, Cooldown -3s</div>,
-            <div>Crocodile<br/>Rare<br/>Die Max +14, Cooldown -5s</div>, // Holy shit, you got a crocodile??
-            <div>Scaled Monstrosity<br/>Cosmic<br/>Die Max +500!</div> // UHHHHHHHH
+            <div>Crocodile<br/>Rare<br/>
+                <em>{this.state.hooks[1][5] == 0 ?
+                    "Don't worry, there aren't any stingrays around." :
+                    "She's a BEAUT!"
+                    }
+                </em><br/>
+                Max +15, Cooldown -5s
+            </div>, 
+            <div>Scaled Monstrosity<br/>Cosmic<br/><em>The line breaks. An enormous reptilian monster <strong>erupts</strong>, raging, out of the water and onto your boat. Exposed to the air, it expires in seconds.</em><br/>Die Max +500!</div> // UHHHHHHHH
         ];
         let hook2 = [ // Coral Hook - Looks like it made of coral yeet
             <div>Butterfly Fish<br/>Common<br/>Die Min +14</div>,
@@ -73,16 +80,19 @@ export default class Fish extends React.Component {
             <div>Great White Shark<br/>Uncommon<br/>Multiplier +5, Cooldown +3s</div>,
             <div>Marlin<br/>Uncommon<br/>Multipler +10, Cooldown +6s</div>,
             <div>Nightfish<br/>Rare<br/>
-                {this.state.hooks[2][3] == 0 ? 
-                "You've heard whispers of the great and terrible Nightfish, and rumours that its slick, black skin can never truly be touched by human hands." :
+                <em>{this.state.hooks[2][3] == 0 ? 
+                "You've heard whispers of the elusive Nightfish, and rumours that its slick, black skin can never truly be touched by human hands." :
                 "The Nightfish slips and slides out of your grasp, but its body bumps against your Die in the commotion. The Die glows with dark energy."
-                }
+                }</em><br/>
+                {this.state.hooks[3][5] == 0 ? 
+                "" : 
+                "Multiplier +2, Die Min + 10, Die Max +10, Cooldown -2s"}
                 </div>,
             <div>A Shift In the Eventide<br/>Cosmic<br/>You feel a pull to the water, as if a dark tide has washed over your soul and is dragging you into the brackish deep.</div>
             // The above cosmic catch should increase the chance of other cosmic catches.
         ];
-        let hook4 = [ // Plastic hook - looks like baby toy
-            <div>Clown Fish<br/>Common<br/>Multiplier +0.25</div>,
+        let hook4 = [ // 
+            <div><br/>Common<br/>Multiplier +0.25</div>,
             <div>Baby Fish<br/>Common<br/>Die Max +1</div>, // They grow up so fast
             <div>Angel Fish<br/>Common<br/>Die Min +1</div>,
             <div>Fish of Paradise<br/>Uncommon<br/>Multiplier +1, Cooldown +1s</div>,
@@ -210,6 +220,7 @@ export default class Fish extends React.Component {
                 hookprices={this.state.hookprices}
                 hookdesc={this.state.hookdesc}
                 addCommas={this.props.addCommas}
+                buyHook={(hooknum) => this.buyHook(hooknum)}
             />
         )
     }

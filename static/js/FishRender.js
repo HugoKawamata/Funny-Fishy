@@ -72,7 +72,7 @@ export default class FishRender extends React.Component {
                     <div 
                         className={"hook button hook" + rowI + " " + (this.props.totalg > this.props.hookprices[rowI] ? "" : "hook-inactive")}
                         key={"hook" + rowI}
-                        onClick={() => this.buyHook(rowI)}>Buy hook {rowI}: {this.props.addCommas(this.props.hookprices[rowI])}g
+                        onClick={() => this.props.buyHook(rowI)}>Buy hook {rowI}: {this.props.addCommas(this.props.hookprices[rowI])}g
                     </div>
                 </div>
         }

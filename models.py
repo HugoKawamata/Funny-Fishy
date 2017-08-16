@@ -117,6 +117,14 @@ class User(db.Model, UserMixin):
             hook1list = self.csvToList(self.hook1) # Convert string csv to list
             hook1list[hookIndex] = str(int(hook1list[hookIndex]) + 1) # Increment the fish that you got
             self.hook1 = self.listToCsv(hook1list) # Send back to database
+        elif hookNum == 2:
+            if self.gold < self.hook2price: # Ensure user has enough gold
+                return self.loadfish()
+            self.gold -= self.hook2price # Take away gold from user
+            self.hook2price = math.ceil(self.hook2price * 1.15) # Increase price of hook0
+            hook2list = self.csvToList(self.hook2) # Convert string csv to list
+            hook2list[hookIndex] = str(int(hook2list[hookIndex]) + 1) # Increment the fish that you got
+            self.hook2 = self.listToCsv(hook2list) # Send back to database
         return self.loadfish()
 
     def loadfish(self):
@@ -199,6 +207,18 @@ class User(db.Model, UserMixin):
         mult += int(hook2list[5]) * int(hook2list[5]) # Rare Hook 2
         cd += 4 * int(hook2list[5]) # Rare Hook 2
 
+        hook3list = self.csvToList(self.hook3)
+        min += 20 * int(hook3list[0]) # Common 1 Hook 3
+        max += 20 * int(hook3list[1]) # Common 2 Hook 3
+        # Treasure eel is common 3 hook 3
+        mult += 5 * int(hook3list[3]) # Uncommon 1 Hook 3
+        cd += 3 * int(hook3list[3]) # Uncommon 1 Hook 3
+        mult += 10 * int(hook3list[4]) # Uncommon 2 Hook 3
+        cd += 6 * int(hook3list[4]) # Uncommon 2 Hook 3
+        mult += 2 * int(hook3list[4]) # Rare Hook 3
+        cd += 2 * int(hook3list[4]) # Rare Hook 3
+        min += 10 * int(hook3list[4]) # Rare Hook 3
+        max += 10 * int(hook3list[4]) # Rare Hook 3
 
 
         # Minus effects (after everything else)

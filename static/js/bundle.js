@@ -24329,7 +24329,13 @@ var Fish = function (_React$Component) {
                 _react2.default.createElement("br", null),
                 "Cosmic",
                 _react2.default.createElement("br", null),
-                "You reel up, and dangling from your hook is a strange tome with inscriptions in an unknown language. It seems to increase your multiplier by 20!"
+                _react2.default.createElement(
+                    "em",
+                    null,
+                    "You reel up, and dangling from your hook is a strange tome with inscriptions in an unknown language."
+                ),
+                _react2.default.createElement("br", null),
+                "Multiplier +20!"
             )];
             var hook1 = [// River hook - Regular looking hook with lure, maybe blue metal?
             _react2.default.createElement(
@@ -24379,14 +24385,31 @@ var Fish = function (_React$Component) {
                 _react2.default.createElement("br", null),
                 "Rare",
                 _react2.default.createElement("br", null),
-                "Die Max +14, Cooldown -5s"
-            ), // Holy shit, you got a crocodile??
-            _react2.default.createElement(
+                _react2.default.createElement(
+                    "em",
+                    null,
+                    this.state.hooks[1][5] == 0 ? "Don't worry, there aren't any stingrays around." : "She's a BEAUT!"
+                ),
+                _react2.default.createElement("br", null),
+                "Max +15, Cooldown -5s"
+            ), _react2.default.createElement(
                 "div",
                 null,
                 "Scaled Monstrosity",
                 _react2.default.createElement("br", null),
                 "Cosmic",
+                _react2.default.createElement("br", null),
+                _react2.default.createElement(
+                    "em",
+                    null,
+                    "The line breaks. An enormous reptilian monster ",
+                    _react2.default.createElement(
+                        "strong",
+                        null,
+                        "erupts"
+                    ),
+                    ", raging, out of the water and onto your boat. Exposed to the air, it expires in seconds."
+                ),
                 _react2.default.createElement("br", null),
                 "Die Max +500!"
             ) // UHHHHHHHH
@@ -24498,7 +24521,13 @@ var Fish = function (_React$Component) {
                 _react2.default.createElement("br", null),
                 "Rare",
                 _react2.default.createElement("br", null),
-                this.state.hooks[2][3] == 0 ? "You've heard whispers of the great and terrible Nightfish, and rumours that its slick, black skin can never truly be touched by human hands." : "The Nightfish slips and slides out of your grasp, but its body bumps against your Die in the commotion. The Die glows with dark energy."
+                _react2.default.createElement(
+                    "em",
+                    null,
+                    this.state.hooks[2][3] == 0 ? "You've heard whispers of the elusive Nightfish, and rumours that its slick, black skin can never truly be touched by human hands." : "The Nightfish slips and slides out of your grasp, but its body bumps against your Die in the commotion. The Die glows with dark energy."
+                ),
+                _react2.default.createElement("br", null),
+                this.state.hooks[3][5] == 0 ? "" : "Multiplier +2, Die Min + 10, Die Max +10, Cooldown -2s"
             ), _react2.default.createElement(
                 "div",
                 null,
@@ -24510,11 +24539,10 @@ var Fish = function (_React$Component) {
             )
             // The above cosmic catch should increase the chance of other cosmic catches.
             ];
-            var hook4 = [// Plastic hook - looks like baby toy
+            var hook4 = [// 
             _react2.default.createElement(
                 "div",
                 null,
-                "Clown Fish",
                 _react2.default.createElement("br", null),
                 "Common",
                 _react2.default.createElement("br", null),
@@ -24765,6 +24793,7 @@ var Fish = function (_React$Component) {
     }, {
         key: "render",
         value: function render() {
+            var _this2 = this;
 
             return _react2.default.createElement(_FishRender2.default, {
                 width: this.state.width,
@@ -24773,7 +24802,10 @@ var Fish = function (_React$Component) {
                 totalg: this.state.totalg,
                 hookprices: this.state.hookprices,
                 hookdesc: this.state.hookdesc,
-                addCommas: this.props.addCommas
+                addCommas: this.props.addCommas,
+                buyHook: function buyHook(hooknum) {
+                    return _this2.buyHook(hooknum);
+                }
             });
         }
     }]);
@@ -25152,7 +25184,7 @@ var FishRender = function (_React$Component) {
                             className: "hook button hook" + rowI + " " + (_this2.props.totalg > _this2.props.hookprices[rowI] ? "" : "hook-inactive"),
                             key: "hook" + rowI,
                             onClick: function onClick() {
-                                return _this2.buyHook(rowI);
+                                return _this2.props.buyHook(rowI);
                             } },
                         "Buy hook ",
                         rowI,
