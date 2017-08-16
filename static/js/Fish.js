@@ -21,37 +21,47 @@ export default class Fish extends React.Component {
     loadFishDescriptions() {
         let hook0 = [ // Plastic hook - looks like baby toy
             <div>Clown Fish<br/>Common<br/>Multiplier +0.25</div>,
-            <div>Baby Fish<br/>Common<br/>Die Max +1</div>, // They grow up so fast
-            <div>Angel Fish<br/>Common<br/>Die Min +1</div>,
+            <div>Baby Fish<br/>Common<br/>Die Max +4</div>, // They grow up so fast
+            <div>Angel Fish<br/>Common<br/>Die Min +4</div>,
             <div>Fish of Paradise<br/>Uncommon<br/>Multiplier +1, Cooldown +1s</div>,
-            <div>Fish Avenger<br/>Uncommon<br/>Die Max +2</div>,
+            <div>Fish Avenger<br/>Uncommon<br/>Die Max +10</div>,
             <div>Funny Fish<br/>Rare<br/>If you roll your die min, change it to your die max!</div>,
-            <div>The Old Tome<br/>Cosmic<br/>Increase multiplier by 40!!!</div>
+            <div>The Old Tome<br/>Cosmic<br/>You reel up, and dangling from your hook is a strange tome with inscriptions in an unknown language. It seems to increase your multiplier by 20!</div>
         ];
         let hook1 = [ // River hook - Regular looking hook with lure, maybe blue metal?
-            <div>Toadfish<br/>Common<br/>Die Max +3, Cooldown +2s</div>,
-            <div>Catfish<br/>Common<br/>Die Max +3, Cooldown +2s</div>,
-            <div>Mangrove Jack<br/>Common<br/>Die Max +4, Cooldown +2s</div>,
-            <div>Barramundi<br/>Uncommon<br/>Die Max +1 for each common river hook fish you own, Cooldown +3s</div>,
-            <div>Mud Crab<br/>Uncommon<br/>Die Min +1, Cooldown -3s</div>,
-            <div>Crocodile<br/>Rare<br/>Die Max +8, Cooldown -5s</div>, // Holy shit, you got a crocodile??
+            <div>Toadfish<br/>Common<br/>Die Max +7</div>,
+            <div>Catfish<br/>Common<br/>Die Max +7</div>,
+            <div>Mangrove Jack<br/>Common<br/>Die Max +12, Cooldown +1s</div>,
+            <div>Barramundi<br/>Uncommon<br/>Die Max +2 for each common river hook fish you own, Cooldown +1s</div>,
+            <div>Mud Crab<br/>Uncommon<br/>Die Min +10, Cooldown -3s</div>,
+            <div>Crocodile<br/>Rare<br/>Die Max +14, Cooldown -5s</div>, // Holy shit, you got a crocodile??
             <div>Scaled Monstrosity<br/>Cosmic<br/>Die Max +500!</div> // UHHHHHHHH
         ];
-        let hook2 = [ // Plastic hook - looks like baby toy
-            <div>Clown Fish<br/>Common<br/>Multiplier +0.25</div>,
-            <div>Baby Fish<br/>Common<br/>Die Max +1</div>, // They grow up so fast
-            <div>Angel Fish<br/>Common<br/>Die Min +1</div>,
-            <div>Fish of Paradise<br/>Uncommon<br/>Multiplier +1, Cooldown +1s</div>,
-            <div>Fish Avenger<br/>Uncommon<br/>Die Max +2</div>,
-            <div>Funny Fish<br/>Rare<br/>If you roll your die min, change it to your die max!</div>
+        let hook2 = [ // Coral Hook - Looks like it made of coral yeet
+            <div>Butterfly Fish<br/>Common<br/>Die Min +14</div>,
+            <div>Parrotfish<br/>Common<br/>Multiplier +2, Cooldown +1s</div>, 
+            <div>Coral Trout<br/>Common<br/>Multiplier +1</div>,
+            <div>Box Jelly<br/>Uncommon<br/>Multiplier +4, Cooldown +3s</div>, 
+            <div>Nurse Shark<br/>Uncommon<br/>Die Min +13, Die Max +13</div>,
+            <div>Crown of Thorns<br/>Rare<br/>Multiplier +X, Cooldown +4s, where X is the number of Crown of Thorns you own.</div>,
+            <div>Crown of the Deep<br/>Cosmic<br/></div> // Terrifying looking starfish monster
         ];
-        let hook3 = [ // Plastic hook - looks like baby toy
-            <div>Clown Fish<br/>Common<br/>Multiplier +0.25</div>,
-            <div>Baby Fish<br/>Common<br/>Die Max +1</div>, // They grow up so fast
-            <div>Angel Fish<br/>Common<br/>Die Min +1</div>,
-            <div>Fish of Paradise<br/>Uncommon<br/>Multiplier +1, Cooldown +1s</div>,
-            <div>Fish Avenger<br/>Uncommon<br/>Die Max +2</div>,
-            <div>Funny Fish<br/>Rare<br/>If you roll your die min, change it to your die max!</div>
+        let hook3 = [ // Night Hook - stars in the night sky
+            <div>Dragonet<br/>Common<br/>Die Min +20</div>,
+            <div>Bluefin Tuna<br/>Common<br/>Die Max +20</div>, // They grow up so fast
+            <div>Teasure Eel<br/>Common<br/>When you catch a Treasure Eel, double your total gold.</div>,
+            <div>Great White Shark<br/>Uncommon<br/>Multiplier +5, Cooldown +3s</div>,
+            <div>Marlin<br/>Uncommon<br/>Multipler +10, Cooldown +6s</div>,
+            <div>Nightfish<br/>Rare<br/>
+                {// console.log(this.state.hooks)
+                }
+                {//this.state.hooks[0][3] == 0 ? 
+                //"You've heard whispers of the great and terrible Nightfish, and rumours that its slick, black skin can never truly be touched by human hands." :
+                //"The Nightfish slips and slides out of your grasp, but its body bumps against your Die in the commotion. The Die glows with dark energy."
+                }
+                </div>,
+            <div>A Shift In the Eventide<br/>Cosmic<br/>You feel a pull to the water, as if a dark tide has washed over your soul and is dragging you into the brackish deep.</div>
+            // The above cosmic catch should increase the chance of other cosmic catches.
         ];
         let hook4 = [ // Plastic hook - looks like baby toy
             <div>Clown Fish<br/>Common<br/>Multiplier +0.25</div>,
@@ -99,10 +109,10 @@ export default class Fish extends React.Component {
     /*
      * Get initial render information
      */
-    componentDidMount() {
+    async componentDidMount() {
         this.updateWindowDimensions()
         window.addEventListener('resize', this.updateWindowDimensions);
-        this.getFishInfo();
+        await this.getFishInfo();
         this.loadFishDescriptions();
     }
     
@@ -160,7 +170,7 @@ export default class Fish extends React.Component {
                     hooks: json.data.hooks,
                     totalg: json.data.totalg,
                     hookprices: json.data.hookprices
-                })
+                });
             })
         })
     }

@@ -127,12 +127,17 @@ export default class Die extends React.Component {
                         onClick={() => this.animateRoll()}>
                         {this.state.lastroll}</div>
                 </div>
-                <div className="die-stats">
-                    <p>Last roll: {this.state.lastroll}</p>
-                    <p>Die min: {this.state.lastmin}</p>
-                    <p>Die max: {this.state.lastmax}</p>
-                    <p>Multiplier: {this.state.lastmult}</p>
-                    <p>Cooldown per roll: {this.state.lastcd}</p>
+                <div className="die-stat-cont">
+                    <div className="die-stat-head">
+                        Die Stats
+                    </div>
+                    <div className="die-stats">
+                        <p>Last roll: {this.state.lastroll}</p>
+                        <p>Die min: {this.state.lastmin}</p>
+                        <p>Die max: {this.state.lastmax}</p>
+                        <p>Multiplier: {this.state.lastmult}</p>
+                        <p>Cooldown per roll: {this.state.lastcd}</p>
+                    </div>
                 </div>
             </div>
         )

@@ -141,6 +141,7 @@ class User(db.Model, UserMixin):
             "totalg": self.gold,
             "hookprices" : hookprices
         }
+        logging.info(data)
         return data
 
     def loaddie(self):
@@ -167,38 +168,55 @@ class User(db.Model, UserMixin):
 
         # Hook 0
         hook0list = self.csvToList(self.hook0)
-        mult += 0.25 * int(hook0list[0]) # Common 1
-        max += 1 * int(hook0list[1]) # Common 2
-        min += 1 * int(hook0list[2]) # Common 3
-        mult += 1 * int(hook0list[3]) # Uncommon 1
-        cd += 1 * int(hook0list[3]) # Uncommon 1
-        max += 2 * int(hook0list[4]) # Uncommon 2
-        mult += 40 * int(hook0list[6]) # Cosmic
+        mult += 0.25 * int(hook0list[0]) # Common 1 Hook 0
+        max += 1 * int(hook0list[1]) # Common 2 Hook 0
+        min += 1 * int(hook0list[2]) # Common 3 Hook 0
+        mult += 1 * int(hook0list[3]) # Uncommon 1 Hook 0
+        cd += 1 * int(hook0list[3]) # Uncommon 1 Hook 0
+        max += 2 * int(hook0list[4]) # Uncommon 2 Hook 0
+        mult += 20 * int(hook0list[6]) # Cosmic Hook 0
 
         hook1list = self.csvToList(self.hook1)
-        max += 3 * int(hook1list[0])
-        cd += 2 * int(hook1list[0])
-        max += 3 * int(hook1list[1])
-        cd += 2 * int(hook1list[1])
-        max += 4 * int(hook1list[2])
-        cd += 2 * int(hook1list[2])
-        max += 1 * int(hook1list[3]) * (int(hook1list[0]) + int(hook1list[1]) + int(hook1list[2]))
-        cd += 3 * int(hook1list[3])
-        min += 1 * int(hook1list[4])
-        cd -= 3 * int(hook1list[4])
-        max += 8 * int(hook1list[5])
-        cd -= 5 * int(hook1list[5])
-        max += 5000 * int(hook1list[6])
+        max += 7 * int(hook1list[0]) # Common 1 Hook 1
+        max += 7 * int(hook1list[1]) # Common 2 Hook 1
+        max += 12 * int(hook1list[2]) # Common 3 Hook 1
+        cd += 1 * int(hook1list[2]) # Common 3 Hook 1
+        max += 2 * int(hook1list[3]) * (int(hook1list[0]) + int(hook1list[1]) + int(hook1list[2])) # Uncommon 1 Hook 1
+        cd += 1 * int(hook1list[3]) # Uncommon 1 Hook 1
+        min += 10 * int(hook1list[4]) # Uncommon 2 Hook 1
+        max += 8 * int(hook1list[5]) # Rare Hook 1
+        max += 140 * int(hook1list[6]) # Cosmic Hook 1
 
+        hook2list = self.csvToList(self.hook2)
+        min += 14 * int(hook2list[0]) # Common 1 Hook 2
+        mult += 2 * int(hook2list[1]) # Common 2 Hook 2
+        cd += 1 * int(hook2list[1])  # Common 2 Hook 2
+        mult += 1 * int(hook2list[2]) # Common 3 Hook 2
+        mult += 4 * int(hook2list[3]) # Uncommon 1 Hook 2
+        cd += 3 * int(hook2list[3]) # Uncommon 1 Hook 2
+        max += 13 * int(hook2list[4]) # Uncommon 2 Hook 2
+        min += 13 * int(hook2list[4]) # Uncommon 2 Hook 2
+        mult += int(hook2list[5]) * int(hook2list[5]) # Rare Hook 2
+        cd += 4 * int(hook2list[5]) # Rare Hook 2
+
+
+
+        # Minus effects (after everything else)
+        cd -= 3 * int(hook1list[4]) # Uncommon 2 Hook 1
+        cd -= 5 * int(hook1list[5]) # Rare Hook 1
 
         if min > max:
             roll = min
         else:
             roll = random.randint(min, max)
-        if roll == min:
+        if roll == min and min < max:
             if int(hook0list[5]) > 0:
                 roll = 0
                 roll += max * int(hook0list[5]) # Hook 0 Rare
+
+        # Prevent negative cooldowns
+        if cd < 0:
+            cd = 0
 
         data = {
             "roll": roll,
