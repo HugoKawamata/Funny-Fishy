@@ -24224,6 +24224,10 @@ var _react = __webpack_require__(20);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _FishRender = __webpack_require__(191);
+
+var _FishRender2 = _interopRequireDefault(_FishRender);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24243,10 +24247,20 @@ var Fish = function (_React$Component) {
         _this.state = {
             width: 0,
             height: 0,
-            hooks: [],
+            hooks: [
+                /*
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                */
+            ],
             totalg: 0,
             hookprices: [],
-            hookdesc: []
+            hookdesc: [[0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0]]
         };
         _this.getFishInfo = _this.getFishInfo.bind(_this);
         _this.buyHook = _this.buyHook.bind(_this);
@@ -24439,7 +24453,7 @@ var Fish = function (_React$Component) {
             _react2.default.createElement(
                 "div",
                 null,
-                "Dragonet",
+                "Mystic Dragonet",
                 _react2.default.createElement("br", null),
                 "Common",
                 _react2.default.createElement("br", null),
@@ -24456,7 +24470,7 @@ var Fish = function (_React$Component) {
             _react2.default.createElement(
                 "div",
                 null,
-                "Teasure Eel",
+                "Treasure Eel",
                 _react2.default.createElement("br", null),
                 "Common",
                 _react2.default.createElement("br", null),
@@ -24484,9 +24498,7 @@ var Fish = function (_React$Component) {
                 _react2.default.createElement("br", null),
                 "Rare",
                 _react2.default.createElement("br", null),
-                //this.state.hooks[2][3] == 0 ? 
-                //"You've heard whispers of the great and terrible Nightfish, and rumours that its slick, black skin can never truly be touched by human hands." :
-                "The Nightfish slips and slides out of your grasp, but its body bumps against your Die in the commotion. The Die glows with dark energy."
+                this.state.hooks[2][3] == 0 ? "You've heard whispers of the great and terrible Nightfish, and rumours that its slick, black skin can never truly be touched by human hands." : "The Nightfish slips and slides out of your grasp, but its body bumps against your Die in the commotion. The Die glows with dark energy."
             ), _react2.default.createElement(
                 "div",
                 null,
@@ -24682,11 +24694,7 @@ var Fish = function (_React$Component) {
             this.updateWindowDimensions();
             window.addEventListener('resize', this.updateWindowDimensions);
             this.getFishInfo();
-            this.loadFishDescriptions();
         }
-    }, {
-        key: "componentDidUpdate",
-        value: function componentDidUpdate() {}
 
         /*
          * Sends a json message to the backend to indicate the user wishes to buy a hook.
@@ -24741,9 +24749,7 @@ var Fish = function (_React$Component) {
                         totalg: json.data.totalg,
                         hookprices: json.data.hookprices
                     }, function () {
-                        console.log(self.state.hooks);
                         self.loadFishDescriptions();
-                        console.log(self.state.descriptions);
                     });
                 });
             });
@@ -24759,132 +24765,16 @@ var Fish = function (_React$Component) {
     }, {
         key: "render",
         value: function render() {
-            var _this2 = this;
 
-            var collection = [];
-
-            var _loop = function _loop(rowI) {
-                // Get number of fish in the row (cause cosmic rare fish aren't automatically revealed)
-                numFishInRow = _this2.state.hooks[rowI][6] == 0 ? 6 : 7;
-                // Which fish are on the right side?
-
-                rightSideFish = [];
-                minWidth = 80 * numFishInRow;
-
-                if (_this2.state.width >= minWidth) {
-                    // All fish fit in screen
-                    rightSideFish[0] = numFishInRow - 3;
-                    rightSideFish[1] = numFishInRow - 2;
-                    rightSideFish[2] = numFishInRow - 1; // Minus 1 because indexes begin at 0
-                } else {
-                    // There are two or more rows of flex wrapping fish
-
-                    if (Math.floor(_this2.state.width / 80) == 5) {
-                        // 5 fish on top row
-                        rightSideFish[0] = 3;
-                        rightSideFish[1] = 4;
-                    } else if (Math.floor(_this2.state.width / 80) == 4) {
-                        // 4 fish on top row
-                        rightSideFish[0] = 2;
-                        rightSideFish[1] = 3;
-                        rightSideFish[2] = numFishInRow - 1;
-                    } else if (Math.floor(_this2.state.width / 80) == 3) {
-                        // 3 fish on top row, 3 fish bottom row
-                        rightSideFish[0] = 2;
-                        rightSideFish[1] = 5;
-                    }
-
-                    // Don't worry if there are 3 rows of fish because the screen has to be
-                    // ridiculously narrow for that to happen.
-                }
-                // add row of fish to "collection" for each hook before corrupt hooks // 6?
-                fishlist = [];
-                rightFishIndex = 0;
-
-                for (var fishI = 0; fishI < _this2.state.hooks[rowI].length; fishI++) {
-                    fishDescClass = "fish-desc";
-
-                    if (rightSideFish[rightFishIndex] === fishI) {
-                        fishDescClass = "fish-desc fish-desc-right";
-                        rightFishIndex += 1;
-                    }
-                    if (fishI == 6 && _this2.state.hooks[rowI][fishI] == 0) {
-                        // Nothing, because only reveal cosmic rare fish to people who have them already
-                    } else {
-                        fishlist[fishI] = _react2.default.createElement(
-                            "div",
-                            { className: "fish-card", key: "fish" + fishI + "row" + rowI },
-                            _react2.default.createElement(
-                                "div",
-                                { className: "fish-number" },
-                                _this2.state.hooks[rowI][fishI]
-                            ),
-                            _react2.default.createElement("img", {
-                                className: "fish-image",
-                                src: "static/images/fish/r" + rowI + "-f" + fishI + "-" + (_this2.state.hooks[rowI][fishI] == 0 ? "0" : "1") + ".png",
-                                alt: "Hook " + rowI + ", Fish " + fishI,
-                                key: "Hook " + rowI + ", Fish " + fishI
-                            }),
-                            _react2.default.createElement(
-                                "div",
-                                { className: fishDescClass },
-                                _this2.state.hookdesc[rowI][fishI]
-                            )
-                        );
-                    }
-                }
-                collection[rowI] = _react2.default.createElement(
-                    "div",
-                    { className: "fish-section", key: "fish-section" + rowI },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "fish-row", key: "fish-row" + rowI },
-                        fishlist
-                    ),
-                    _react2.default.createElement(
-                        "div",
-                        {
-                            className: "hook button hook" + rowI + " " + (_this2.state.totalg > _this2.state.hookprices[rowI] ? "" : "hook-inactive"),
-                            key: "hook" + rowI,
-                            onClick: function onClick() {
-                                return _this2.buyHook(rowI);
-                            } },
-                        "Buy hook ",
-                        rowI,
-                        ": ",
-                        _this2.props.addCommas(_this2.state.hookprices[rowI]),
-                        "g"
-                    )
-                );
-            };
-
-            for (var rowI = 0; rowI < this.state.hooks.length; rowI++) {
-                var numFishInRow;
-                var rightSideFish;
-                var minWidth;
-                var fishlist;
-                var rightFishIndex;
-                var fishDescClass;
-
-                _loop(rowI);
-            }
-
-            return _react2.default.createElement(
-                "div",
-                { id: "fish-page", className: "top-parent" },
-                _react2.default.createElement(
-                    "div",
-                    { className: "totalg" },
-                    "Total Gold:",
-                    _react2.default.createElement("br", null),
-                    this.props.addCommas(this.state.totalg)
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "fish-collection" },
-                    collection
-                )
-            );
+            return _react2.default.createElement(_FishRender2.default, {
+                width: this.state.width,
+                height: this.state.height,
+                hooks: this.state.hooks,
+                totalg: this.state.totalg,
+                hookprices: this.state.hookprices,
+                hookdesc: this.state.hookdesc,
+                addCommas: this.props.addCommas
+            });
         }
     }]);
 
@@ -25136,6 +25026,177 @@ var Die = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Die;
+
+/***/ }),
+/* 191 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(20);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var FishRender = function (_React$Component) {
+    _inherits(FishRender, _React$Component);
+
+    function FishRender() {
+        _classCallCheck(this, FishRender);
+
+        return _possibleConstructorReturn(this, (FishRender.__proto__ || Object.getPrototypeOf(FishRender)).call(this));
+    }
+
+    _createClass(FishRender, [{
+        key: "render",
+        value: function render() {
+            var _this2 = this;
+
+            var collection = [];
+
+            var _loop = function _loop(rowI) {
+                // Get number of fish in the row (cause cosmic rare fish aren't automatically revealed)
+                numFishInRow = _this2.props.hooks[rowI][6] == 0 ? 6 : 7;
+                // Which fish are on the right side?
+
+                rightSideFish = [];
+                minWidth = 80 * numFishInRow;
+
+                if (_this2.props.width >= minWidth) {
+                    // All fish fit in screen
+                    rightSideFish[0] = numFishInRow - 3;
+                    rightSideFish[1] = numFishInRow - 2;
+                    rightSideFish[2] = numFishInRow - 1; // Minus 1 because indexes begin at 0
+                } else {
+                    // There are two or more rows of flex wrapping fish
+
+                    if (Math.floor(_this2.props.width / 80) == 5) {
+                        // 5 fish on top row
+                        rightSideFish[0] = 3;
+                        rightSideFish[1] = 4;
+                    } else if (Math.floor(_this2.props.width / 80) == 4) {
+                        // 4 fish on top row
+                        rightSideFish[0] = 2;
+                        rightSideFish[1] = 3;
+                        rightSideFish[2] = numFishInRow - 1;
+                    } else if (Math.floor(_this2.props.width / 80) == 3) {
+                        // 3 fish on top row, 3 fish bottom row
+                        rightSideFish[0] = 2;
+                        rightSideFish[1] = 5;
+                    }
+
+                    // Don't worry if there are 3 rows of fish because the screen has to be
+                    // ridiculously narrow for that to happen.
+                }
+                // add row of fish to "collection" for each hook before corrupt hooks // 6?
+                fishlist = [];
+                rightFishIndex = 0;
+
+                for (var fishI = 0; fishI < _this2.props.hooks[rowI].length; fishI++) {
+                    fishDescClass = "fish-desc";
+
+                    if (rightSideFish[rightFishIndex] === fishI) {
+                        fishDescClass = "fish-desc fish-desc-right";
+                        rightFishIndex += 1;
+                    }
+                    if (fishI == 6 && _this2.props.hooks[rowI][fishI] == 0) {
+                        // Nothing, because only reveal cosmic rare fish to people who have them already
+                    } else {
+                        fishlist[fishI] = _react2.default.createElement(
+                            "div",
+                            { className: "fish-card", key: "fish" + fishI + "row" + rowI },
+                            _react2.default.createElement(
+                                "div",
+                                { className: "fish-number" },
+                                _this2.props.hooks[rowI][fishI]
+                            ),
+                            _react2.default.createElement("img", {
+                                className: "fish-image",
+                                src: "static/images/fish/r" + rowI + "-f" + fishI + "-" + (_this2.props.hooks[rowI][fishI] == 0 ? "0" : "1") + ".png",
+                                alt: "Hook " + rowI + ", Fish " + fishI,
+                                key: "Hook " + rowI + ", Fish " + fishI
+                            }),
+                            _react2.default.createElement(
+                                "div",
+                                { className: fishDescClass },
+                                _this2.props.hookdesc[rowI][fishI]
+                            )
+                        );
+                    }
+                }
+                collection[rowI] = _react2.default.createElement(
+                    "div",
+                    { className: "fish-section", key: "fish-section" + rowI },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "fish-row", key: "fish-row" + rowI },
+                        fishlist
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        {
+                            className: "hook button hook" + rowI + " " + (_this2.props.totalg > _this2.props.hookprices[rowI] ? "" : "hook-inactive"),
+                            key: "hook" + rowI,
+                            onClick: function onClick() {
+                                return _this2.buyHook(rowI);
+                            } },
+                        "Buy hook ",
+                        rowI,
+                        ": ",
+                        _this2.props.addCommas(_this2.props.hookprices[rowI]),
+                        "g"
+                    )
+                );
+            };
+
+            for (var rowI = 0; rowI < this.props.hooks.length; rowI++) {
+                var numFishInRow;
+                var rightSideFish;
+                var minWidth;
+                var fishlist;
+                var rightFishIndex;
+                var fishDescClass;
+
+                _loop(rowI);
+            }
+
+            return _react2.default.createElement(
+                "div",
+                { id: "fish-page", className: "top-parent" },
+                _react2.default.createElement(
+                    "div",
+                    { className: "totalg" },
+                    "Total Gold:",
+                    _react2.default.createElement("br", null),
+                    this.props.addCommas(this.props.totalg)
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "fish-collection" },
+                    collection
+                )
+            );
+        }
+    }]);
+
+    return FishRender;
+}(_react2.default.Component);
+
+exports.default = FishRender;
 
 /***/ })
 /******/ ]);

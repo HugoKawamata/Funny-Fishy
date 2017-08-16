@@ -1,4 +1,5 @@
 import React from "react";
+import FishRender from "./FishRender"
 
 export default class Fish extends React.Component {
 
@@ -7,10 +8,29 @@ export default class Fish extends React.Component {
         this.state = {
             width: 0,
             height: 0,
-            hooks: [],
+            hooks: [
+                /*
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                */
+            ],
             totalg: 0,
             hookprices: [],
-            hookdesc: []
+            hookdesc: [
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+            ],
         }
         this.getFishInfo = this.getFishInfo.bind(this)
         this.buyHook = this.buyHook.bind(this)
@@ -47,14 +67,14 @@ export default class Fish extends React.Component {
             <div>Crown of the Deep<br/>Cosmic<br/></div> // Terrifying looking starfish monster
         ];
         let hook3 = [ // Night Hook - stars in the night sky
-            <div>Dragonet<br/>Common<br/>Die Min +20</div>,
+            <div>Mystic Dragonet<br/>Common<br/>Die Min +20</div>,
             <div>Bluefin Tuna<br/>Common<br/>Die Max +20</div>, // They grow up so fast
-            <div>Teasure Eel<br/>Common<br/>When you catch a Treasure Eel, double your total gold.</div>,
+            <div>Treasure Eel<br/>Common<br/>When you catch a Treasure Eel, double your total gold.</div>,
             <div>Great White Shark<br/>Uncommon<br/>Multiplier +5, Cooldown +3s</div>,
             <div>Marlin<br/>Uncommon<br/>Multipler +10, Cooldown +6s</div>,
             <div>Nightfish<br/>Rare<br/>
-                {//this.state.hooks[2][3] == 0 ? 
-                //"You've heard whispers of the great and terrible Nightfish, and rumours that its slick, black skin can never truly be touched by human hands." :
+                {this.state.hooks[2][3] == 0 ? 
+                "You've heard whispers of the great and terrible Nightfish, and rumours that its slick, black skin can never truly be touched by human hands." :
                 "The Nightfish slips and slides out of your grasp, but its body bumps against your Die in the commotion. The Die glows with dark energy."
                 }
                 </div>,
@@ -111,12 +131,8 @@ export default class Fish extends React.Component {
         this.updateWindowDimensions()
         window.addEventListener('resize', this.updateWindowDimensions);
         this.getFishInfo();
-        this.loadFishDescriptions();
     }
 
-    componentDidUpdate() {
-    }
-    
 
     /*
      * Sends a json message to the backend to indicate the user wishes to buy a hook.
@@ -171,9 +187,7 @@ export default class Fish extends React.Component {
                     totalg: json.data.totalg,
                     hookprices: json.data.hookprices
                 }, function(){
-                    console.log(self.state.hooks);
                     self.loadFishDescriptions();
-                    console.log(self.state.descriptions)
                 });
             })
         })
@@ -186,83 +200,17 @@ export default class Fish extends React.Component {
      * not displayed (as completionists will be annoyed by this since they are so rare)
      */
     render() {
-        var collection = [];
-        for (let rowI = 0; rowI < this.state.hooks.length; rowI++) {
-            // Get number of fish in the row (cause cosmic rare fish aren't automatically revealed)
-            var numFishInRow = this.state.hooks[rowI][6] == 0 ? 6 : 7;
-            // Which fish are on the right side?
-            var rightSideFish = [];
-            var minWidth = 80 * numFishInRow;
-            if (this.state.width >= minWidth) {
-                // All fish fit in screen
-                rightSideFish[0] = numFishInRow - 3;
-                rightSideFish[1] = numFishInRow - 2;
-                rightSideFish[2] = numFishInRow - 1; // Minus 1 because indexes begin at 0
-            } else {
-                // There are two or more rows of flex wrapping fish
-
-                if (Math.floor(this.state.width / 80) == 5) { // 5 fish on top row
-                    rightSideFish[0] = 3;
-                    rightSideFish[1] = 4;
-                } else if (Math.floor(this.state.width / 80) == 4) { // 4 fish on top row
-                    rightSideFish[0] = 2;
-                    rightSideFish[1] = 3;
-                    rightSideFish[2] = numFishInRow - 1;
-                } else if (Math.floor(this.state.width / 80) == 3) { // 3 fish on top row, 3 fish bottom row
-                    rightSideFish[0] = 2;
-                    rightSideFish[1] = 5;
-                }
-
-                // Don't worry if there are 3 rows of fish because the screen has to be
-                // ridiculously narrow for that to happen.
-            }
-            // add row of fish to "collection" for each hook before corrupt hooks // 6?
-            var fishlist = [];
-            var rightFishIndex = 0;
-            for (let fishI = 0; fishI < this.state.hooks[rowI].length; fishI++) {
-                var fishDescClass = "fish-desc"
-                if (rightSideFish[rightFishIndex] === fishI) {
-                    fishDescClass = "fish-desc fish-desc-right";
-                    rightFishIndex += 1;
-                }
-                if (fishI == 6 && this.state.hooks[rowI][fishI] == 0) {
-                    // Nothing, because only reveal cosmic rare fish to people who have them already
-                } else {
-                    fishlist[fishI] = (
-                        <div className="fish-card" key={"fish" + fishI + "row" + rowI}>
-                            <div className="fish-number">
-                                {this.state.hooks[rowI][fishI]}
-                            </div>
-                            <img 
-                                className="fish-image"
-                                src={"static/images/fish/r" + rowI + "-f" + fishI + "-" + (this.state.hooks[rowI][fishI] == 0 ? "0" : "1") + ".png"}
-                                alt={"Hook " + rowI + ", Fish " + fishI}
-                                key={"Hook " + rowI + ", Fish " + fishI}
-                            />
-                            <div className={fishDescClass} >
-                                {this.state.hookdesc[rowI][fishI]}
-                            </div>
-                        </div>
-                    )
-                }
-            }
-            collection[rowI] = <div className="fish-section" key={"fish-section" + rowI}>
-                    <div className="fish-row" key={"fish-row" + rowI}>{fishlist}</div>
-                    <div 
-                        className={"hook button hook" + rowI + " " + (this.state.totalg > this.state.hookprices[rowI] ? "" : "hook-inactive")}
-                        key={"hook" + rowI}
-                        onClick={() => this.buyHook(rowI)}>Buy hook {rowI}: {this.props.addCommas(this.state.hookprices[rowI])}g
-                    </div>
-                </div>
-        }
 
         return(
-            <div id="fish-page" className="top-parent">
-                <div className="totalg">Total Gold:<br />{this.props.addCommas(this.state.totalg)}</div>
-                <div className="fish-collection" >
-                    {collection}
-                </div>
-            </div>
+            <FishRender
+                width={this.state.width}
+                height={this.state.height}
+                hooks={this.state.hooks}
+                totalg={this.state.totalg}
+                hookprices={this.state.hookprices}
+                hookdesc={this.state.hookdesc}
+                addCommas={this.props.addCommas}
+            />
         )
     }
 }
