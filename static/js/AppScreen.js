@@ -15,6 +15,39 @@ export default class AppScreen extends React.Component {
         this.addCommas = this.addCommas.bind(this)
     }
 
+    componentDidMount() {
+        this.getSavedData();
+    }
+
+    getSavedData() {
+        var self = this;
+        fetch("/cooldown",
+            {
+                method: "GET",
+                credentials: 'same-origin'
+            }
+        ).then(function(response) {
+            if (response.status !== 200) {  
+                console.log('Error ' +  
+                response.status);  
+                return;  
+            }
+
+            response.json().then(function(json) {  
+                self.setState({
+                    cd: json.data.cd,
+                    counting: json.data.cd === 0 ? false : true,
+                    dieClass: json.data.cd === 0 ? "die die-active" : "die die-inactive",
+                })
+                if (json.data.cd === 0) { // If the die isn't already counting down
+                    self.gameloop(0, "boot")
+                } else {
+                    self.gameloop(json.data.cd)
+                }
+            });
+        });
+    }
+
     addCommas(number) {
         number = Math.floor(number);
         let convNum = number + "";

@@ -42,9 +42,6 @@ export default class Die extends React.Component {
                     lastmax: json.data.max,
                     totalg: json.data.totalg
                 })
-                if (!self.props.counting) { // If the die isn't already counting down
-                    self.props.gameloop(0, "boot")
-                }
             })
         })
     }

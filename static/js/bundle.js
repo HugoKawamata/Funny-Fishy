@@ -24107,6 +24107,39 @@ var AppScreen = function (_React$Component) {
     }
 
     _createClass(AppScreen, [{
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            this.getSavedData();
+        }
+    }, {
+        key: "getSavedData",
+        value: function getSavedData() {
+            var self = this;
+            fetch("/cooldown", {
+                method: "GET",
+                credentials: 'same-origin'
+            }).then(function (response) {
+                if (response.status !== 200) {
+                    console.log('Error ' + response.status);
+                    return;
+                }
+
+                response.json().then(function (json) {
+                    self.setState({
+                        cd: json.data.cd,
+                        counting: json.data.cd === 0 ? false : true,
+                        dieClass: json.data.cd === 0 ? "die die-active" : "die die-inactive"
+                    });
+                    if (json.data.cd === 0) {
+                        // If the die isn't already counting down
+                        self.gameloop(0, "boot");
+                    } else {
+                        self.gameloop(json.data.cd);
+                    }
+                });
+            });
+        }
+    }, {
         key: "addCommas",
         value: function addCommas(number) {
             number = Math.floor(number);
@@ -24896,10 +24929,6 @@ var Die = function (_React$Component) {
                         lastmax: json.data.max,
                         totalg: json.data.totalg
                     });
-                    if (!self.props.counting) {
-                        // If the die isn't already counting down
-                        self.props.gameloop(0, "boot");
-                    }
                 });
             });
         }
